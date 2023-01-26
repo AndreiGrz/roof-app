@@ -13,10 +13,7 @@ import { Calculator4ApeComponent } from './components/calculator4ape/calculator4
 import { CalculatorPersonalizatComponent } from './components/calculatorpersonalizat/calculatorpersonalizat.component';
 import { CalculManualComponent } from './components/calculmanual/calculmanual.component';
 import { SistemPluvialComponent } from './components/sistempluvial/sistempluvial.component';
-import { NavtabsComponent } from './navigation/navtabs/navtabs.component';
-import { ToolbarComponent } from './navigation/toolbar/toolbar.component';
-import { RouterLinkActive, RouterModule } from '@angular/router';
-import { SharedModule } from './lib/shared.module';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -26,11 +23,7 @@ import { SharedModule } from './lib/shared.module';
     Calculator4ApeComponent,
     CalculatorPersonalizatComponent,
     CalculManualComponent,
-    SistemPluvialComponent,
-    NavtabsComponent,
-    ToolbarComponent,
-    RouterModule,
-    RouterLinkActive
+    SistemPluvialComponent
   ],
   imports: [
     BrowserModule,
@@ -39,10 +32,8 @@ import { SharedModule } from './lib/shared.module';
     MatSlideToggleModule,
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule, 
-    AppRoutingModule,
-    SharedModule,
-    RouterModule,
+    FormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [
   ],
