@@ -8,6 +8,7 @@ import { CalculManualComponent } from './components/calculmanual/calculmanual.co
 import { SistemPluvialComponent } from './components/sistempluvial/sistempluvial.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: '/calculator_1apa', pathMatch: 'full'},
   { path: 'calculator_1apa', component: Calculator1ApaComponent },
   { path: 'calculator_2ape', component: Calculator2ApeComponent },
   { path: 'calculator_4ape', component: Calculator4ApeComponent },
@@ -15,6 +16,8 @@ const routes: Routes = [
   { path: 'calcul_manual', component: CalculManualComponent },
   { path: 'sistem_pluvial', component: SistemPluvialComponent },
 ];
+
+export const appRouting = RouterModule.forRoot(routes);
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

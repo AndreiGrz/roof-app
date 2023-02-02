@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-calculator1apa',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Calculator1ApaComponent implements OnInit {
 
-  constructor() { }
+  firstFormGroup = this.formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this.formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+
+  constructor( private formBuilder: FormBuilder) { }
 
   ngOnInit() {
   }
