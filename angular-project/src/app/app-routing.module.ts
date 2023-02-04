@@ -1,20 +1,21 @@
+import { Calculator1ApaComponent } from './components/calculator-1-apa/calculator-1-apa.component';
+import { Calculator2ApeComponent } from './components/calculator-2-ape/calculator-2-ape.component';
+import { Calculator4ApeComponent } from './components/calculator-4-ape/calculator-4-ape.component';
+import { CalculatorPersonalizatComponent } from './components/calculator-personalizat/calculator-personalizat.component';
+import { CalculManualComponent } from './components/calcul-manual/calcul-manual.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { Calculator1ApaComponent } from './components/calculator1apa/calculator1apa.component';
-import { Calculator2ApeComponent } from './components/calculator2ape/calculator2ape.component';
-import { Calculator4ApeComponent } from './components/calculator4ape/calculator4ape.component';
-import { CalculatorPersonalizatComponent } from './components/calculatorpersonalizat/calculatorpersonalizat.component';
-import { CalculManualComponent } from './components/calculmanual/calculmanual.component';
-import { SistemPluvialComponent } from './components/sistempluvial/sistempluvial.component';
+import { RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
+import { SistemPluvialComponent } from './components/sistem-pluvial/sistem-pluvial.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/calculator_1apa', pathMatch: 'full'},
-  { path: 'calculator_1apa', component: Calculator1ApaComponent },
-  { path: 'calculator_2ape', component: Calculator2ApeComponent },
-  { path: 'calculator_4ape', component: Calculator4ApeComponent },
-  { path: 'calculator_personalizat', component: CalculatorPersonalizatComponent },
-  { path: 'calcul_manual', component: CalculManualComponent },
-  { path: 'sistem_pluvial', component: SistemPluvialComponent },
+  { path: '', redirectTo: '/calculator-1-apa', pathMatch: 'full' },
+  { path: 'calculator-1-apa', component: Calculator1ApaComponent },
+  { path: 'calculator-2-ape', component: Calculator2ApeComponent },
+  { path: 'calculator-4-ape', component: Calculator4ApeComponent },
+  { path: 'calculator-personalizat', component: CalculatorPersonalizatComponent },
+  { path: 'calcul-manual', component: CalculManualComponent },
+  { path: 'sistem-pluvial', component: SistemPluvialComponent },
 ];
 
 export const appRouting = RouterModule.forRoot(routes);
@@ -23,4 +24,4 @@ export const appRouting = RouterModule.forRoot(routes);
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

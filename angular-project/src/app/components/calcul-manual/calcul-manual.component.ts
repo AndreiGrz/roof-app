@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-calcul-manual',
-  templateUrl: './calculmanual.component.html',
-  styleUrls: ['./calculmanual.component.scss']
+  selector: 'calcul-manual',
+  templateUrl: './calcul-manual.component.html',
+  styleUrls: ['./calcul-manual.component.scss']
 })
 export class CalculManualComponent implements OnInit {
 

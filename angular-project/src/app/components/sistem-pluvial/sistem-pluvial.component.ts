@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sistem-pluvial',
-  templateUrl: './sistempluvial.component.html',
-  styleUrls: ['./sistempluvial.component.scss']
+  selector: 'sistem-pluvial',
+  templateUrl: './sistem-pluvial.component.html',
+  styleUrls: ['./sistem-pluvial.component.scss']
 })
 export class SistemPluvialComponent implements OnInit {
 

@@ -1,56 +1,53 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { takeWhile } from 'rxjs';
+import { NavLink } from './models/models';
+import { MainService } from './services/main.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  public title = 'angular-project';
-  public navLinks: any[];
-  public activeLinkIndex = -1;
+export class AppComponent implements OnInit, OnDestroy {
+  private alive = true;
+  navLinks: NavLink[];
 
-  constructor(private router: Router){
+  constructor(private mainService: MainService) {
     this.navLinks = [
-          {
-            label: 'Calculator 1 apa',
-            link: './calculator_1apa',
-            index: 0
-        }, 
-        {
-            label: 'Calculator 2 ape',
-            link: './calculator_2ape',
-            index: 1
-        }, 
-        {
-            label: 'Calculator 4 ape',
-            link: './calculator_4ape',
-            index: 2
-        },
-        {
-          label: 'Calculator personalizat',
-          link: './calculator_personalizat',
-          index: 2
-        },
-        {
-          label: 'Calcul manual',
-          link: './calcul_manual',
-          index: 2
-        },
-        {
-          label: 'Sistem pluvial',
-          link: './sistem_pluvial',
-          index: 2
-        },
-    ]
+      {
+        label: 'Calculator 1 apa',
+        link: './calculator-1-apa'
+      },
+      {
+        label: 'Calculator 2 ape',
+        link: './calculator-2-ape'
+      },
+      {
+        label: 'Calculator 4 ape',
+        link: './calculator-4-ape'
+      },
+      {
+        label: 'Calculator personalizat',
+        link: './calculator-personalizat'
+      },
+      {
+        label: 'Calcul manual',
+        link: './calcul-manual'
+      },
+      {
+        label: 'Sistem pluvial',
+        link: './sistem-pluvial'
+      }
+    ];
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe((res) => {
-        this.activeLinkIndex = this.navLinks.indexOf(this.navLinks.find(tab => tab.link === '.' + this.router.url));
-    });
+    this.mainService.get()
+      .pipe(takeWhile(() => this.alive))
+      .subscribe(res => console.log('res', res));
   }
 
+  ngOnDestroy(): void {
+    this.alive = false;
+  }
 }
-

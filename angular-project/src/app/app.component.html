@@ -1,21 +1,29 @@
 <mat-toolbar color="primary">
-    <div>
-        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
-    </div>
-    <div class="title">Calculator tabla</div>
-  </mat-toolbar>
-
-  <div class="navtabs-container">
-    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-        <a mat-tab-link
-            *ngFor="let link of navLinks"
-            [routerLink]="link.link"
-            routerLinkActive #rla="routerLinkActive"
-            [active]="rla.isActive">
-        {{link.label}}
-        </a>
-    </nav>
-    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+  <div>
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Example home icon"
+      fontIcon="home"
+    >
+    </mat-icon>
   </div>
-  
+  <div class="title">Calculator tabla</div>
+</mat-toolbar>
+
+<div class="navtabs-container">
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a
+      mat-tab-link
+      *ngFor="let link of navLinks"
+      [routerLink]="link.link"
+      routerLinkActive
+      #rla="routerLinkActive"
+      [active]="rla.isActive"
+    >
+      {{ link.label }}
+    </a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+</div>
+
 <router-outlet></router-outlet>

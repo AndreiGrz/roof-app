@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-calculator1apa',
-  templateUrl: './calculator1apa.component.html',
-  styleUrls: ['./calculator1apa.component.scss']
+  selector: 'calculator-1-apa',
+  templateUrl: './calculator-1-apa.component.html',
+  styleUrls: ['./calculator-1-apa.component.scss']
 })
 export class Calculator1ApaComponent implements OnInit {
 

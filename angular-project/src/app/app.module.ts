@@ -1,26 +1,23 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BrowserModule } from '@angular/platform-browser';
+import { Calculator1ApaComponent } from './components/calculator-1-apa/calculator-1-apa.component';
+import { Calculator2ApeComponent } from './components/calculator-2-ape/calculator-2-ape.component';
+import { Calculator4ApeComponent } from './components/calculator-4-ape/calculator-4-ape.component';
+import { CalculatorPersonalizatComponent } from './components/calculator-personalizat/calculator-personalizat.component';
+import { CalculManualComponent } from './components/calcul-manual/calcul-manual.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Calculator1ApaComponent } from './components/calculator1apa/calculator1apa.component';
-import { Calculator2ApeComponent } from './components/calculator2ape/calculator2ape.component';
-import { Calculator4ApeComponent } from './components/calculator4ape/calculator4ape.component';
-import { CalculatorPersonalizatComponent } from './components/calculatorpersonalizat/calculatorpersonalizat.component';
-import { CalculManualComponent } from './components/calculmanual/calculmanual.component';
-import { SistemPluvialComponent } from './components/sistempluvial/sistempluvial.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-
-
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NgModule } from '@angular/core';
+import { SistemPluvialComponent } from './components/sistem-pluvial/sistem-pluvial.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -31,7 +28,7 @@ import {MatButtonModule} from '@angular/material/button';
     Calculator4ApeComponent,
     CalculatorPersonalizatComponent,
     CalculManualComponent,
-    SistemPluvialComponent
+    SistemPluvialComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +38,6 @@ import {MatButtonModule} from '@angular/material/button';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    MatProgressSpinnerModule,
     MatSlideToggleModule,
     AppRoutingModule,
     MatToolbarModule,
@@ -50,10 +46,10 @@ import {MatButtonModule} from '@angular/material/button';
     MatStepperModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
-  providers: [
-  ],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
