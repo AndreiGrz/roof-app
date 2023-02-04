@@ -26,15 +26,3 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-##################
-
-Server side init
-
-1. start XAMPP
-2. download db
-3. import db (dbname: roof, user: root, password: '')
-4. npm install
-5. start server -> open terminal on server folder and run -> ('node server.js' or reload 'nodemon' for hot-reload)
-
-*** Nodemon install => npm install -g nodemon
-
