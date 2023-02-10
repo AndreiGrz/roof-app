@@ -1,0 +1,56 @@
+#modelsWrapper{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    margin-bottom: 20px;
+    .columnOne{
+        display: flex;
+        flex-direction: column;
+        margin-right: 100px;
+        text-align: center;
+        width: 50%;
+
+        mat-form-field{
+            width: 40%;
+        } 
+    }
+    .columnTwo{
+        display: flex;
+        flex-direction: column;
+        text-align: center; 
+        width: 20%;
+    }
+}
+
+.square {
+    background: rgb(45, 9, 107);
+    width: 260px;
+    height: 300px;
+
+    p {
+        color:#acacac
+    }
+}
+.priceSection {
+    padding: 10px;
+    .oldPrice {
+        display: block;
+        width: 80%;
+        text-decoration: line-through;
+    }
+
+    .newPrice {
+        display: block;
+        width: 80%;
+        font-weight: bold;
+        color:rgb(237, 0, 0)
+    }
+}
+
+.nextStep {
+    display: block;
+    margin: 0 auto;
+    mat-icon, span {
+        font-size:18px;
+    }
+}

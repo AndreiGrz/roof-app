@@ -15,9 +15,16 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { SistemPluvialComponent } from './components/sistem-pluvial/sistem-pluvial.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RoofModelsComponent } from './components/partials/stepper/stepper-partials/roof-models/roof-models.component';
+import { MeasurementsComponent } from './components/partials/stepper/stepper-partials/measurements/measurements.component';
+import { AddNewMeasurementDialogComponent } from './dialogs/add-new-measurement-dialog/add-new-measurement-dialog';
+import { StepperComponent } from './components/partials/stepper/stepper/stepper.component';
 
 
 @NgModule({
@@ -29,6 +36,10 @@ import { HttpClientModule } from '@angular/common/http';
     CalculatorPersonalizatComponent,
     CalculManualComponent,
     SistemPluvialComponent,
+    RoofModelsComponent,
+    MeasurementsComponent,
+    AddNewMeasurementDialogComponent,
+    StepperComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +58,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

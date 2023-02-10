@@ -1,0 +1,123 @@
+<div id="modelsWrapper">
+    <div class="columnOne">
+        <div class="info-text">
+            <p><mat-icon class="warning">warning</mat-icon>Masuratorile trebuie sa fie in metri (ex. 10.44 metri) </p>
+            <p><mat-icon class="warning">warning</mat-icon>Pierderile sunt calculate automat (unde e cazul) si incluse in suprafata finala</p>
+        </div>
+        <form [formGroup]="form">
+            <div class="ma-form-field">
+                <mat-form-field appearance="fill">
+                    <mat-label>Latimea (B) </mat-label>
+                    <input matInput
+                           type="number"
+                           formControlName="latimea">
+                    <mat-error>
+                        <strong>Latimea este obligatorie!</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="ma-form-field">
+                <mat-form-field appearance="fill">
+                    <mat-label>Intaltimea (c) </mat-label>
+                    <input matInput
+                           type="number"
+                           formControlName="inaltimea">
+                    <mat-error>
+                        <strong>Inaltimea este obligatorie!</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="ma-form-field">
+                <mat-form-field appearance="fill">
+                    <mat-label>Numar Hornuri</mat-label>
+                    <input matInput
+                           type="number"
+                           formControlName="numarHornuri">
+                    <mat-error>
+                        <strong>Numarul de hornuri este obligatoriu!</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-checkbox formControlName="imparteIntaltimea">Imparte inaltimea tablei pe doua randuri</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox (change)="checkSistemPluvial($event)"
+                            class="checkSistemPluvial">
+                    Vreau sistem pluvial</mat-checkbox>
+            </div>
+            <div *ngIf="isCheckedSistemPluvial">
+                <div class="ma-form-field">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Intaltimea sol-streasina (A)</mat-label>
+                        <input matInput
+                               type="number">
+                    </mat-form-field>
+                </div>
+                <div class="ma-form-field">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Numar coborari burlan</mat-label>
+                        <input matInput
+                               type="number">
+                    </mat-form-field>
+                </div>
+                <div class="ma-form-field">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Finisaj</mat-label>
+                        <mat-select name="finisaj">
+                        <mat-option *ngFor="let finisaj of finisaje" 
+                                    [value]="finisaj.id">
+                            {{finisaj.value}}
+                        </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="ma-form-field">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Culori</mat-label>
+                        <mat-select name="culoare">
+                        <mat-option *ngFor="let culoare of culori" 
+                                    [value]="culoare.id">
+                            {{culoare.value}}
+                        </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="ma-form-field">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Diametru</mat-label>
+                        <mat-select name="diametru">
+                        <mat-option *ngFor="let diametru of diametri" 
+                                    [value]="diametru.id">
+                            {{diametru.value}}
+                        </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="columnTwo">
+        <div class="square">
+            <p>Imagine acoperis</p>
+        </div>
+        
+    </div>
+    <div class="columnTwo">
+        <button mat-raised-button color="primary" class="addExtraBtn" (click)="openDialog()">
+            <span>Adauga o anexa</span>
+            <mat-icon>add</mat-icon>
+        </button>
+        
+    </div>
+</div>
+<div class="navigation-steps">
+    <button mat-raised-button matStepperPrevious class="steps">
+        <span>Modele</span>
+        <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-raised-button color="primary" matStepperNext class="steps"> 
+        <span>Accesorii</span> 
+        <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+</div>
