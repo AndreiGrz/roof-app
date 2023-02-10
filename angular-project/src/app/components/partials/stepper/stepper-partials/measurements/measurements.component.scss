@@ -1,0 +1,62 @@
+#modelsWrapper{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    margin-bottom: 20px;
+    .columnOne{
+        display: flex;
+        flex-direction: column;
+        margin-right: 100px;
+        text-align: center;
+        width: 50%;
+
+        mat-form-field{
+            width: 40%;
+        } 
+    }
+    .columnTwo{
+        display: flex;
+        flex-direction: column;
+        text-align: center; 
+        width: 20%;
+    }
+}
+.square {
+    background: rgb(136, 24, 24);
+    width: 260px;
+    height: 300px;
+
+    p {
+        color:#acacac
+    }
+}
+.navigation-steps{
+    display: flex;
+    flex-direction: row;
+    .steps {
+        margin:0 auto;
+        mat-icon, span {
+            font-size:18px;
+        }
+    }
+}
+
+.addExtraBtn{
+    width: 50%;
+    margin: 0 auto;
+}
+
+mat-checkbox{
+    margin-left: -70px;
+}
+.checkSistemPluvial{
+    margin-left:-210px;
+}
+.info-text{
+    text-align: left;
+
+    .warning{
+        color:#ffa500;
+        margin: 0px 5px -5px 0px;
+    }
+}
