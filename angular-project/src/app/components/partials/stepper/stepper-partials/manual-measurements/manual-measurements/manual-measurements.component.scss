@@ -1,0 +1,23 @@
+#wrapper{
+    display: flex;
+    align-content: space-around;
+    margin-bottom: 20px;
+
+    mat-form-field{
+        display: flex;
+        flex-direction: column;
+        margin-right: 100px;
+        text-align: center;
+        width: 50%;
+    }
+}
+.navigation-steps{
+    display: flex;
+    flex-direction: row;
+    .steps {
+        margin:0 auto;
+        mat-icon, span {
+            font-size:18px;
+        }
+    }
+}

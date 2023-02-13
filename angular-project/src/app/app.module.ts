@@ -18,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 import { NgModule } from '@angular/core';
 import { SistemPluvialComponent } from './components/sistem-pluvial/sistem-pluvial.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,6 +26,11 @@ import { RoofModelsComponent } from './components/partials/stepper/stepper-parti
 import { MeasurementsComponent } from './components/partials/stepper/stepper-partials/measurements/measurements.component';
 import { AddNewMeasurementDialogComponent } from './dialogs/add-new-measurement-dialog/add-new-measurement-dialog';
 import { StepperComponent } from './components/partials/stepper/stepper/stepper.component';
+import { ExtraMeasurementsComponent } from './components/partials/stepper/stepper-partials/measurements-partials/extra-measurements/extra-measurements/extra-measurements.component';
+import { DimensiuniAcoperis1apaComponent } from './components/partials/stepper/stepper-partials/measurements-partials/dimensiuni-acoperis-1-apa/dimensiuni-acoperis1apa/dimensiuni-acoperis1apa.component';
+import { DimensiuniAcoperis2apeComponent } from './components/partials/stepper/stepper-partials/measurements-partials/dimensiuni-acoperis-2-ape/dimensiuni-acoperis2ape/dimensiuni-acoperis2ape.component';
+import { DimensiuniAcoperis4apeComponent } from './components/partials/stepper/stepper-partials/measurements-partials/dimensiuni-acoperis-4-ape/dimensiuni-acoperis4ape/dimensiuni-acoperis4ape.component';
+import { ManualMeasurementsComponent } from './components/partials/stepper/stepper-partials/manual-measurements/manual-measurements/manual-measurements.component';
 
 
 @NgModule({
@@ -39,7 +45,12 @@ import { StepperComponent } from './components/partials/stepper/stepper/stepper.
     RoofModelsComponent,
     MeasurementsComponent,
     AddNewMeasurementDialogComponent,
-    StepperComponent
+    StepperComponent,
+    ExtraMeasurementsComponent,
+    DimensiuniAcoperis1apaComponent,
+    DimensiuniAcoperis2apeComponent,
+    DimensiuniAcoperis4apeComponent,
+    ManualMeasurementsComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +72,8 @@ import { StepperComponent } from './components/partials/stepper/stepper/stepper.
     HttpClientModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],

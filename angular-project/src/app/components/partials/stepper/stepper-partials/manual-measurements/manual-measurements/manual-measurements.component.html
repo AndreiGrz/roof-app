@@ -1,0 +1,36 @@
+<div>
+    <div id="wrapper" *ngFor="let msr of masuratori; let i = index">
+        <mat-form-field appearance="fill">
+            <mat-label>Bucati de tabla</mat-label>
+            <input  matInput
+                    placeholder="Bucati de tabla"
+                    type="number"
+                    value="{{ msr.bucTabla }}">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>La lungimea</mat-label>
+            <input  matInput
+                    placeholder="La lungimea"
+                    type="number"
+                    value="{{ msr.lungime }}" >
+        </mat-form-field>
+
+        <button mat-fab color="warn" (click)="removeInput(i)">
+            <mat-icon>indeterminate_check_box</mat-icon>
+        </button>
+    </div>
+
+    <button (click)="addInputs()" mat-raised-button color="accent">
+        Adauga o lungime
+    </button>
+</div>
+<div class="navigation-steps">
+    <button mat-raised-button matStepperPrevious class="steps">
+        <span>Modele</span>
+        <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-raised-button color="primary" matStepperNext class="steps"> 
+        <span>Accesorii</span> 
+        <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+</div>

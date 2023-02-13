@@ -1,0 +1,57 @@
+<form [formGroup]="form">
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Latimea (B) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="latimea">
+            <mat-error>
+                <strong>Latimea este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Intaltimea (C) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="inaltimeaC">
+            <mat-error>
+                <strong>Inaltimea este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Intaltimea (D) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="inaltimeaD">
+            <mat-error>
+                <strong>Inaltimea este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Numar Hornuri</mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="numarHornuri">
+            <mat-error>
+                <strong>Numarul de hornuri este obligatoriu!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-checkbox formControlName="imparteIntaltimea">Imparte inaltimea tablei pe doua randuri</mat-checkbox>
+    </div>
+    <div>
+        <mat-checkbox (change)="checkSistemPluvial($event)"
+                    class="checkSistemPluvial">
+            Vreau sistem pluvial</mat-checkbox>
+    </div>
+    <div *ngIf="isCheckedSistemPluvial">
+        <app-extra-measurements></app-extra-measurements>
+    </div>
+</form>

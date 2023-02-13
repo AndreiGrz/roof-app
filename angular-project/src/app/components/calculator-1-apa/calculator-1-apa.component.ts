@@ -1,36 +1,16 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MeasurementsComponent } from '../partials/stepper/stepper-partials/measurements/measurements.component';
-import { RoofModelsComponent } from '../partials/stepper/stepper-partials/roof-models/roof-models.component';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'calculator-1-apa',
   templateUrl: './calculator-1-apa.component.html',
   styleUrls: ['./calculator-1-apa.component.scss']
 })
-export class Calculator1ApaComponent implements OnInit, AfterViewInit {
-  @ViewChild (RoofModelsComponent) roofModelsComponent: RoofModelsComponent;
-  @ViewChild (MeasurementsComponent) measurementsComponent: MeasurementsComponent;
+export class Calculator1ApaComponent implements OnInit {
+  public modelAcoperis: string = "Calculator-1-apa";
 
-  public modelsForm: FormGroup;
-  public measurementsForm: FormGroup;
-
-  thirdFormGroup = this.formBuilder.group({
-   
-  });
-  fourthFormGroup = this.formBuilder.group({
-        
-  });
-
-  constructor( private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
+  constructor() { }
 
   ngOnInit() {
     
-  }
-
-  ngAfterViewInit(): void {
-    this.modelsForm = this.roofModelsComponent.form;
-    this.measurementsForm = this.measurementsComponent.form;
-    this.cdr.detectChanges();
   }
 }

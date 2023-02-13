@@ -1,0 +1,80 @@
+<form [formGroup]="form">
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Inaltime triunghi (E) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="inaltimeTriunghi">
+            <mat-error>
+                <strong>Inaltimea triunghiului este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Baza triunghi (D) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="bazaTriunghi">
+            <mat-error>
+                <strong>Baza triunghiului este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Intaltimea trapez (B) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="inaltimeTrapez">
+            <mat-error>
+                <strong>Inaltimea trapezului este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Baza mare trapez (A) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="bazaMareTrapez">
+            <mat-error>
+                <strong>Baza mare a trapezului este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Baza mica trapez (C) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="bazaMicaTrapez">
+            <mat-error>
+                <strong>Baza mica a trapezului este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Numar Hornuri</mat-label>
+            <input matInput
+                   type="number"
+                   value="1"
+                   formControlName="numarHornuri">
+            <mat-error>
+                <strong>Numarul de hornuri este obligatoriu!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-checkbox formControlName="imparteIntaltimea">Imparte inaltimea tablei pe doua randuri</mat-checkbox>
+    </div>
+    <div>
+        <mat-checkbox (change)="checkSistemPluvial($event)"
+                    class="checkSistemPluvial">
+            Vreau sistem pluvial</mat-checkbox>
+    </div>
+    <div *ngIf="isCheckedSistemPluvial">
+        <app-extra-measurements></app-extra-measurements>
+    </div>
+</form>

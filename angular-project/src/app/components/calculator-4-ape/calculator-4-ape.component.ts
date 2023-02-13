@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calculator-4-ape.component.scss']
 })
 export class Calculator4ApeComponent implements OnInit {
-
+  public modelAcoperis: string = "Calculator-4-ape";
+  
   constructor() { }
 
   ngOnInit() {
