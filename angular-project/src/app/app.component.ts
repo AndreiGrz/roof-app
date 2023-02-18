@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { takeWhile } from 'rxjs';
 import { NavLink } from './models/models';
-import { MainService } from './services/main.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +7,9 @@ import { MainService } from './services/main.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  private alive = true;
   navLinks: NavLink[];
 
-  constructor(private mainService: MainService) {
+  constructor() {
     this.navLinks = [
       {
         label: 'Calculator 1 apa',
@@ -41,13 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     ];
   }
 
-  ngOnInit(): void {
-    this.mainService.get()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe(res => console.log('res', res));
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy(): void {
-    this.alive = false;
-  }
+  ngOnDestroy(): void {}
 }

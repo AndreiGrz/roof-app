@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,29 @@ export class MainService {
 
   constructor(private http: HttpClient) {}
     
-  get(): Observable<{message: string}>{
-    return this.http.get<{message: string}>(`${this.BASE_URL}/get`);
+  getBrands(): Observable<{results: any[]}>{
+    return this.http.get<{results: any[]}>(`${this.BASE_URL}/getBrands`);
+  }
+
+  getModels(brandId: number): Observable<{results: any[]}> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('brandId', brandId);
+
+    return this.http.get<{results: any[]}>(`${this.BASE_URL}/getModels`, {params: queryParams});
+  }
+
+  getFinisaje(modelId: number): Observable<{results: any[]}> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('modelId', modelId);
+
+    return this.http.get<{results: any[]}>(`${this.BASE_URL}/getFinisaje`, {params: queryParams});
+  }
+
+  getGrosimi(finisajId: number): Observable<{results: any[]}> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('finisajId', finisajId);
+
+    return this.http.get<{results: any[]}>(`${this.BASE_URL}/getGrosimi`, {params: queryParams});
   }
 }
+

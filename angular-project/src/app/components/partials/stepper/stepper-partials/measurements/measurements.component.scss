@@ -21,13 +21,14 @@
         width: 20%;
     }
 }
-.square {
-    background: rgb(136, 24, 24);
+.roof-img {
     width: 260px;
     height: 300px;
 
-    p {
-        color:#acacac
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
 }
 .navigation-steps{

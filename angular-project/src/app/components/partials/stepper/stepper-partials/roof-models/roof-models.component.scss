@@ -22,17 +22,19 @@
     }
 }
 
-.square {
-    background: rgb(45, 9, 107);
+.roof-img {
     width: 260px;
     height: 300px;
 
-    p {
-        color:#acacac
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
 }
 .priceSection {
     padding: 10px;
+
     .oldPrice {
         display: block;
         width: 80%;

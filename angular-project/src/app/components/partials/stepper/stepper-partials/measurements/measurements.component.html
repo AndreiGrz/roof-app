@@ -12,7 +12,15 @@
         <div class="square">
             <p>Imagine acoperis</p>
         </div>
-        
+        <div *ngIf="modelAcoperis === 'Calculator-1-apa'" class="roof-img">
+            <img src="https://tabla-online.ro/wp-content/uploads/2020/10/acoperis1.png" alt="">
+        </div>
+        <div *ngIf="modelAcoperis === 'Calculator-2-ape'" class="roof-img">
+            <img src="https://tabla-online.ro/wp-content/uploads/2020/10/acoperis2.png" alt="">
+        </div>
+        <div *ngIf="modelAcoperis === 'Calculator-4-ape'" class="roof-img">
+            <img src="https://tabla-online.ro/wp-content/uploads/2020/10/acoperis3.png" alt="">
+        </div>
     </div>
     <div class="columnTwo">
         <button mat-raised-button color="primary" class="addExtraBtn" (click)="openDialog()">

@@ -3,10 +3,22 @@
         <form [formGroup]="form">
             <div class="ma-form-field">
                 <mat-form-field appearance="fill">
+                    <mat-label>Brand</mat-label>
+                    <mat-select formControlName="brand"
+                                name="brand">
+                    <mat-option *ngFor="let brand of brands" 
+                                [value]="brand.id">
+                        {{brand.value}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="ma-form-field">
+                <mat-form-field appearance="fill">
                     <mat-label>Model</mat-label>
                     <mat-select formControlName="model"
                                 name="model">
-                    <mat-option *ngFor="let model of modele" 
+                    <mat-option *ngFor="let model of models" 
                                 [value]="model.id">
                         {{model.value}}
                     </mat-option>
@@ -52,8 +64,8 @@
         </form>
     </div>
     <div class="columnTwo">
-        <div class="square">
-            <p>Imagine tabla</p>
+        <div *ngIf="roofImg" class="roof-img">
+            <img [src]="roofImg" alt="">
         </div>
         <div class="priceSection">
             <span *ngIf="hasOldPrice" class="oldPrice">{{pret}} RON/mp</span>
