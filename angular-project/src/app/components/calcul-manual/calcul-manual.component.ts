@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calcul-manual.component.scss']
 })
 export class CalculManualComponent implements OnInit {
+  public modelAcoperis: string = "Calcul-manual";
 
   constructor() { }
 
