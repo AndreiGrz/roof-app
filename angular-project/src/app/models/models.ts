@@ -14,3 +14,14 @@ export interface Measurements {
     inaltimea: number;
     numarHornuri: number;
 }
+
+export interface Accesorii {
+    name: string;
+    cantitate: number;
+}
+
+export interface TableColumn {
+    key: string;
+    label: string;
+    template?: boolean;
+}

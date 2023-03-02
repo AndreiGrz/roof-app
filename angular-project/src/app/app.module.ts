@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 import { NgModule } from '@angular/core';
 import { SistemPluvialComponent } from './components/sistem-pluvial/sistem-pluvial.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -31,6 +32,7 @@ import { DimensiuniAcoperis1apaComponent } from './components/partials/stepper/s
 import { DimensiuniAcoperis2apeComponent } from './components/partials/stepper/stepper-partials/measurements-partials/dimensiuni-acoperis-2-ape/dimensiuni-acoperis2ape/dimensiuni-acoperis2ape.component';
 import { DimensiuniAcoperis4apeComponent } from './components/partials/stepper/stepper-partials/measurements-partials/dimensiuni-acoperis-4-ape/dimensiuni-acoperis4ape/dimensiuni-acoperis4ape.component';
 import { ManualMeasurementsComponent } from './components/partials/stepper/stepper-partials/manual-measurements/manual-measurements/manual-measurements.component';
+import { AccesoriiComponent } from './components/partials/stepper/stepper-partials/accesorii/accesorii/accesorii.component';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import { ManualMeasurementsComponent } from './components/partials/stepper/stepp
     DimensiuniAcoperis1apaComponent,
     DimensiuniAcoperis2apeComponent,
     DimensiuniAcoperis4apeComponent,
-    ManualMeasurementsComponent
+    ManualMeasurementsComponent,
+    AccesoriiComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +76,8 @@ import { ManualMeasurementsComponent } from './components/partials/stepper/stepp
     MatSelectModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,29 @@
+.navigation-steps{
+    display: flex;
+    flex-direction: row;
+    .steps {
+        margin:0 auto;
+        mat-icon, span {
+            font-size:18px;
+        }
+    }
+}
+.extra-accesorii{
+    width: 30%;
+}
+.info-text{
+    text-align: left;
+
+    .warning{
+        color:#ffa500;
+        margin: 0px 5px -5px 0px;
+    }
+}
+.edit-field{
+    width:95px;
+    margin-bottom: -20px;
+
+    .suffix{
+        padding:5px;
+    }
+}
