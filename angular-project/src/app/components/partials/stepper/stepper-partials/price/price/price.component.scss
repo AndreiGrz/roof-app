@@ -1,0 +1,41 @@
+.navigation-steps{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    .steps {
+        margin:0 auto;
+        mat-icon, span {
+            font-size:18px;
+        }
+    }
+}
+
+table {
+    tr {
+        height: 25px;
+        font-size:14px;
+    }
+}
+
+.options{
+    display: flex;
+    justify-content: space-evenly;
+    place-items: flex-start;
+
+    // :first-child{
+    //     width: 50%;
+    // }
+    mat-card{
+        display: flex;
+        flex-direction: column;
+        height: 240px;
+        margin-top: 15px;
+        padding: 8px 16px 4px;
+        display: flex;
+        flex-direction: column;
+        width: 25%;
+    }
+    button{
+        font-size:16px;
+    }
+}

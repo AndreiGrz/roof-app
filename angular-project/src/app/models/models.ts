@@ -19,6 +19,12 @@ export interface Accesorii {
     name: string;
     cantitate: number;
 }
+export interface Price {
+    name: string;
+    cantitate: number;
+    pret: number;
+    total: number;
+}
 
 export interface TableColumn {
     key: string;
