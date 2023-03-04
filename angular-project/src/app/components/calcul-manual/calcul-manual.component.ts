@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TipCalculator } from 'src/app/enums/main.enum';
 
 @Component({
   selector: 'calcul-manual',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calcul-manual.component.scss']
 })
 export class CalculManualComponent implements OnInit {
-  public modelAcoperis: string = "Calcul-manual";
+  public tipCalculator = TipCalculator.CALCUL_MANUAL;
 
   constructor() { }
 

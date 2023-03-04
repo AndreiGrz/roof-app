@@ -34,5 +34,20 @@ export class MainService {
 
     return this.http.get<{results: any[]}>(`${this.BASE_URL}/getGrosimi`, {params: queryParams});
   }
+
+  getCulori(finisajId: number, grosimeId: string): Observable<{results: any[]}> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('finisajId', finisajId);
+    queryParams = queryParams.append('grosimeId', grosimeId);
+
+    return this.http.get<{results: any[]}>(`${this.BASE_URL}/getCulori`, {params: queryParams});
+  }
+
+  getPret(grosimeId: number): Observable<{results: any}> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('grosimeId', grosimeId);
+
+    return this.http.get<{results: any[]}>(`${this.BASE_URL}/getPret`, {params: queryParams});
+  }
 }
 

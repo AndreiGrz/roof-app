@@ -4,7 +4,7 @@ export interface NavLink {
 }
 
 export interface Options {
-    id: string;
+    id: string | { _id: string, _meta: string };
     value: string;
     img_source?: string;
 }

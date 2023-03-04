@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeWhile } from 'rxjs';
 import { Options } from 'src/app/models/models';
@@ -10,6 +10,7 @@ import { MainService } from 'src/app/services/main.service';
   styleUrls: ['./roof-models.component.scss']
 })
 export class RoofModelsComponent implements OnInit, OnDestroy {
+  @Output() formData = new EventEmitter<FormGroup>();
   private alive = true;
 
   roofImg: string | undefined = '';
@@ -18,14 +19,10 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
   models: Options[] = [];
   finisaje: Options[] = [];
   grosimi: Options[] = [];
-  culori: Options[] = [
-      {id: '0', value: 'Clasic'},
-      {id: '1', value: 'Balcanic'},
-      {id: '2', value: 'Gotic'},
-  ];
+  culori: Options[] = [];
 
-  pret: number = 31.4;
-  hasOldPrice: boolean = true;
+  price: string;
+  salePrice: string;
 
   constructor(private formBuilder: FormBuilder, private mainService: MainService) { }
 
@@ -48,6 +45,7 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
       this.form.get('model')?.patchValue(null, { emitEvent: false });
       this.form.get('finisaj')?.patchValue(null, { emitEvent: false });
       this.form.get('grosime')?.patchValue(null, { emitEvent: false });
+      this.form.get('culoare')?.patchValue(null, { emitEvent: false });
 
       this.roofImg = this.brands.find(brand => brand.id === value)?.img_source;
 
@@ -59,6 +57,7 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
     this.form.get('model')?.valueChanges.subscribe(value => {
       this.form.get('finisaj')?.patchValue(null, { emitEvent: false });
       this.form.get('grosime')?.patchValue(null, { emitEvent: false });
+      this.form.get('culoare')?.patchValue(null, { emitEvent: false });
 
       this.roofImg = this.models.find(model => model.id === value)?.img_source;
 
@@ -69,17 +68,41 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
 
     this.form.get('finisaj')?.valueChanges.subscribe(value => {
       this.form.get('grosime')?.patchValue(null, { emitEvent: false });
+      this.form.get('culoare')?.patchValue(null, { emitEvent: false });
+
+      this.price = '';
+      this.salePrice = '';
 
       this.roofImg = this.finisaje.find(finisaj => finisaj.id === value)?.img_source;
 
       this.mainService.getGrosimi(value).subscribe(grosimi => {
-        this.grosimi = grosimi.results.map(res => ({id: res.meta_id, value: res.meta_value, img_source: res.guid}));
+        this.grosimi = grosimi.results.map(res => ({id: {_id: res.id, _meta: res.meta_value}, value: res.meta_value.replace('-', '.').replace('-', ' '), img_source: res.guid}));
       });
     });
 
     this.form.get('grosime')?.valueChanges.subscribe(value => {
-      this.roofImg = this.grosimi.find(grosime => grosime.id === value)?.img_source;
+      this.form.get('culoare')?.patchValue(null, { emitEvent: false });
+
+      this.roofImg = this.grosimi.find(grosime => (grosime.id as {_id: string, _meta: string})._id === value._id)?.img_source;
+      
+      this.mainService.getCulori(this.form.get('finisaj')?.value, value._meta).subscribe(culori => {
+        this.culori = culori.results.map(res => ({id: res.id, value: res.post_title.split(', ')[1], img_source: res.guid}));
+      });
+
+      this.mainService.getPret(this.form.get('grosime')?.value._id).subscribe(pret => {
+        this.price = pret.results.price;
+        this.salePrice = pret.results.salePrice;
+      });
     });
+
+    this.form.get('culoare')?.valueChanges.subscribe(value => {
+      this.roofImg = this.culori.find(culoare => culoare.id === value)?.img_source;
+    });
+
+    /////
+
+    this.formData.emit(this.form);
+    this.form.valueChanges.subscribe(() => this.formData.emit(this.form));
   }
 
   ngOnDestroy(): void {

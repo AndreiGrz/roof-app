@@ -4,21 +4,21 @@
             <p><mat-icon class="warning">warning</mat-icon>Masuratorile trebuie sa fie in metri (ex. 10.44 metri) </p>
             <p><mat-icon class="warning">warning</mat-icon>Pierderile sunt calculate automat (unde e cazul) si incluse in suprafata finala</p>
         </div>
-        <app-dimensiuni-acoperis1apa *ngIf="modelAcoperis === 'Calculator-1-apa'"></app-dimensiuni-acoperis1apa>
-        <app-dimensiuni-acoperis2ape *ngIf="modelAcoperis === 'Calculator-2-ape'"></app-dimensiuni-acoperis2ape>
-        <app-dimensiuni-acoperis4ape *ngIf="modelAcoperis === 'Calculator-4-ape'"></app-dimensiuni-acoperis4ape>
+        <app-dimensiuni-acoperis1apa *ngIf="tipAcoperis === '1A'"></app-dimensiuni-acoperis1apa>
+        <app-dimensiuni-acoperis2ape *ngIf="tipAcoperis === '2A'"></app-dimensiuni-acoperis2ape>
+        <app-dimensiuni-acoperis4ape *ngIf="tipAcoperis === '4A'"></app-dimensiuni-acoperis4ape>
     </div>
     <div class="columnTwo">
         <div class="square">
             <p>Imagine acoperis</p>
         </div>
-        <div *ngIf="modelAcoperis === 'Calculator-1-apa'" class="roof-img">
+        <div *ngIf="tipAcoperis === '1A'" class="roof-img">
             <img src="https://tabla-online.ro/wp-content/uploads/2020/10/acoperis1.png" alt="">
         </div>
-        <div *ngIf="modelAcoperis === 'Calculator-2-ape'" class="roof-img">
+        <div *ngIf="tipAcoperis === '2A'" class="roof-img">
             <img src="https://tabla-online.ro/wp-content/uploads/2020/10/acoperis2.png" alt="">
         </div>
-        <div *ngIf="modelAcoperis === 'Calculator-4-ape'" class="roof-img">
+        <div *ngIf="tipAcoperis === '4A'" class="roof-img">
             <img src="https://tabla-online.ro/wp-content/uploads/2020/10/acoperis3.png" alt="">
         </div>
     </div>

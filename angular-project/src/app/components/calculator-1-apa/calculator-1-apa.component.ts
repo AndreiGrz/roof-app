@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TipCalculator } from 'src/app/enums/main.enum';
 
 @Component({
   selector: 'calculator-1-apa',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calculator-1-apa.component.scss']
 })
 export class Calculator1ApaComponent implements OnInit {
-  public modelAcoperis: string = "Calculator-1-apa";
+  tipCalculator = TipCalculator.ACOPERIS_1_APA;
 
   constructor() { }
 

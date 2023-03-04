@@ -5,4 +5,6 @@ module.exports = function(app) {
   app.get('/api/main/getModels', mainController.getModels);
   app.get('/api/main/getFinisaje', mainController.getFinisaje);
   app.get('/api/main/getGrosimi', mainController.getGrosimi);
+  app.get('/api/main/getCulori', mainController.getCulori);
+  app.get('/api/main/getPret', mainController.getPret);
 };

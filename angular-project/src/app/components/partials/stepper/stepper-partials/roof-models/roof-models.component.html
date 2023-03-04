@@ -67,9 +67,9 @@
         <div *ngIf="roofImg" class="roof-img">
             <img [src]="roofImg" alt="">
         </div>
-        <div class="priceSection">
-            <span *ngIf="hasOldPrice" class="oldPrice">{{pret}} RON/mp</span>
-            <span class="newPrice">{{pret}} RON/mp</span>
+        <div *ngIf="price || salePrice" class="priceSection">
+            <span *ngIf="price !== salePrice" class="oldPrice">{{price}} RON/mp</span>
+            <span class="newPrice">{{salePrice}} RON/mp</span>
         </div>
     </div>
 </div>

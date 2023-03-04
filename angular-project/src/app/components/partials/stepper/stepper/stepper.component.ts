@@ -1,38 +1,31 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MeasurementsComponent } from '../stepper-partials/measurements/measurements.component';
-import { RoofModelsComponent } from '../stepper-partials/roof-models/roof-models.component';
-
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  Input,
+} from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { TipCalculator } from 'src/app/enums/main.enum';
 @Component({
   selector: 'app-stepper',
   templateUrl: './stepper.component.html',
-  styleUrls: ['./stepper.component.scss']
+  styleUrls: ['./stepper.component.scss'],
 })
-export class StepperComponent implements OnInit, AfterViewInit {
-  @ViewChild (RoofModelsComponent) roofModelsComponent: RoofModelsComponent;
-  @ViewChild (MeasurementsComponent) measurementsComponent: MeasurementsComponent;
+export class StepperComponent implements OnInit {
+  @Input() tipCalculator: string;
+  tipCalculatorEnum = TipCalculator;
+  
+  modelsForm: FormGroup;
+  measurementsForm: FormGroup;
 
-  @Input() modelAcoperis: string;
+  constructor(private cdr: ChangeDetectorRef) {}
 
-  public modelsForm: FormGroup;
-  public measurementsForm: FormGroup;
+  ngOnInit(): void {}
 
-  thirdFormGroup = this.formBuilder.group({
-   
-  });
-  fourthFormGroup = this.formBuilder.group({
-        
-  });
-
-  constructor( private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
-
-  ngOnInit() {
-    
-  }
-
-  ngAfterViewInit(): void {
-    this.modelsForm = this.roofModelsComponent.form;
-    this.measurementsForm = this.measurementsComponent.form;
+  getModelsForm(event: FormGroup): void {
+    this.modelsForm = event;
     this.cdr.detectChanges();
+
+    console.log(this.modelsForm.value);
   }
 }
