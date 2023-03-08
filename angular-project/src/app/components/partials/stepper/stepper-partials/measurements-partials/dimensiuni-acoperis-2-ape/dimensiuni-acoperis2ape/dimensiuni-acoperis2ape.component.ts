@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ExtraMeasurementsComponent } from '../../extra-measurements/extra-measurements/extra-measurements.component';
@@ -13,6 +13,14 @@ export class DimensiuniAcoperis2apeComponent implements OnInit, AfterViewInit{
   
   public form: FormGroup;
   public isCheckedSistemPluvial: boolean = false;
+  @Output() formData = new EventEmitter<FormGroup>();
+
+
+  inaltimea_1: number;
+  lungimea_3: number;
+  latimea_4: number;
+  latimea_2: number;
+  numarHornuri: number;
 
   constructor(
               private formBuilder: FormBuilder,
@@ -26,13 +34,38 @@ export class DimensiuniAcoperis2apeComponent implements OnInit, AfterViewInit{
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-        latimea: this.formBuilder.control('', [Validators.required]),
-        inaltimeaC: this.formBuilder.control('', [Validators.required]),
-        inaltimeaD: this.formBuilder.control('', [Validators.required]),
+        inaltimea_1: this.formBuilder.control('', [Validators.required]),
+        lungimea_3: this.formBuilder.control('', [Validators.required]),
+        latimea_4: this.formBuilder.control('', [Validators.required]),
+        latimea_2: this.formBuilder.control('', [Validators.required]),
         numarHornuri: this.formBuilder.control('', [Validators.required]),
-        imparteIntaltimea: this.formBuilder.control('', [Validators.required])
-
       });
+
+    this.getData();
+  }
+
+  private getData = () => {
+    this.form.get('inaltimea_1')?.valueChanges.subscribe(value => {
+      this.inaltimea_1 = value;
+    });
+    this.form.get('lungimea_3')?.valueChanges.subscribe(value => {
+      this.lungimea_3 = value;
+
+    });
+    this.form.get('latimea_4')?.valueChanges.subscribe(value => {
+      this.latimea_4 = value;
+
+    });
+    this.form.get('latimea_2')?.valueChanges.subscribe(value => {
+      this.latimea_2 = value;
+    });
+
+    this.form.get('numarHornuri')?.valueChanges.subscribe(value => {
+      this.numarHornuri = value;
+    });
+
+    this.formData.emit(this.form);
+    this.form.valueChanges.subscribe(() => this.formData.emit(this.form));
   }
 
   

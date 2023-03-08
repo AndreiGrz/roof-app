@@ -4,9 +4,9 @@
             <p><mat-icon class="warning">warning</mat-icon>Masuratorile trebuie sa fie in metri (ex. 10.44 metri) </p>
             <p><mat-icon class="warning">warning</mat-icon>Pierderile sunt calculate automat (unde e cazul) si incluse in suprafata finala</p>
         </div>
-        <app-dimensiuni-acoperis1apa *ngIf="tipAcoperis === '1A'"></app-dimensiuni-acoperis1apa>
-        <app-dimensiuni-acoperis2ape *ngIf="tipAcoperis === '2A'"></app-dimensiuni-acoperis2ape>
-        <app-dimensiuni-acoperis4ape *ngIf="tipAcoperis === '4A'"></app-dimensiuni-acoperis4ape>
+        <app-dimensiuni-acoperis1apa *ngIf="tipAcoperis === '1A'" (formData)="getMeasurementsForCalc1A($event)"></app-dimensiuni-acoperis1apa>
+        <app-dimensiuni-acoperis2ape *ngIf="tipAcoperis === '2A'" (formData)="getMeasurementsForCalc2A($event)"></app-dimensiuni-acoperis2ape>
+        <app-dimensiuni-acoperis4ape *ngIf="tipAcoperis === '4A'" (formData)="getMeasurementsForCalc4A($event)"></app-dimensiuni-acoperis4ape>
     </div>
     <div class="columnTwo">
         <div class="square">
@@ -22,13 +22,13 @@
             <img src="https://tabla-online.ro/wp-content/uploads/2020/10/acoperis3.png" alt="">
         </div>
     </div>
-    <div class="columnTwo">
+    <!-- <div class="columnTwo">
         <button mat-raised-button color="primary" class="addExtraBtn" (click)="openDialog()">
             <span>Adauga o anexa</span>
             <mat-icon>add</mat-icon>
         </button>
         
-    </div>
+    </div> -->
 </div>
 <div class="navigation-steps">
     <button mat-raised-button matStepperPrevious class="steps">

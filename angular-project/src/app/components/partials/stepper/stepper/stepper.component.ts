@@ -28,4 +28,11 @@ export class StepperComponent implements OnInit {
 
     console.log(this.modelsForm.value);
   }
+
+  getMeasurementsForm(event: FormGroup): void {
+    this.measurementsForm = event;
+    this.cdr.detectChanges();
+
+    console.log(this.measurementsForm.value);
+  }
 }

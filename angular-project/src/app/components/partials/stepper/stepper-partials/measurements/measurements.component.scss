@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     align-content: space-around;
     margin-bottom: 20px;
+    
     .columnOne{
         display: flex;
         flex-direction: column;
@@ -10,20 +11,20 @@
         text-align: center;
         width: 50%;
 
-        mat-form-field{
-            width: 40%;
-        } 
+        // mat-form-field{
+        //     width: 40%;
+        // } 
     }
     .columnTwo{
         display: flex;
         flex-direction: column;
         text-align: center; 
-        width: 20%;
+        width: 40%;
     }
 }
 .roof-img {
-    width: 260px;
-    height: 300px;
+    width: 400px;
+    height: 360px;
 
     img {
         width: 100%;

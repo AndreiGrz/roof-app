@@ -1,21 +1,10 @@
 <form [formGroup]="form">
     <div class="ma-form-field">
         <mat-form-field appearance="fill">
-            <mat-label>Latimea (B) </mat-label>
+            <mat-label>Intaltimea (1) </mat-label>
             <input matInput
                    type="number"
-                   formControlName="latimea">
-            <mat-error>
-                <strong>Latimea este obligatorie!</strong>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div class="ma-form-field">
-        <mat-form-field appearance="fill">
-            <mat-label>Intaltimea (C) </mat-label>
-            <input matInput
-                   type="number"
-                   formControlName="inaltimeaC">
+                   formControlName="inaltimea_1">
             <mat-error>
                 <strong>Inaltimea este obligatorie!</strong>
             </mat-error>
@@ -23,12 +12,34 @@
     </div>
     <div class="ma-form-field">
         <mat-form-field appearance="fill">
-            <mat-label>Intaltimea (D) </mat-label>
+            <mat-label>Lungimea (3) </mat-label>
             <input matInput
                    type="number"
-                   formControlName="inaltimeaD">
+                   formControlName="lungimea_3">
             <mat-error>
-                <strong>Inaltimea este obligatorie!</strong>
+                <strong>Lungimea (3) este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Latimea (4) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="latimea_4">
+            <mat-error>
+                <strong>Latimea (4) este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Latimea (2) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="latimea_2">
+            <mat-error>
+                <strong>Latimea (2) este obligatorie!</strong>
             </mat-error>
         </mat-form-field>
     </div>
@@ -43,9 +54,9 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div>
+    <!-- <div>
         <mat-checkbox formControlName="imparteIntaltimea">Imparte inaltimea tablei pe doua randuri</mat-checkbox>
-    </div>
+    </div> -->
     <div>
         <mat-checkbox (change)="checkSistemPluvial($event)"
                     class="checkSistemPluvial">

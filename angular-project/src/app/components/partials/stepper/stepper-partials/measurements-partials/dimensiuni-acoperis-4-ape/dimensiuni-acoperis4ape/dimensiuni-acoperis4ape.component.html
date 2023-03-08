@@ -1,56 +1,78 @@
 <form [formGroup]="form">
     <div class="ma-form-field">
         <mat-form-field appearance="fill">
-            <mat-label>Inaltime triunghi (E) </mat-label>
+            <mat-label>Inaltime (1) </mat-label>
             <input matInput
                    type="number"
-                   formControlName="inaltimeTriunghi">
+                   formControlName="inaltimea_1">
             <mat-error>
-                <strong>Inaltimea triunghiului este obligatorie!</strong>
+                <strong>Inaltimea (1) este obligatorie!</strong>
             </mat-error>
         </mat-form-field>
     </div>
     <div class="ma-form-field">
         <mat-form-field appearance="fill">
-            <mat-label>Baza triunghi (D) </mat-label>
+            <mat-label>Lungime (2) </mat-label>
             <input matInput
                    type="number"
-                   formControlName="bazaTriunghi">
+                   formControlName="lungimea_2">
             <mat-error>
-                <strong>Baza triunghiului este obligatorie!</strong>
+                <strong>Lungimea (2) este obligatorie!</strong>
             </mat-error>
         </mat-form-field>
     </div>
     <div class="ma-form-field">
         <mat-form-field appearance="fill">
-            <mat-label>Intaltimea trapez (B) </mat-label>
+            <mat-label>Latimea (3) </mat-label>
             <input matInput
                    type="number"
-                   formControlName="inaltimeTrapez">
+                   formControlName="latimea_3">
             <mat-error>
-                <strong>Inaltimea trapezului este obligatorie!</strong>
+                <strong>Latimea (3) este obligatorie!</strong>
             </mat-error>
         </mat-form-field>
     </div>
     <div class="ma-form-field">
         <mat-form-field appearance="fill">
-            <mat-label>Baza mare trapez (A) </mat-label>
+            <mat-label>Linia (4) </mat-label>
             <input matInput
                    type="number"
-                   formControlName="bazaMareTrapez">
+                   formControlName="linia_4">
             <mat-error>
-                <strong>Baza mare a trapezului este obligatorie!</strong>
+                <strong>Linia (4) este obligatorie!</strong>
             </mat-error>
         </mat-form-field>
     </div>
     <div class="ma-form-field">
         <mat-form-field appearance="fill">
-            <mat-label>Baza mica trapez (C) </mat-label>
+            <mat-label>Cateta (5) </mat-label>
             <input matInput
                    type="number"
-                   formControlName="bazaMicaTrapez">
+                   formControlName="cateta_5">
             <mat-error>
-                <strong>Baza mica a trapezului este obligatorie!</strong>
+                <strong>Cateta 5 este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Adancimea (6) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="adancimea_6">
+            <mat-error>
+                <strong>Adancimea (6) este obligatorie!</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Adancimea (7) </mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="adancimea_7">
+            <mat-error>
+                <strong>Adancimea (7) este obligatorie!</strong>
             </mat-error>
         </mat-form-field>
     </div>
@@ -66,9 +88,9 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div>
+    <!-- <div>
         <mat-checkbox formControlName="imparteIntaltimea">Imparte inaltimea tablei pe doua randuri</mat-checkbox>
-    </div>
+    </div> -->
     <div>
         <mat-checkbox (change)="checkSistemPluvial($event)"
                     class="checkSistemPluvial">
