@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   OnInit,
@@ -24,6 +25,8 @@ export class StepperComponent implements OnInit {
   public dimensiuniAcoperis1A : ModelDimensiuniAcoperis1A;
   public dimensiuniAcoperis2A : ModelDimensiuniAcoperis2A;
   public dimensiuniAcoperis4A : ModelDimensiuniAcoperis4A;
+
+  public necesarAccesorii: any;
 
   constructor(private cdr: ChangeDetectorRef,
                     private mainService: MainService) {}
@@ -64,24 +67,29 @@ export class StepperComponent implements OnInit {
     switch (this.tipCalculator){
       case '1A':
         this.createModelDimensiuniCalculator1A();
-        this.getAccesorii(this.infoTabla, this.dimensiuniAcoperis1A);
+        this.getAccesorii(this.infoTabla, this.dimensiuniAcoperis1A, this.tipCalculator);
         break;
       case '2A':
         this.createModelDimensiuniCalculator2A();
-        this.getAccesorii(this.infoTabla, this.dimensiuniAcoperis2A);
+        this.getAccesorii(this.infoTabla, this.dimensiuniAcoperis2A, this.tipCalculator);
 
         break;
       case '4A':
         this.createModelDimensiuniCalculator4A();
-        this.getAccesorii(this.infoTabla, this.dimensiuniAcoperis4A);
+        this.getAccesorii(this.infoTabla, this.dimensiuniAcoperis4A, this.tipCalculator);
     }
   }
 
-  private getAccesorii (infoTabla:ModelTabla, infoDimensiuni: any ){
-    this.mainService.getAccesorii(infoTabla, infoDimensiuni).subscribe( accesorii =>{
-      let x = accesorii;
-      console.log(accesorii);
-    })
+  private getAccesorii (infoTabla:ModelTabla, infoDimensiuni: any, tipCalculator: string ){
+    this.mainService.getAccesorii(infoTabla, infoDimensiuni, tipCalculator).subscribe( {
+      next: (accesorii) =>{
+        this.necesarAccesorii = accesorii;
+        console.log(accesorii);
+      },
+      error: (err: HttpErrorResponse ) =>{
+        console.log(err.error.message);
+      }
+    });
   }
 
   private createModelInfoTabla(): void{
