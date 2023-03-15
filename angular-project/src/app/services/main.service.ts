@@ -50,8 +50,8 @@ export class MainService {
     return this.http.get<{results: any[]}>(`${this.BASE_URL}/getPret`, {params: queryParams});
   }
 
-  getAccesorii(infoTabla: any, infoDimensiuni: any): Observable<{results: any}> {
-    return this.http.post<{results: any}>(`${this.BASE_URL}/getAccesorii`, {infoTabla, infoDimensiuni});
+  getAccesorii(infoTabla: any, infoDimensiuni: any, tipCalculator: string): Observable<{results: any}> {
+    return this.http.post<{results: any}>(`${this.BASE_URL}/getAccesorii`, {infoTabla, infoDimensiuni, tipCalculator});
   }
 }
 

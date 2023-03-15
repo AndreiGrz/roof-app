@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Accesorii, TableColumn } from 'src/app/models/models';
 import { MatTableDataSource } from "@angular/material/table";
@@ -17,6 +17,7 @@ export class AccesoriiComponent implements OnInit{
   public tableDataSource: MatTableDataSource<Accesorii>;
   public hasValueSelected: boolean = false;
   public selectedOption: string;
+  @Input() necesarAccesorii: any
 
   public accesorii: Accesorii[] = [
     {name: 'Coama', cantitate: 1},
