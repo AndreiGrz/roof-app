@@ -26,14 +26,15 @@ exports.getModels = async (req, res) => {
         const brandId = req.query.brandId;
         //const [rows] = await conn.execute('SELECT tn.name, tn.term_id FROM wpay_terms as tn JOIN wpay_term_taxonomy as termtaxo ON tn.term_id = termtaxo.term_id WHERE termtaxo.taxonomy = "product_cat" AND termtaxo.parent = ?', [brandId]);
 
-        const [rows] = await conn.execute(`SELECT term.name, term.term_id, termrel.object_id, post.guid FROM wpay_terms as term 
-        join wpay_term_taxonomy as termtaxo on term.term_id = termtaxo.term_id 
-        join wpay_term_relationships as termrel on termrel.term_taxonomy_id = term.term_id
-        join wpay_posts as post on termrel.object_id = post.post_parent
-        JOIN wpay_postmeta ON post.ID = wpay_postmeta.meta_value
-        WHERE termtaxo.taxonomy like "product_cat" and termtaxo.parent = ? and post.post_type = "attachment"
-        AND post.post_mime_type LIKE "image/%"
-        AND wpay_postmeta.meta_key = "_thumbnail_id" group by term.name`, [brandId]);
+        const [rows] = await conn.execute(`select term.name, term.term_id, termrel.object_id, post.guid 
+        from wpay_terms as term join wpay_term_taxonomy as termtaxo on term.term_id = termtaxo.term_id 
+        join wpay_term_relationships as termrel on termrel.term_taxonomy_id = term.term_id 
+        join wpay_posts as post on termrel.object_id = post.post_parent 
+        JOIN wpay_postmeta ON post.ID = wpay_postmeta.meta_value 
+        where termtaxo.taxonomy = "product_cat" and termtaxo.parent = ? and termtaxo.description = "model" 
+        and post.post_type = "attachment" 
+        AND post.post_mime_type LIKE "image/%" AND wpay_postmeta.meta_key = "_thumbnail_id" 
+        GROUP BY term.name`, [brandId]);
         res.status(200)
             .send({
                 results: rows
@@ -51,14 +52,15 @@ exports.getFinisaje = async (req, res) => {
     try {
         const modelId = req.query.modelId;
 
-        const [rows] = await conn.execute(`select term.name, term.term_id, termrel.object_id, secondpost.guid 
+        const [rows] = await conn.execute(`select term.name, term.term_id, termrel.object_id,  meta.meta_value, thirdpost.guid
         from wpay_terms as term join wpay_term_taxonomy as termtaxo on term.term_id = termtaxo.term_id 
         join wpay_term_relationships as termrel on termrel.term_taxonomy_id = term.term_id 
         
-         join wpay_posts as firstpost on firstpost.post_parent =  termrel.object_id
-         join wpay_posts as secondpost on secondpost.post_parent = firstpost.id
+         
+         join wpay_postmeta as meta on meta.post_id =  termrel.object_id 
+         join wpay_posts as thirdpost on thirdpost.id = meta.meta_value
         
-        where termtaxo.taxonomy = "product_cat" and termtaxo.parent = ? and termtaxo.description = "finisaj"  and (firstpost.post_mime_type LIKE "image/%" OR secondpost.post_mime_type LIKE "image/%" )
+        where termtaxo.taxonomy = "product_cat" and termtaxo.parent = ? and termtaxo.description = "finisaj"  and meta.meta_key =  "_thumbnail_id"
         GROUP BY term.name`, [modelId]);
         res.status(200)
             .send({
@@ -150,3 +152,59 @@ exports.getPret = async (req, res) => {
         conn.end();
     }
 };
+
+exports.getAccesorii = async (req, res) => {
+    // let accesorii = [
+    //     {
+    //         key: "suruburi",
+    //         label: 'nume',
+    //         pret: 1
+    //     },
+    //     {
+    //         key: "coturi",
+    //         label: 'nume2',
+    //         pret: 2
+    //     },
+    // ];
+
+    // let nec = {
+    //   suruburi: 9,
+    //   coturi: 7
+    // }
+
+
+    // let suruburi = 9;
+    // let coturi = 7;
+
+    // accesorii.forEach((acc, i) => {
+
+    //   accesorii[i] = {...acc, qty: nec[acc.key]}
+    // });
+
+    // console.log(accesorii)
+
+
+
+
+
+
+
+
+    const conn = await connection();
+    try{
+        const info = req.body;
+
+        console.log('info from server:', info);
+        res.status(200)
+            .send({
+                results: {
+                   message :"Salut, am primit datele"
+                }
+            });
+
+    }catch (err) {
+        res.status(500).send({message: err.message});
+    } finally {
+        conn.end();
+    }
+}

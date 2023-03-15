@@ -13,6 +13,7 @@ import { Measurements } from 'src/app/models/models';
 export class MeasurementsComponent implements OnInit {
   @Input() tipAcoperis: string;
   @Output() formData = new EventEmitter<FormGroup>();
+  @Output() btnProceedToAccesories = new EventEmitter<boolean>();
 
   measurementCalculator_1A : FormGroup;
   measurementCalculator_2A : FormGroup;
@@ -35,7 +36,6 @@ export class MeasurementsComponent implements OnInit {
     this.cdr.detectChanges();
 
     this.formData.emit(this.measurementCalculator_1A);
-    this.measurementCalculator_1A.valueChanges.subscribe(() => this.formData.emit(this.measurementCalculator_1A));
   }
 
   getMeasurementsForCalc2A(event: FormGroup): void {
@@ -43,7 +43,6 @@ export class MeasurementsComponent implements OnInit {
     this.cdr.detectChanges();
 
    this.formData.emit(this.measurementCalculator_2A);
-   this.measurementCalculator_2A.valueChanges.subscribe(() => this.formData.emit(this.measurementCalculator_2A));
   }
 
   getMeasurementsForCalc4A(event: FormGroup): void {
@@ -51,9 +50,11 @@ export class MeasurementsComponent implements OnInit {
     this.cdr.detectChanges();
 
    this.formData.emit(this.measurementCalculator_4A);
-   this.measurementCalculator_4A.valueChanges.subscribe(() => this.formData.emit(this.measurementCalculator_4A));
   }
 
+  public proceedToAccesories(){
+    this.btnProceedToAccesories.emit(true);
+  }
 
 
 

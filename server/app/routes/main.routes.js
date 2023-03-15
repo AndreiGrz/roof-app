@@ -7,4 +7,5 @@ module.exports = function(app) {
   app.get('/api/main/getGrosimi', mainController.getGrosimi);
   app.get('/api/main/getCulori', mainController.getCulori);
   app.get('/api/main/getPret', mainController.getPret);
+  app.post('/api/main/getAccesorii', mainController.getAccesorii);
 };

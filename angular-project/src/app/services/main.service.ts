@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +48,10 @@ export class MainService {
     queryParams = queryParams.append('grosimeId', grosimeId);
 
     return this.http.get<{results: any[]}>(`${this.BASE_URL}/getPret`, {params: queryParams});
+  }
+
+  getAccesorii(infoTabla: any, infoDimensiuni: any): Observable<{results: any}> {
+    return this.http.post<{results: any}>(`${this.BASE_URL}/getAccesorii`, {infoTabla, infoDimensiuni});
   }
 }
 

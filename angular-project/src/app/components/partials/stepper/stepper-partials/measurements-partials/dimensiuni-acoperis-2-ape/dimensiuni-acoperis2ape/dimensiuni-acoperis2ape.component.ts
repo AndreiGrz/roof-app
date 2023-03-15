@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Diametri } from 'src/app/enums/main.enum';
 import { ExtraMeasurementsComponent } from '../../extra-measurements/extra-measurements/extra-measurements.component';
 
 @Component({
@@ -14,6 +15,7 @@ export class DimensiuniAcoperis2apeComponent implements OnInit, AfterViewInit{
   public form: FormGroup;
   public isCheckedSistemPluvial: boolean = false;
   @Output() formData = new EventEmitter<FormGroup>();
+  public diametri = Diametri;
 
 
   inaltimea_1: number;
@@ -21,6 +23,7 @@ export class DimensiuniAcoperis2apeComponent implements OnInit, AfterViewInit{
   latimea_4: number;
   latimea_2: number;
   numarHornuri: number;
+  diametru: string;
 
   constructor(
               private formBuilder: FormBuilder,
@@ -39,6 +42,7 @@ export class DimensiuniAcoperis2apeComponent implements OnInit, AfterViewInit{
         latimea_4: this.formBuilder.control('', [Validators.required]),
         latimea_2: this.formBuilder.control('', [Validators.required]),
         numarHornuri: this.formBuilder.control('', [Validators.required]),
+        diametru: this.formBuilder.control('', [Validators.required]),
       });
 
     this.getData();
@@ -62,6 +66,10 @@ export class DimensiuniAcoperis2apeComponent implements OnInit, AfterViewInit{
 
     this.form.get('numarHornuri')?.valueChanges.subscribe(value => {
       this.numarHornuri = value;
+    });
+
+    this.form.get('diametru')?.valueChanges.subscribe(value => {
+      this.diametru = value;
     });
 
     this.formData.emit(this.form);

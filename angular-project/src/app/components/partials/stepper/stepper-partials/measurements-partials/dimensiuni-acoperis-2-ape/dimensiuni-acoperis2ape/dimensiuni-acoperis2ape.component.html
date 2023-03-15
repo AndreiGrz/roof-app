@@ -54,15 +54,18 @@
             </mat-error>
         </mat-form-field>
     </div>
+    <div class="ma-form-field">
+        <mat-form-field appearance="fill">
+            <mat-label>Diametru</mat-label>
+            <mat-select name="diametru" formControlName="diametru">
+            <mat-option *ngFor="let diametru of diametri" 
+                        [value]="diametru.value">
+                {{diametru.value}}
+            </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <!-- <div>
         <mat-checkbox formControlName="imparteIntaltimea">Imparte inaltimea tablei pe doua randuri</mat-checkbox>
     </div> -->
-    <div>
-        <mat-checkbox (change)="checkSistemPluvial($event)"
-                    class="checkSistemPluvial">
-            Vreau sistem pluvial</mat-checkbox>
-    </div>
-    <div *ngIf="isCheckedSistemPluvial">
-        <app-extra-measurements></app-extra-measurements>
-    </div>
 </form>

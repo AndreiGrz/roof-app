@@ -3,7 +3,7 @@
     <roof-models (formData)="getModelsForm($event)"></roof-models>
   </mat-step>
   <mat-step [stepControl]="measurementsForm" label="Masuratori">
-    <measurements (formData)="getMeasurementsForm($event)"
+    <measurements (formData)="getMeasurementsForm($event)" (btnProceedToAccesories)="getBtnProceedToAccesoriesState($event)"
       *ngIf="tipCalculator !== tipCalculatorEnum.CALCUL_MANUAL"
       [tipAcoperis]="tipCalculator"
     ></measurements>

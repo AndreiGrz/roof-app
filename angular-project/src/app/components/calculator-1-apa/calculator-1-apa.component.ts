@@ -8,7 +8,6 @@ import { TipCalculator } from 'src/app/enums/main.enum';
 })
 export class Calculator1ApaComponent implements OnInit {
   tipCalculator = TipCalculator.ACOPERIS_1_APA;
-
   constructor() { }
 
   ngOnInit() {

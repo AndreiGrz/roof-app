@@ -6,3 +6,8 @@ export enum TipCalculator {
     CALCUL_PERSONALIZAT = 'CP',
     SISTEM_PLUVIAL = 'SP'
 }
+
+export const Diametri = [
+    {id: '0', value: '125/90'},
+    {id: '1', value: '150/100'},
+  ];

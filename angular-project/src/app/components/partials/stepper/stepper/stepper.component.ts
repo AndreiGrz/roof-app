@@ -6,6 +6,8 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TipCalculator } from 'src/app/enums/main.enum';
+import { ModelDimensiuniAcoperis1A, ModelDimensiuniAcoperis2A, ModelDimensiuniAcoperis4A, ModelTabla } from 'src/app/models/models';
+import { MainService } from 'src/app/services/main.service';
 @Component({
   selector: 'app-stepper',
   templateUrl: './stepper.component.html',
@@ -18,9 +20,20 @@ export class StepperComponent implements OnInit {
   modelsForm: FormGroup;
   measurementsForm: FormGroup;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  public infoTabla: ModelTabla;
+  public dimensiuniAcoperis1A : ModelDimensiuniAcoperis1A;
+  public dimensiuniAcoperis2A : ModelDimensiuniAcoperis2A;
+  public dimensiuniAcoperis4A : ModelDimensiuniAcoperis4A;
 
-  ngOnInit(): void {}
+  constructor(private cdr: ChangeDetectorRef,
+                    private mainService: MainService) {}
+
+  ngOnInit(): void {
+    this.infoTabla = new ModelTabla();
+    this.dimensiuniAcoperis1A = new ModelDimensiuniAcoperis1A();
+    this.dimensiuniAcoperis2A = new ModelDimensiuniAcoperis2A();
+    this.dimensiuniAcoperis4A = new ModelDimensiuniAcoperis4A();
+  }
 
   getModelsForm(event: FormGroup): void {
     this.modelsForm = event;
@@ -34,5 +47,56 @@ export class StepperComponent implements OnInit {
     this.cdr.detectChanges();
 
     console.log(this.measurementsForm.value);
+  }
+
+  getBtnProceedToAccesoriesState(event:boolean){
+    // this.cdr.detectChanges();
+    const btnState = event;
+    if (btnState){
+     this.sendDataToServer();
+    } else {
+      return;
+    }
+  }
+
+  private sendDataToServer(){
+    this.createModelInfoTabla();
+    switch (this.tipCalculator){
+      case '1A':
+        this.createModelDimensiuniCalculator1A();
+        this.getAccesorii(this.infoTabla, this.dimensiuniAcoperis1A);
+        break;
+      case '2A':
+        this.createModelDimensiuniCalculator2A();
+        this.getAccesorii(this.infoTabla, this.dimensiuniAcoperis2A);
+
+        break;
+      case '4A':
+        this.createModelDimensiuniCalculator4A();
+        this.getAccesorii(this.infoTabla, this.dimensiuniAcoperis4A);
+    }
+  }
+
+  private getAccesorii (infoTabla:ModelTabla, infoDimensiuni: any ){
+    this.mainService.getAccesorii(infoTabla, infoDimensiuni).subscribe( accesorii =>{
+      let x = accesorii;
+      console.log(accesorii);
+    })
+  }
+
+  private createModelInfoTabla(): void{
+    Object.assign(this.infoTabla, this.modelsForm.value);
+  }
+
+  private createModelDimensiuniCalculator1A (): void{
+    Object.assign(this.dimensiuniAcoperis1A, this.measurementsForm.value);
+  }
+
+  private createModelDimensiuniCalculator2A (): void{
+    Object.assign(this.dimensiuniAcoperis2A, this.measurementsForm.value);
+  }
+
+  private createModelDimensiuniCalculator4A (): void{
+    Object.assign(this.dimensiuniAcoperis4A, this.measurementsForm.value);
   }
 }
