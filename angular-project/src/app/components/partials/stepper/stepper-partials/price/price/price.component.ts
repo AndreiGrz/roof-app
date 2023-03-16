@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Accesorii, Price, TableColumn } from 'src/app/models/models';
 
@@ -8,6 +8,9 @@ import { Accesorii, Price, TableColumn } from 'src/app/models/models';
   styleUrls: ['./price.component.scss']
 })
 export class PriceComponent {
+
+  @Output() btnProceedToPrice = new EventEmitter<any>();
+   infoNecesarAccesorii: any;
 
   public panelOpenState: boolean = true;
   public tableColumns: TableColumn[];
@@ -26,10 +29,19 @@ export class PriceComponent {
     {name: 'Cost livrare', cantitate: 14, pret: 20, total: 50}
   ];
 
-  constructor(){}
+  constructor(private cdr: ChangeDetectorRef){}
 
   ngOnInit(){
+    let x = this.infoNecesarAccesorii;
     this.createTable();
+    // this.getInfoFromAccesorii();
+  }
+
+  getInfoFromAccesorii(event: any): void {
+    this.infoNecesarAccesorii = event;
+    this.cdr.detectChanges();
+
+    console.log(this.infoNecesarAccesorii);
   }
 
   private createTable(): void {

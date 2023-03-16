@@ -16,8 +16,10 @@ export interface Measurements {
 }
 
 export interface Accesorii {
-    name: string;
-    cantitate: number;
+    label: string;
+    price: string;
+    qty: number;
+    _key: string;
 }
 export interface Price {
     name: string;

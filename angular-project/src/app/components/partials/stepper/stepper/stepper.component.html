@@ -13,11 +13,12 @@
   </mat-step>
 
   <mat-step [stepControl]="" label="Accesorii">
-    <app-accesorii [necesarAccesorii]="necesarAccesorii"></app-accesorii>
+    <mat-spinner *ngIf="loader"></mat-spinner>
+    <app-accesorii *ngIf="!loader" [necesarAccesorii]="necesarAccesorii"></app-accesorii>
   </mat-step>
 
   <mat-step [stepControl]="" label="Pret">
-    <app-price></app-price>
+    <app-price (btnProceedToPrice)="getInfoFromAccesorii($event)"></app-price>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Comanda</ng-template>

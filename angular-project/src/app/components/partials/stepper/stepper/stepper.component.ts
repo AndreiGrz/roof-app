@@ -17,9 +17,12 @@ import { MainService } from 'src/app/services/main.service';
 export class StepperComponent implements OnInit {
   @Input() tipCalculator: string;
   tipCalculatorEnum = TipCalculator;
+  loader:boolean =true;;
   
   modelsForm: FormGroup;
   measurementsForm: FormGroup;
+  btnProceedToPrice: any;
+  infoNecesarAccesorii: any;
 
   public infoTabla: ModelTabla;
   public dimensiuniAcoperis1A : ModelDimensiuniAcoperis1A;
@@ -52,6 +55,13 @@ export class StepperComponent implements OnInit {
     console.log(this.measurementsForm.value);
   }
 
+  getInfoFromAccesorii(event: any): void {
+    this.infoNecesarAccesorii = event;
+    this.cdr.detectChanges();
+
+   this.btnProceedToPrice.emit(this.infoNecesarAccesorii);
+  }
+
   getBtnProceedToAccesoriesState(event:boolean){
     // this.cdr.detectChanges();
     const btnState = event;
@@ -81,10 +91,12 @@ export class StepperComponent implements OnInit {
   }
 
   private getAccesorii (infoTabla:ModelTabla, infoDimensiuni: any, tipCalculator: string ){
+    this.loader = true;
     this.mainService.getAccesorii(infoTabla, infoDimensiuni, tipCalculator).subscribe( {
       next: (accesorii) =>{
         this.necesarAccesorii = accesorii;
         console.log(accesorii);
+        this.loader = false;
       },
       error: (err: HttpErrorResponse ) =>{
         console.log(err.error.message);

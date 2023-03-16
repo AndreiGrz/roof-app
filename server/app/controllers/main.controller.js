@@ -1,6 +1,6 @@
 const connection = require('../database/db.js');
 
-const calculNecesarAcoperis1A =  (dimensiuni, modelTabla) => {
+const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     const necesar = {};
     const aria_1 = Math.ceil(dimensiuni.lungimea_2 * dimensiuni.latimea_3);
     necesar.aria = Math.round(aria_1 * 1.1);
@@ -18,7 +18,7 @@ const calculNecesarAcoperis1A =  (dimensiuni, modelTabla) => {
     necesar.cot_evacuare = necesar.colector_apa;
     necesar.carlige = Math.ceil((dimensiuni.lungimea_2 / 0.7) + 1);
     necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
-    const burlan_1 = Math.ceil(dimensiuni.lungimea_2 * necesar.colector_apa);
+    const burlan_1 = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa);
     necesar.burlane = burlan_1 % 3 == 0 ? burlan_1 : Math.floor(burlan_1 + 1) | 1;
     necesar.prelungitor = necesar.colector_apa;
 
@@ -34,33 +34,36 @@ const calculNecesarAcoperis1A =  (dimensiuni, modelTabla) => {
             burlan = burlan_1 + 1;
         }
     }
-   
     necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
     necesar.folie = Math.ceil(necesar.aria / 75);
 
-    return necesar;
+    let accesorii = await getAccesoriiForNecesar();
+    accesorii.forEach((acc, i) => {
+        accesorii[i] = {...acc, qty: necesar[acc._key]}
+    });
+    return accesorii;
 }
 
-const calculNecesarAcoperis2A = (dimensiuni, modelTabla) => {
+const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
     const necesar = {};
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_3 * dimensiuni.latimea_2) + (dimensiuni.lungimea_3 * dimensiuni.latimea_4));
     necesar.aria = Math.round(aria_1 * 1.2);
     necesar.coama = Math.ceil(dimensiuni.lungimea_3 / 1.85);
     necesar.suruburi = Math.ceil(necesar.aria * 1.1 / 35);
-    necesar.bordura = Math.ceil((dimensiuni.latimea_2 * 4) / 1.9);
+    necesar.bordura = Math.ceil((dimensiuni.latimea_2 * 4) / 1.9); //?
     necesar.sort_streasina = Math.ceil((dimensiuni.lungimea_3 * 2) / 1.9);
     necesar.colector_fronton = necesar.bordura;
     necesar.etans = Math.ceil(necesar.coama / 5);
-    necesar.opritor_zapada = Math.ceil(dimensiuni.lungimea_3 * 2 / 2);
+    necesar.opritor_zapada = Math.ceil(dimensiuni.lungimea_3 * 2 / 2);//?
     necesar.jgheaburi = (dimensiuni.lungimea_3 * 2) % 2 == 0 ? Math.ceil((dimensiuni.lungimea_3 * 2)) : Math.ceil((dimensiuni.lungimea_3 * 2)) + 1;
     necesar.capac_jgheab = 4;
     necesar.imbinare_jgheab = Math.ceil(((dimensiuni.lungimea_3 * 2) / 4));
-    const colector_apa_1 = (dimensiuni.lungimea_3 * 2 < 5) ? 2 : ((dimensiuni.lungimea_3 * 2) / 5);
+    const colector_apa_1 = ((dimensiuni.lungimea_3 * 2) < 5) ? 2 : ((dimensiuni.lungimea_3 * 2) / 5);
     necesar.colector_apa = Math.ceil(colector_apa_1); 
-    necesar.cot_evacuare = colector_apa_1;
+    necesar.cot_evacuare = necesar.colector_apa;
     necesar.carlige = Math.ceil(((dimensiuni.lungimea_3 * 2) / 0.7) + 1);
-    necesar.cot_normal = Math.ceil(2 * colector_apa_1);
+    necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
 
     let burlan = 0;
     if (Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) % 3 == 0)
@@ -74,25 +77,31 @@ const calculNecesarAcoperis2A = (dimensiuni, modelTabla) => {
     necesar.prelungitor = necesar.colector_apa;
     necesar.folie = Math.ceil(necesar.aria / 75);
 
-    return necesar;
+    let accesorii = await getAccesoriiForNecesar();
+
+    accesorii.forEach((acc, i) => {
+        accesorii[i] = {...acc, qty: necesar[acc._key]}   
+    });
+
+    return accesorii;
 }
 
-const calculNecesarAcoperis4A = (dimensiuni, modelTabla) => {
+const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
     console.log('here we go', dimensiuni, modelTabla)
     const necesar = {};
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.linia_4) * dimensiuni.adancimea_6 + (dimensiuni.latimea_3 * dimensiuni.adancimea_7));
     necesar.aria = Math.ceil(aria_1 * 1.22);
-    necesar.coama = Math.ceil((dimensiuni.linia_4 + dimensiuni.cateta_5 * 4) / 1.85);
+    necesar.coama = Math.ceil((dimensiuni.linia_4 + dimensiuni.cateta_5 * 4) / 1.85);//?
     necesar.suruburi = Math.ceil(necesar.aria * 1.15 / 35);
     necesar.sort_streasina = Math.ceil(((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 1.9);
     necesar.bordura = 0;
     necesar.colector_fronton = necesar.bordura;
     necesar.etans = Math.ceil(necesar.coama / 5);
-    necesar.opritor_zapada = Math.ceil(((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 2);
+    necesar.opritor_zapada = Math.ceil(((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 2);//?
     necesar.jgheaburi = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2);
     necesar.capac_jgheab = 0;
-    necesar.imbinare_jgheab2 = Math.ceil((((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 4)+6);
+    necesar.imbinare_jgheab = Math.ceil((((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 4)+6);
     const colector_apa_1 = (dimensiuni.lungimea_2 < 5) ? 1 :  ((dimensiuni.lungimea_2 + dimensiuni.latimea_3)*2) / 5;
     necesar.colector_apa = Math.round(colector_apa_1);
     necesar.cot_evacuare = necesar.colector_apa;
@@ -112,7 +121,33 @@ const calculNecesarAcoperis4A = (dimensiuni, modelTabla) => {
     necesar.prelungitor = necesar.colector_apa;
     necesar.folie = Math.ceil(necesar.aria / 75);
 
-    return necesar;
+    let accesorii = await getAccesoriiForNecesar();
+
+    accesorii.forEach((acc, i) => {
+        accesorii[i] = {...acc, qty: necesar[acc._key]}
+    });
+
+    let y = accesorii;
+    return accesorii;
+}
+
+const getAccesoriiForNecesar = async () => {
+    const conn = await connection();
+    const [result]  = await conn.execute(`SELECT p.post_title AS label,  
+        pm_price.meta_value AS price, 
+    pm_sku.meta_value AS _key
+    FROM wpay_posts AS p
+    JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price'
+    JOIN wpay_postmeta AS pm_sku ON p.ID = pm_sku.post_id AND pm_sku.meta_key = '_sku'
+    JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
+    JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
+    JOIN wpay_terms AS t ON tt.term_id = t.term_id
+    WHERE p.post_type = 'product' and t.term_id = 69
+    GROUP BY p.ID
+   `);
+
+   return result;
+
 }
 
 exports.getBrands = async (req, res) => {
@@ -268,43 +303,33 @@ exports.getPret = async (req, res) => {
     }
 };
 
+exports.getAccesoriiSuplimentare = async (req, res) => {
+    const conn = await connection();
+
+    try {
+        const [rows] = await conn.execute(`SELECT p.post_title AS label,  
+            pm_price.meta_value AS price
+    FROM wpay_posts AS p
+    JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price' 
+    JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
+    JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
+    JOIN wpay_terms AS t ON tt.term_id = t.term_id
+    WHERE p.post_type = 'product' and t.term_id = 69
+    GROUP BY p.ID
+   `);
+
+        res.status(200)
+            .send({
+                results: rows
+            });
+    } catch (err) {
+        res.status(500).send({message: err.message});
+    } finally {
+        conn.end();
+    }
+};
+
 exports.getAccesorii = async (req, res) => {
-    // let accesorii = [
-    //     {
-    //         key: "suruburi",
-    //         label: 'nume',
-    //         pret: 1
-    //     },
-    //     {
-    //         key: "coturi",
-    //         label: 'nume2',
-    //         pret: 2
-    //     },
-    // ];
-
-    // let nec = {
-    //   suruburi: 9,
-    //   coturi: 7
-    // }
-
-
-    // let suruburi = 9;
-    // let coturi = 7;
-
-    // accesorii.forEach((acc, i) => {
-
-    //   accesorii[i] = {...acc, qty: nec[acc.key]}
-    // });
-
-    // console.log(accesorii)
-
-
-
-
-
-
-
-
     const conn = await connection();
     try{
         const data = req.body;
@@ -312,13 +337,13 @@ exports.getAccesorii = async (req, res) => {
 
         switch (data.tipCalculator){
             case '1A':
-                necesarAccesorii = calculNecesarAcoperis1A(data.infoDimensiuni, data.infoTabla);
+                necesarAccesorii = await calculNecesarAcoperis1A(data.infoDimensiuni, data.infoTabla);
                 break;
             case '2A':
-                necesarAccesorii = calculNecesarAcoperis2A(data.infoDimensiuni, data.infoTabla);
+                necesarAccesorii = await calculNecesarAcoperis2A(data.infoDimensiuni, data.infoTabla);
                 break;
             case '4A':
-                necesarAccesorii = calculNecesarAcoperis4A(data.infoDimensiuni, data.infoTabla);
+                necesarAccesorii = await calculNecesarAcoperis4A(data.infoDimensiuni, data.infoTabla);
                 break;
         }
         res.status(200)

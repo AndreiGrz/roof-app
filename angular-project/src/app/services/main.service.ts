@@ -53,5 +53,9 @@ export class MainService {
   getAccesorii(infoTabla: any, infoDimensiuni: any, tipCalculator: string): Observable<{results: any}> {
     return this.http.post<{results: any}>(`${this.BASE_URL}/getAccesorii`, {infoTabla, infoDimensiuni, tipCalculator});
   }
+
+  getAccesoriiSuplimentare(): Observable<{results: any[]}>{
+    return this.http.get<{results: any[]}>(`${this.BASE_URL}/getAccesoriiSuplimentare`);
+  }
 }
 

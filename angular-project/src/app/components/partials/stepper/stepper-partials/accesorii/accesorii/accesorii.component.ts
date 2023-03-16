@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Accesorii, TableColumn } from 'src/app/models/models';
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSelectChange } from '@angular/material/select';
+import { MainService } from 'src/app/services/main.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-accesorii',
@@ -16,29 +18,48 @@ export class AccesoriiComponent implements OnInit{
 	public tableDisplayedColumns: string[];
   public tableDataSource: MatTableDataSource<Accesorii>;
   public hasValueSelected: boolean = false;
-  public selectedOption: string;
+  public selectedOption: any = null;
   @Input() necesarAccesorii: any
+  @Output() btnProceedToPrice = new EventEmitter<any>();
 
-  public accesorii: Accesorii[] = [
-    {name: 'Coama', cantitate: 1},
-    {name: 'Bordura metalica', cantitate: 4},
-    {name: 'Opritor din plastic', cantitate: 6},
-    {name: 'Holtsuruburi de alea bune', cantitate: 9},
-    {name: 'Set cos fum', cantitate: 10},
-    {name: 'Coama mica', cantitate: 12},
-    {name: 'Folie anti-condens', cantitate: 14}
-  ];
-  constructor( private formBuilder: FormBuilder) { }
+
+  accesoriiSuplimentare: any[];
+
+  public accesorii: Accesorii[];
+  constructor( private formBuilder: FormBuilder, private mainService: MainService, private cdr: ChangeDetectorRef) { }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+    //get data from ExtraMeasurementsComponent
+  }
 
   ngOnInit(){
+    this.accesorii = this.necesarAccesorii ? this.necesarAccesorii.necesarAccesorii: [];
+
+    if(this.accesorii.length > 0){
+      this.accesorii = this.accesorii.filter(item => item && item.qty > 0);
+    }
+
     this.createTable();
+    this.getAccesoriiSuplimentare();
+  }
+
+  private getAccesoriiSuplimentare (){ //se face req la initializarea stepper-ului
+    this.mainService.getAccesoriiSuplimentare().subscribe( {
+      next: (accesoriiSuplimentare) =>{
+        this.accesoriiSuplimentare = accesoriiSuplimentare.results;
+      },
+      error: (err: HttpErrorResponse) =>{
+        console.log(err.error.message);
+      }
+    });
   }
 
 
   private createTable(): void {
 		this.tableColumns = [
-			{ key: 'name', label: 'Produs', template: false },
-			{ key: 'cantitate', label: 'Cantitate', template: true },
+			{ key: 'label', label: 'Produs', template: false },
+			{ key: 'qty', label: 'Cantitate', template: true },
 			{ key: 'actions', label: '', template: true }
 		];
 
@@ -46,23 +67,29 @@ export class AccesoriiComponent implements OnInit{
 		this.tableDataSource = new MatTableDataSource(this.accesorii);
 	}
 
-  public deleteRow = (elem: any):void => {
-    const index = this.tableDataSource.data.indexOf(elem.name);
-    this.tableDataSource.data.splice(index, 1); //will delete latest row, should be added id
+  public deleteRow = (index: number, elem: any):void => {
+    // const index = this.tableDataSource.data.indexOf(elem.name);
+    if(index != -1){
+      this.tableDataSource.data.splice(index, 1); //will delete latest row, should be added id
+    }
     this.createTable();
   }
 
   public onSelectChange = (event: MatSelectChange):void => {
     this.selectedOption = event.value;
-    if(this.selectedOption.length > 0){
+    if(Object.keys(this.selectedOption).length > 0){
       this.hasValueSelected = true;
     }
   }
 
   public addValueToTable = ():void => {
-    let data: Accesorii = { name: this.selectedOption, cantitate: 1};
+    let data: any = { label: this.selectedOption.label, price: this.selectedOption.price, qty: 1};
     this.tableDataSource.data.push(data);  
     this.createTable();
+  }
+
+  public proceedToPrice(){
+    this.btnProceedToPrice.emit(this.accesorii);
   }
 
   // public changeQuantity (element: Accesorii): void {
