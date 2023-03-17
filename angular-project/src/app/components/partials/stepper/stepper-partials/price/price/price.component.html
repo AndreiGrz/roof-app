@@ -51,7 +51,7 @@
                 </p>
               </mat-card-content>
             <mat-card-actions>
-              <button mat-raised-button color="primary"><mat-icon>chat_bubble_outline</mat-icon>Vreau sa fiu contactat</button>
+              <button mat-raised-button color="primary" (click)="openContactDialog()"><mat-icon>chat_bubble_outline</mat-icon>Vreau sa fiu contactat</button>
             </mat-card-actions>
           </mat-card>
 
@@ -65,7 +65,7 @@
                 </p>
               </mat-card-content>
             <mat-card-actions>
-              <button mat-raised-button color="primary"><mat-icon>contact_mail</mat-icon>Salveaza pe mail!</button>
+              <button mat-raised-button color="primary" (click)="openMailDialog()"><mat-icon>contact_mail</mat-icon>Salveaza pe mail!</button>
             </mat-card-actions>
           </mat-card>
 

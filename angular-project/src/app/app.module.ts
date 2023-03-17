@@ -35,6 +35,9 @@ import { DimensiuniAcoperis4apeComponent } from './components/partials/stepper/s
 import { ManualMeasurementsComponent } from './components/partials/stepper/stepper-partials/manual-measurements/manual-measurements/manual-measurements.component';
 import { AccesoriiComponent } from './components/partials/stepper/stepper-partials/accesorii/accesorii/accesorii.component';
 import { PriceComponent } from './components/partials/stepper/stepper-partials/price/price/price.component';
+import { ContactDialogComponent } from './components/partials/stepper/stepper-partials/price/price/dialogs/contact-dialog/contact-dialog.component';
+import { MailDialogComponent } from './components/partials/stepper/stepper-partials/price/price/dialogs/mail-dialog/mail-dialog.component';
+import { ComandaComponent } from './components/partials/stepper/stepper-partials/comanda/comanda.component';
 
 
 @NgModule({
@@ -56,7 +59,10 @@ import { PriceComponent } from './components/partials/stepper/stepper-partials/p
     DimensiuniAcoperis4apeComponent,
     ManualMeasurementsComponent,
     AccesoriiComponent,
-    PriceComponent
+    PriceComponent,
+    ContactDialogComponent,
+    MailDialogComponent,
+    ComandaComponent
   ],
   imports: [
     BrowserModule,

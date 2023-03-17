@@ -23,8 +23,7 @@ export class MeasurementsComponent implements OnInit {
   public isCheckedSistemPluvial: boolean = false;
 
   constructor( private formBuilder: FormBuilder,
-                public dialog: MatDialog,
-                private cdr: ChangeDetectorRef
+               private cdr: ChangeDetectorRef
                 ) { }
 
   ngOnInit() {
@@ -55,16 +54,4 @@ export class MeasurementsComponent implements OnInit {
   public proceedToAccesories(){
     this.btnProceedToAccesories.emit(true);
   }
-
-
-
-  // public openDialog(): void{
-  //   const dialogRef = this.dialog.open(AddNewMeasurementDialogComponent, {
-  //       data: null,
-  //     });
-  
-  //     dialogRef.afterClosed().subscribe(result => {
-  //           //save data in a new card or smth
-  //     });
-  //   }
 }

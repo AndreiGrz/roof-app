@@ -1,0 +1,61 @@
+<div class="container">
+    <mat-card class="container-card">
+        <mat-card-header>
+            <mat-card-title>Introduceti datele de facturare!</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="form">
+                <div class="ma-form-field">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Telefon</mat-label>
+                        <input matInput
+                            type="tel"
+                            formControlName="numar_telefon">
+                        <mat-error>
+                            <strong>Numarul de telefon este obligatoriu!</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nume</mat-label>
+                        <input matInput
+                            type="text"
+                            formControlName="nume">
+                        <mat-error>
+                            <strong>Numele este obligatoriu!</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Prenume</mat-label>
+                        <input matInput
+                            type="text"
+                            formControlName="prenume">
+                        <mat-error>
+                            <strong>Prenumele este obligatoriu!</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Informatii suplimentare</mat-label>
+                        <textarea matInput
+                            type="text"
+                            formControlName="info_suplimentare"></textarea>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button mat-raised-button color="primary" (click)="submitContactInfo()">Trimite</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+<div class="navigation-steps">
+    <button mat-raised-button matStepperPrevious class="steps">
+        <span>Pret</span>
+        <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+</div>

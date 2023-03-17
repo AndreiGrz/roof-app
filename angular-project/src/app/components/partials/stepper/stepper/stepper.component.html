@@ -20,12 +20,7 @@
   <mat-step [stepControl]="" label="Pret">
     <app-price (btnProceedToPrice)="getInfoFromAccesorii($event)"></app-price>
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Comanda</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-raised-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
+  <mat-step [stepControl]="" label="Comanda">
+    <app-comanda></app-comanda>
   </mat-step>
 </mat-stepper>

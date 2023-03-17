@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Formular contact</h1>
+<div mat-dialog-content>
+  <p>Completeaza cu informatii personale</p>
+  <form [formGroup]="form">
+            <div class="ma-form-field">
+                <mat-form-field appearance="fill">
+                    <mat-label>Telefon</mat-label>
+                    <input matInput
+                        type="tel"
+                        formControlName="numar_telefon">
+                    <mat-error>
+                        <strong>Numarul de telefon este obligatoriu!</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Nume</mat-label>
+                    <input matInput
+                        type="text"
+                        formControlName="nume">
+                    <mat-error>
+                        <strong>Numele este obligatoriu!</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Prenume</mat-label>
+                    <input matInput
+                        type="text"
+                        formControlName="prenume">
+                    <mat-error>
+                        <strong>Prenumele este obligatoriu!</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Informatii suplimentare</mat-label>
+                    <textarea matInput
+                        type="text"
+                        formControlName="info_suplimentare"></textarea>
+                </mat-form-field>
+            </div>
+            <div mat-dialog-actions align="end">
+                <button mat-button mat-dialog-close (click)="onNoClick()">Inchide</button>
+                <button mat-button color="primary" (click)="submitContactInfo()">Trimite</button>
+              </div>
+        </form>
+    </div>

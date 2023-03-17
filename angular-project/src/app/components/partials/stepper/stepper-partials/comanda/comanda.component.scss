@@ -1,0 +1,11 @@
+.navigation-steps{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    .steps {
+        margin:0 auto;
+        mat-icon, span {
+            font-size:18px;
+        }
+    }
+}

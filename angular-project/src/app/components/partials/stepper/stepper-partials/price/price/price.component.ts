@@ -1,6 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Accesorii, Price, TableColumn } from 'src/app/models/models';
+import { ContactDialogComponent } from './dialogs/contact-dialog/contact-dialog.component';
+import { MailDialogComponent } from './dialogs/mail-dialog/mail-dialog.component';
 
 @Component({
   selector: 'app-price',
@@ -29,7 +32,9 @@ export class PriceComponent {
     {name: 'Cost livrare', cantitate: 14, pret: 20, total: 50}
   ];
 
-  constructor(private cdr: ChangeDetectorRef){}
+  constructor(private cdr: ChangeDetectorRef,                 
+              public dialog: MatDialog,
+    ){}
 
   ngOnInit(){
     let x = this.infoNecesarAccesorii;
@@ -55,4 +60,22 @@ export class PriceComponent {
 		this.tableDisplayedColumns = this.tableColumns.map((x) => x.key);
 		this.tableDataSource = new MatTableDataSource(this.listaPreturi);
 	}
+
+  public openContactDialog(): void{
+    this.dialog.open(ContactDialogComponent, {
+        data: null,
+        width: "400px",
+      });
+  }
+
+  public openMailDialog(): void{
+    this.dialog.open(MailDialogComponent, {
+        data: null,
+        width: "400px",
+      });
+  }
+
+  public redirectToComanda(){
+    
+  }
 }
