@@ -1,429 +1,377 @@
 <div class="container">
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" >
-        <mat-tab label="Persoana fizica" class="tab-buttons"> 
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+    <mat-tab label="Persoana fizica" class="tab-buttons">
+      <form [formGroup]="form_persoanafizica">
+        <mat-card class="container-card">
+          <mat-card-header>
+            <mat-card-title>Introduceti datele de facturare</mat-card-title>
+          </mat-card-header>
 
-            <form [formGroup]="form_persoanafizica">
-                    <mat-card class="container-card">
-                        <mat-card-header>
-                            <mat-card-title>Introduceti datele de facturare</mat-card-title>
-                        </mat-card-header>
-
-                        
-                        <mat-card-content class="container-card-content">
-                          
-                               
-                            <div class="ma-form-field">
-                                    <mat-form-field appearance="fill" class="width_full">
-                                        <mat-label>Nume</mat-label>
-                                        <input matInput
-                                            type="text"
-                                            formControlName="nume">
-                                        <mat-error>
-                                            <strong>Numele este obligatoriu!</strong>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="ma-form-field">
-                                    <mat-form-field appearance="fill" class="width_full">
-                                        <mat-label>Prenume</mat-label>
-                                        <input matInput
-                                            type="text"
-                                            formControlName="prenume">
-                                        <mat-error>
-                                            <strong>Prenumele este obligatoriu!</strong>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-
-                                <div class="ma-form-field">
-                                    <mat-form-field appearance="fill" class="width_full">
-                                        <mat-label>Telefon</mat-label>
-                                        <input matInput
-                                            type="tel"
-                                            formControlName="numar_telefon">
-                                        <mat-error>
-                                            <strong>Numarul de telefon este obligatoriu!</strong>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-
-
-                                <div class="ma-form-field">
-                                    <mat-form-field appearance="fill" class="width_full">
-                                        <mat-label>Email</mat-label>
-                                        <input matInput
-                                            type="text"
-                                            formControlName="adresaemail">
-                                        <mat-error>
-                                            <strong>Adresa de email este obligatorie!</strong>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-
-                                
-                                <div class="ma-form-field">
-                                    <mat-form-field appearance="fill" class="width_full">
-                                        <mat-label>Judet</mat-label>
-                                        <input matInput
-                                            type="text"
-                                            formControlName="judet">
-                                        <mat-error>
-                                            <strong>Judetul este obligatoriu!</strong>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-
-
-                                <div class="ma-form-field">
-                                    <mat-form-field appearance="fill" class="width_full">
-                                        <mat-label>Localitate</mat-label>
-                                        <input matInput
-                                            type="text"
-                                            formControlName="oras">
-                                        <mat-error>
-                                            <strong>Localitatea este obligatorie!</strong>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-
-
-                                <div class="ma-form-textarea">
-                                    <mat-form-field appearance="fill" class="width_full">
-                                        <mat-label>Adresa de facturare</mat-label>
-                                        <textarea matInput
-                                            type="text"
-                                            formControlName="adresa_de_facturare"></textarea>
-                                            <mat-error>
-                                                <strong>Adresa de facturare este obligatorie!</strong>
-                                            </mat-error>
-                                    </mat-form-field>
-                                </div>
-                                
-                          
-                        </mat-card-content>
-                    </mat-card>
-
-
-                    <mat-card class="container-card">
-                        <mat-card-header>
-                            <mat-card-title>Introduceti adresa de livrare</mat-card-title>
-                            
-                        </mat-card-header>
-
-                        
-                        <mat-card-content class="container-card-content ">
-                           
-                         
-                            <mat-checkbox class="checkbox-field">La fel ca și la datele de facturare</mat-checkbox> 
-
-                                <div class="ma-form-field">
-                                    <mat-form-field appearance="fill" class="width_full">
-                                        <mat-label>Judet</mat-label>
-                                        <input matInput
-                                            type="text"
-                                            formControlName="judet_livrare">
-                                        <mat-error>
-                                            <strong>Judetul este obligatoriu!</strong>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-
-
-                                <div class="ma-form-field">
-                                    <mat-form-field appearance="fill" class="width_full">
-                                        <mat-label>Localitate</mat-label>
-                                        <input matInput
-                                            type="text"
-                                            formControlName="oras_livrare">
-                                        <mat-error>
-                                            <strong>Localitatea este obligatorie!</strong>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-
-
-                                <div class="ma-form-textarea">
-                                    <mat-form-field appearance="fill" class="width_full">
-                                        <mat-label>Adresa de livrare</mat-label>
-                                        <textarea matInput
-                                            type="text"
-                                            formControlName="adresa_de_livrare"></textarea> 
-                                            <mat-error>
-                                                <strong>Adresa de livrare este obligatorie!</strong>
-                                            </mat-error>
-                                    </mat-form-field>
-                                </div>
-                              
-                          
-                        </mat-card-content>
-                    </mat-card>
-
-
-                    <mat-card class="container-card">
-                      
-                        <mat-card-content class="container-card-content ">
-                         Total:   
-                    <div class="ma-form-textarea">
-                        <mat-form-field appearance="fill" class="width_full">
-                            <mat-label>Observatii comanda</mat-label>
-                            <textarea matInput
-                                type="text"
-                                formControlName="observatii_comanda"></textarea> 
-                               
-                        </mat-form-field>
-                    </div> 
-
-
-                    <mat-checkbox class="checkbox-field">Accept termeni si conditii</mat-checkbox> 
-                    <mat-checkbox class="checkbox-field">Accept politica GDPR</mat-checkbox> 
-                    
-                    <div>
-                        <button mat-raised-button color="primary" (click)="submitContactInfo()">Trimite comanda</button>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-
-                </form>
-
-</mat-tab>
-<mat-tab label="Persoana Juridica">
-
-
-<form [formGroup]="form_persoanajuridica">
-    <mat-card class="container-card">
-        <mat-card-header>
-            <mat-card-title>Introduceti datele companiei</mat-card-title>
-        </mat-card-header>
-
-        
-        <mat-card-content class="container-card-content">
-          
-            <div class="ma-form-field companie">
-                <mat-form-field appearance="fill" class="width_full">
-                    <mat-label>Nume companie</mat-label>
-                    <input matInput
-                        type="text"
-                        formControlName="numecompanie">
-                    <mat-error>
-                        <strong>Numele companiei este obligatoriu!</strong>
-                    </mat-error>
-                </mat-form-field>
+          <mat-card-content class="container-card-content">
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Nume</mat-label>
+                <input matInput type="text" formControlName="nume" />
+                <mat-error>
+                  <strong>Numele este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
             </div>
-            
-            
-                <div class="ma-form-field">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Cod Unic de Inregistrare</mat-label>
-                        <input matInput
-                            type="text"
-                            formControlName="cui">
-                        <mat-error>
-                            <strong>Codul unic de Inregistrare este obligatoriu!</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="ma-form-field">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Numar de inregistrare</mat-label>
-                        <input matInput
-                            type="text"
-                            formControlName="jul">
-                        <mat-error>
-                            <strong>Numarul de inregistrare este obligatoriu!</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Prenume</mat-label>
+                <input matInput type="text" formControlName="prenume" />
+                <mat-error>
+                  <strong>Prenumele este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-                <div class="ma-form-field">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Telefon</mat-label>
-                        <input matInput
-                            type="tel"
-                            formControlName="numar_telefon">
-                        <mat-error>
-                            <strong>Numarul de telefon este obligatoriu!</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Telefon</mat-label>
+                <input matInput type="tel" formControlName="numar_telefon" />
+                <mat-error>
+                  <strong>Numarul de telefon este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" formControlName="adresaemail" />
+                <mat-error>
+                  <strong>Adresa de email este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-                <div class="ma-form-field">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Email</mat-label>
-                        <input matInput
-                            type="text"
-                            formControlName="adresaemail">
-                        <mat-error>
-                            <strong>Adresa de email este obligatorie!</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Judet</mat-label>
+                <input matInput type="text" formControlName="judet" />
+                <mat-error>
+                  <strong>Judetul este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-                
-                <div class="ma-form-field">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Judet</mat-label>
-                        <input matInput
-                            type="text"
-                            formControlName="judet">
-                        <mat-error>
-                            <strong>Judetul este obligatoriu!</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Localitate</mat-label>
+                <input matInput type="text" formControlName="oras" />
+                <mat-error>
+                  <strong>Localitatea este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
+            <div class="ma-form-textarea">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Adresa de facturare</mat-label>
+                <textarea
+                  matInput
+                  type="text"
+                  formControlName="adresa_de_facturare"
+                ></textarea>
+                <mat-error>
+                  <strong>Adresa de facturare este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
 
-                <div class="ma-form-field">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Localitate</mat-label>
-                        <input matInput
-                            type="text"
-                            formControlName="oras">
-                        <mat-error>
-                            <strong>Localitatea este obligatorie!</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
-
-                <div class="ma-form-textarea">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Adresa de facturare</mat-label>
-                        <textarea matInput
-                            type="text"
-                            formControlName="adresa_de_facturare"></textarea>
-                            <mat-error>
-                                <strong>Adresa de facturare este obligatorie!</strong>
-                            </mat-error>
-                    </mat-form-field>
-                </div>
-                <mat-card-title class="ma-form-title">Date reprezentant firma</mat-card-title>
-          
-                <div class="ma-form-field">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Prenume</mat-label>
-                        <input matInput
-                            type="text"
-                            formControlName="prenume_reprezentant">
-                        <mat-error>
-                            <strong>Prenumele este obligatorie!</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
-
-
-                <div class="ma-form-field">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Nume</mat-label>
-                        <input matInput
-                            type="text"
-                            formControlName="nume_reprezentant">
-                        <mat-error>
-                            <strong>Numele este obligatorie!</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
-
-
-        </mat-card-content>
-    </mat-card>
-
-
-    <mat-card class="container-card">
-        <mat-card-header>
+        <mat-card class="container-card">
+          <mat-card-header>
             <mat-card-title>Introduceti adresa de livrare</mat-card-title>
-            
-        </mat-card-header>
+          </mat-card-header>
 
-        
-        <mat-card-content class="container-card-content ">
-           
-         
-            <mat-checkbox class="checkbox-field">La fel ca și la datele de facturare</mat-checkbox> 
+          <mat-card-content class="container-card-content">
+            <mat-checkbox class="checkbox-field"
+              >La fel ca și la datele de facturare</mat-checkbox
+            >
 
-                <div class="ma-form-field">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Judet</mat-label>
-                        <input matInput
-                            type="text"
-                            formControlName="judet_livrare">
-                        <mat-error>
-                            <strong>Judetul este obligatoriu!</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Judet</mat-label>
+                <input matInput type="text" formControlName="judet_livrare" />
+                <mat-error>
+                  <strong>Judetul este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Localitate</mat-label>
+                <input matInput type="text" formControlName="oras_livrare" />
+                <mat-error>
+                  <strong>Localitatea este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-                <div class="ma-form-field">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Localitate</mat-label>
-                        <input matInput
-                            type="text"
-                            formControlName="oras_livrare">
-                        <mat-error>
-                            <strong>Localitatea este obligatorie!</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+            <div class="ma-form-textarea">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Adresa de livrare</mat-label>
+                <textarea
+                  matInput
+                  type="text"
+                  formControlName="adresa_de_livrare"
+                ></textarea>
+                <mat-error>
+                  <strong>Adresa de livrare este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
 
+        <mat-card class="container-card">
+          <mat-card-content class="container-card-content">
+            Total:
+            <div class="ma-form-textarea">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Observatii comanda</mat-label>
+                <textarea
+                  matInput
+                  type="text"
+                  formControlName="observatii_comanda"
+                ></textarea>
+              </mat-form-field>
+            </div>
 
-                <div class="ma-form-textarea">
-                    <mat-form-field appearance="fill" class="width_full">
-                        <mat-label>Adresa de livrare</mat-label>
-                        <textarea matInput
-                            type="text"
-                            formControlName="adresa_de_livrare"></textarea> 
-                            <mat-error>
-                                <strong>Adresa de livrare este obligatorie!</strong>
-                            </mat-error>
-                    </mat-form-field>
-                </div>
-              
-          
-        </mat-card-content>
-    </mat-card>
+            <mat-checkbox class="checkbox-field"
+              >Accept termeni si conditii</mat-checkbox
+            >
+            <mat-checkbox class="checkbox-field"
+              >Accept politica GDPR</mat-checkbox
+            >
 
+            <div>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="submitContactInfo()"
+              >
+                Trimite comanda
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>
+    </mat-tab>
+    <mat-tab label="Persoana Juridica">
+      <form [formGroup]="form_persoanajuridica">
+        <mat-card class="container-card">
+          <mat-card-header>
+            <mat-card-title>Introduceti datele companiei</mat-card-title>
+          </mat-card-header>
 
-    <mat-card class="container-card">
-      
-        <mat-card-content class="container-card-content ">
-         Total:   
-    <div class="ma-form-textarea">
-        <mat-form-field appearance="fill" class="width_full">
-            <mat-label>Observatii comanda</mat-label>
-            <textarea matInput
-                type="text"
-                formControlName="observatii_comanda"></textarea> 
-               
-        </mat-form-field>
-    </div> 
+          <mat-card-content class="container-card-content">
+            <div class="ma-form-field companie">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Nume companie</mat-label>
+                <input matInput type="text" formControlName="numecompanie" />
+                <mat-error>
+                  <strong>Numele companiei este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Cod Unic de Inregistrare</mat-label>
+                <input matInput type="text" formControlName="cui" />
+                <mat-error>
+                  <strong>Codul unic de Inregistrare este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Numar de inregistrare</mat-label>
+                <input matInput type="text" formControlName="jul" />
+                <mat-error>
+                  <strong>Numarul de inregistrare este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-    <mat-checkbox class="checkbox-field">Accept termeni si conditii</mat-checkbox> 
-    <mat-checkbox class="checkbox-field">Accept politica GDPR</mat-checkbox> 
-    
-    <div>
-        <button mat-raised-button color="primary" (click)="submitContactInfo()">Trimite comanda</button>
-    </div>
-</mat-card-content>
-</mat-card>
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Telefon</mat-label>
+                <input matInput type="tel" formControlName="numar_telefon" />
+                <mat-error>
+                  <strong>Numarul de telefon este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-</form>
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" formControlName="adresaemail" />
+                <mat-error>
+                  <strong>Adresa de email este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Judet</mat-label>
+                <input matInput type="text" formControlName="judet" />
+                <mat-error>
+                  <strong>Judetul este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-</mat-tab> 
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Localitate</mat-label>
+                <input matInput type="text" formControlName="oras" />
+                <mat-error>
+                  <strong>Localitatea este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-</mat-tab-group>
+            <div class="ma-form-textarea">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Adresa de facturare</mat-label>
+                <textarea
+                  matInput
+                  type="text"
+                  formControlName="adresa_de_facturare"
+                ></textarea>
+                <mat-error>
+                  <strong>Adresa de facturare este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <mat-card-title class="ma-form-title"
+              >Date reprezentant firma</mat-card-title
+            >
 
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Prenume</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="prenume_reprezentant"
+                />
+                <mat-error>
+                  <strong>Prenumele este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Nume</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="nume_reprezentant"
+                />
+                <mat-error>
+                  <strong>Numele este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
 
+        <mat-card class="container-card">
+          <mat-card-header>
+            <mat-card-title>Introduceti adresa de livrare</mat-card-title>
+          </mat-card-header>
 
+          <mat-card-content class="container-card-content">
+            <mat-checkbox class="checkbox-field"
+              >La fel ca și la datele de facturare</mat-checkbox
+            >
+
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Judet</mat-label>
+                <input matInput type="text" formControlName="judet_livrare" />
+                <mat-error>
+                  <strong>Judetul este obligatoriu!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="ma-form-field">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Localitate</mat-label>
+                <input matInput type="text" formControlName="oras_livrare" />
+                <mat-error>
+                  <strong>Localitatea este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="ma-form-textarea">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Adresa de livrare</mat-label>
+                <textarea
+                  matInput
+                  type="text"
+                  formControlName="adresa_de_livrare"
+                ></textarea>
+                <mat-error>
+                  <strong>Adresa de livrare este obligatorie!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="container-card">
+          <mat-card-content class="container-card-content">
+            Total:
+            <div class="ma-form-textarea">
+              <mat-form-field appearance="fill" class="width_full">
+                <mat-label>Observatii comanda</mat-label>
+                <textarea
+                  matInput
+                  type="text"
+                  formControlName="observatii_comanda"
+                ></textarea>
+              </mat-form-field>
+            </div>
+
+            <mat-checkbox class="checkbox-field"
+              >Accept termeni si conditii</mat-checkbox
+            >
+            <mat-checkbox class="checkbox-field"
+              >Accept politica GDPR</mat-checkbox
+            >
+
+            <div>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="submitContactInfo()"
+              >
+                Trimite comanda
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 <div class="navigation-steps">
-    <button mat-raised-button matStepperPrevious class="steps">
-        <span>Pret</span>
-        <mat-icon>keyboard_arrow_left</mat-icon>
-    </button>
+  <button mat-raised-button matStepperPrevious class="steps">
+    <span>Pret</span>
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
 </div>
