@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+
+      table, th, td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    </br>
+    <div style="text-align: center">Solicitare pret Calculator tabla-online.ro</div>
+    <div style="text-align: center">Nume solicitant: <%= userInfo.nume %></div>
+    </br>
+    </br>
+    </br>
+    <p>Buna ziua, <%= userInfo.nume %>! In urma simularii efectuate mai jos regasiti sumarul comenzii dumneavoastra:</p>
+    </br>
+    <table>
+      <thead>
+        <tr>
+          <th>Produs</th>
+          <th>Cantitate</th>
+          <th>Pret / u.m.</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i = 0; i < list.length; i++) { %>
+          <tr>
+            <td><%= list[i].label %></td>
+            <td><%= list[i].qty %></td>
+            <td><%= list[i].price %></td>
+            <td><%= list[i].total %></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </br>
+  </br>
+  </br>
+  <div style="text-align: right; font-weight: bold">Total: <%= totalPrice %> Lei</div>
+  </body>
+</html>

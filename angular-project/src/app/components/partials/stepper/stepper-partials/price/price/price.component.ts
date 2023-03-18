@@ -21,17 +21,18 @@ export class PriceComponent implements OnInit, OnChanges {
   public tableDataSource: MatTableDataSource<Price>;
   public hasValueSelected: boolean = false;
   public selectedOption: string;
-
   public listaPreturi: any = [];
+  totalPrice = 0;
 
   constructor(private cdr: ChangeDetectorRef,                 
               public dialog: MatDialog,
     ){}
 
-  ngOnInit(){}
+  ngOnInit(){
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changes', changes);
+    this.totalPrice = 0;
     this.listaPreturi = changes['accesorii'].currentValue;
     this.listaPreturi && this.createTable();
   }
@@ -51,6 +52,7 @@ export class PriceComponent implements OnInit, OnChanges {
 
 		this.tableDisplayedColumns = this.tableColumns.map((x) => x.key);
 		this.tableDataSource = new MatTableDataSource(newPriceList);
+    newPriceList.map((item: any) => this.totalPrice += item.total);
 	}
 
   public openContactDialog(): void{
@@ -62,7 +64,7 @@ export class PriceComponent implements OnInit, OnChanges {
 
   public openMailDialog(): void{
     this.dialog.open(MailDialogComponent, {
-        data: null,
+        data: {list: this.tableDataSource.data, totalPrice: this.totalPrice},
         width: "400px",
       });
   }

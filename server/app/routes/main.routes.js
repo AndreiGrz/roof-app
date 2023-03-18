@@ -9,4 +9,5 @@ module.exports = function(app) {
   app.get('/api/main/getPret', mainController.getPret);
   app.post('/api/main/getAccesorii', mainController.getAccesorii);
   app.get('/api/main/getAccesoriiSuplimentare', mainController.getAccesoriiSuplimentare);
+  app.post('/api/main/sendEmail', mainController.sendEmail);
 };

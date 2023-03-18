@@ -51,6 +51,9 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
 
       this.mainService.getModels(value).subscribe(models => {
         this.models = models.results.map(res => ({id: res.term_id, value: res.name, img_source: res.guid}));
+        this.finisaje = [];
+        this.grosimi = [];
+        this.culori = [];
       });
     });
 
@@ -63,6 +66,8 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
 
       this.mainService.getFinisaje(value).subscribe(finisaje => {
         this.finisaje = finisaje.results.map(res => ({id: res.term_id, value: res.name, img_source: res.guid}));
+        this.grosimi = [];
+        this.culori = [];
       });
     });
 
@@ -77,6 +82,7 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
 
       this.mainService.getGrosimi(value).subscribe(grosimi => {
         this.grosimi = grosimi.results.map(res => ({id: {_id: res.id, _meta: res.meta_value}, value: res.meta_value.replace('-', '.').replace('-', ' '), img_source: res.guid}));
+        this.culori = [];
       });
     });
 

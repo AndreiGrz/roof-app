@@ -24,16 +24,8 @@ export class AppComponent implements OnInit, OnDestroy {
         link: './calculator-4-ape'
       },
       {
-        label: 'Calcul manual',
-        link: './calcul-manual'
-      },
-      {
         label: 'Calculator personalizat',
         link: './calculator-personalizat'
-      },
-      {
-        label: 'Sistem pluvial',
-        link: './sistem-pluvial'
       }
     ];
   }

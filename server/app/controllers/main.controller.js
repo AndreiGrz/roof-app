@@ -1,4 +1,8 @@
 const connection = require('../database/db.js');
+const path = require('path');
+const ejs = require('ejs');
+const nodemailer = require('nodemailer');
+const pdf = require('html-pdf');
 
 const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     const necesar = {};
@@ -352,6 +356,66 @@ exports.getAccesorii = async (req, res) => {
             });
 
     }catch (err) {
+        res.status(500).send({message: err.message});
+    } finally {
+        conn.end();
+    }
+}
+
+exports.sendEmail = async (req, res) => {
+    const conn = await connection();
+    try {
+        const {list, totalPrice, userInfo} = req.body;
+        
+        ejs.renderFile(path.join(__dirname, '../templates/', 'mail.ejs'), { list, totalPrice, userInfo }, (err, html) => {
+            if (err) {
+              return res.status(500).send(err);
+            }
+        
+            // Generate the PDF
+            pdf.create(html).toBuffer((err, buffer) => {
+              if (err) {
+                return res.status(500).send(err);
+              }
+        
+              // Send the PDF as an attachment in an email
+              let transportObj = {
+                host: 'mail.tabla-online.ro',
+                port: process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? 465 : 587,
+                secure: process.env.NODE_ENV && process.env.NODE_ENV === 'production',
+                auth: {
+                  user: 'calculator@tabla-online.ro',
+                  pass: 'Calculator123!@#'
+                }
+              };
+              if (!(process.env.NODE_ENV && process.env.NODE_ENV === 'production')) {
+                transportObj = {
+                    ...transportObj,
+                    tls: {rejectUnauthorized: false}
+                };
+              }
+              const transporter = nodemailer.createTransport(transportObj);
+              const mailOptions = {
+                from: 'calculator@tabla-online.ro',
+                to: `${userInfo.email}, calculator@tabla-online.ro`,
+                subject: 'Simulare pret',
+                attachments: [{
+                  filename: 'document.pdf',
+                  content: buffer
+                }]
+              };
+        
+              transporter.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                  return res.status(500).send(err);
+                }
+        
+                res.send({message: 'ok'});
+              });
+            });
+          });
+
+    } catch (err) {
         res.status(500).send({message: err.message});
     } finally {
         conn.end();

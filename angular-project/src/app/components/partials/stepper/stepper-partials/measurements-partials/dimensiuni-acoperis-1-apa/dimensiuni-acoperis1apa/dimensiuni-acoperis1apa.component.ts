@@ -2,16 +2,13 @@ import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Outp
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Diametri } from 'src/app/enums/main.enum';
-import { ExtraMeasurementsComponent } from '../../extra-measurements/extra-measurements/extra-measurements.component';
 
 @Component({
   selector: 'app-dimensiuni-acoperis1apa',
   templateUrl: './dimensiuni-acoperis1apa.component.html',
   styleUrls: ['./dimensiuni-acoperis1apa.component.scss']
 })
-export class DimensiuniAcoperis1apaComponent implements OnInit, AfterViewInit{
-  @ViewChild (ExtraMeasurementsComponent) roofModelsComponent: ExtraMeasurementsComponent;
-  
+export class DimensiuniAcoperis1apaComponent implements OnInit, AfterViewInit{  
   public form: FormGroup;
   public isCheckedSistemPluvial: boolean = false;
   @Output() formData = new EventEmitter<FormGroup>();

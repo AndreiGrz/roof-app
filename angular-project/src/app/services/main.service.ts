@@ -57,5 +57,9 @@ export class MainService {
   getAccesoriiSuplimentare(): Observable<{results: any[]}>{
     return this.http.get<{results: any[]}>(`${this.BASE_URL}/getAccesoriiSuplimentare`);
   }
+
+  sendEmail(list: any, totalPrice: number, userInfo: any): Observable<{results: any}> {
+    return this.http.post<{results: any}>(`${this.BASE_URL}/sendEmail`, {list, totalPrice, userInfo});
+  }
 }
 

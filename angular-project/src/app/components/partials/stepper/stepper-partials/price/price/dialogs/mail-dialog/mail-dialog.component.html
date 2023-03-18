@@ -4,7 +4,7 @@
   <form [formGroup]="form">
             <div class="ma-form-field">
                 <mat-form-field appearance="fill">
-                    <mat-label>Telefon</mat-label>
+                    <mat-label>Email</mat-label>
                     <input matInput
                         type="email"
                         formControlName="email">
@@ -12,9 +12,21 @@
                         <strong>Emailul este obligatoriu!</strong>
                     </mat-error>
                 </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Nume</mat-label>
+                    <input matInput
+                        type="text"
+                        formControlName="nume">
+                    <mat-error>
+                        <strong>Numele este obligatoriu!</strong>
+                    </mat-error>
+                </mat-form-field>
             </div>
             <div>
-                <mat-checkbox class="example-margin" formControlName="politicaGDPR">Accept politica <a href="#">GDPR</a></mat-checkbox>
+                <mat-checkbox class="example-margin" (click)="gdprClick()" formControlName="politicaGDPR">Accept politica <a href="#">GDPR</a></mat-checkbox>
+                <mat-error *ngIf="gdprErr">
+                    Trebuie sa fiti de acord cu politica GDPR
+                </mat-error>
             </div>
             
             <div mat-dialog-actions align="end">
