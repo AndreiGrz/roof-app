@@ -58,8 +58,6 @@ export class StepperComponent implements OnInit {
   getInfoFromAccesorii(event: any): void {
     this.infoNecesarAccesorii = event;
     this.cdr.detectChanges();
-
-   this.btnProceedToPrice.emit(this.infoNecesarAccesorii);
   }
 
   getBtnProceedToAccesoriesState(event:boolean){

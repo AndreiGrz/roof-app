@@ -14,11 +14,11 @@
 
   <mat-step [stepControl]="" label="Accesorii">
     <mat-spinner *ngIf="loader"></mat-spinner>
-    <app-accesorii *ngIf="!loader" [necesarAccesorii]="necesarAccesorii"></app-accesorii>
+    <app-accesorii *ngIf="!loader" (btnProceedToPrice)="getInfoFromAccesorii($event)" [necesarAccesorii]="necesarAccesorii"></app-accesorii>
   </mat-step>
 
   <mat-step [stepControl]="" label="Pret">
-    <app-price (btnProceedToPrice)="getInfoFromAccesorii($event)"></app-price>
+    <app-price [accesorii]="infoNecesarAccesorii"></app-price>
   </mat-step>
   <mat-step [stepControl]="" label="Comanda">
     <app-comanda></app-comanda>

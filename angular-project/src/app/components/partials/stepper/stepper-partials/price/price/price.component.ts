@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Accesorii, Price, TableColumn } from 'src/app/models/models';
@@ -10,10 +10,10 @@ import { MailDialogComponent } from './dialogs/mail-dialog/mail-dialog.component
   templateUrl: './price.component.html',
   styleUrls: ['./price.component.scss']
 })
-export class PriceComponent {
+export class PriceComponent implements OnInit, OnChanges {
 
   @Output() btnProceedToPrice = new EventEmitter<any>();
-   infoNecesarAccesorii: any;
+  @Input() accesorii: any;
 
   public panelOpenState: boolean = true;
   public tableColumns: TableColumn[];
@@ -22,43 +22,35 @@ export class PriceComponent {
   public hasValueSelected: boolean = false;
   public selectedOption: string;
 
-  public listaPreturi: Price[] = [
-    {name: 'Coama', cantitate: 1, pret: 20, total: 50},
-    {name: 'Bordura metalica', cantitate: 4, pret: 20, total: 50},
-    {name: 'Opritor din plastic', cantitate: 6, pret: 20, total: 50},
-    {name: 'Holtsuruburi de alea bune', cantitate: 9, pret: 20, total: 50},
-    {name: 'Set cos fum', cantitate: 10, pret: 20, total: 50},
-    {name: 'Coama mica', cantitate: 12, pret: 20, total: 50},
-    {name: 'Cost livrare', cantitate: 14, pret: 20, total: 50}
-  ];
+  public listaPreturi: any = [];
 
   constructor(private cdr: ChangeDetectorRef,                 
               public dialog: MatDialog,
     ){}
 
-  ngOnInit(){
-    let x = this.infoNecesarAccesorii;
-    this.createTable();
-    // this.getInfoFromAccesorii();
-  }
+  ngOnInit(){}
 
-  getInfoFromAccesorii(event: any): void {
-    this.infoNecesarAccesorii = event;
-    this.cdr.detectChanges();
-
-    console.log(this.infoNecesarAccesorii);
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('changes', changes);
+    this.listaPreturi = changes['accesorii'].currentValue;
+    this.listaPreturi && this.createTable();
   }
 
   private createTable(): void {
+    const newPriceList = this.listaPreturi.map((listItem: any) => ({
+      ...listItem,
+      total: listItem.qty * listItem.price
+    }));
+
 		this.tableColumns = [
-			{ key: 'name', label: 'Produs', template: false },
-			{ key: 'cantitate', label: 'Cantitate', template: false },
-      { key: 'pret', label: 'Pret / u.m.', template: false },
-      { key: 'total', label: 'Total', template: false }
+			{ key: 'label', label: 'Produs', template: false },
+			{ key: 'qty', label: 'Cantitate', template: false },
+      { key: 'price', label: 'Pret / u.m.', template: true },
+      { key: 'total', label: 'Total', template: true }
 		];
 
 		this.tableDisplayedColumns = this.tableColumns.map((x) => x.key);
-		this.tableDataSource = new MatTableDataSource(this.listaPreturi);
+		this.tableDataSource = new MatTableDataSource(newPriceList);
 	}
 
   public openContactDialog(): void{

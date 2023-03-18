@@ -51,11 +51,11 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
     necesar.aria = Math.round(aria_1 * 1.2);
     necesar.coama = Math.ceil(dimensiuni.lungimea_3 / 1.85);
     necesar.suruburi = Math.ceil(necesar.aria * 1.1 / 35);
-    necesar.bordura = Math.ceil((dimensiuni.latimea_2 * 4) / 1.9); //?
+    necesar.bordura = Math.ceil(((dimensiuni.latimea_2 * 2) + (dimensiuni.latimea_4 * 2)) / 1.9); //?
     necesar.sort_streasina = Math.ceil((dimensiuni.lungimea_3 * 2) / 1.9);
     necesar.colector_fronton = necesar.bordura;
     necesar.etans = Math.ceil(necesar.coama / 5);
-    necesar.opritor_zapada = Math.ceil(dimensiuni.lungimea_3 * 2 / 2);//?
+    necesar.opritor_zapada = Math.round(dimensiuni.lungimea_3);//?
     necesar.jgheaburi = (dimensiuni.lungimea_3 * 2) % 2 == 0 ? Math.ceil((dimensiuni.lungimea_3 * 2)) : Math.ceil((dimensiuni.lungimea_3 * 2)) + 1;
     necesar.capac_jgheab = 4;
     necesar.imbinare_jgheab = Math.ceil(((dimensiuni.lungimea_3 * 2) / 4));
@@ -92,13 +92,13 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.linia_4) * dimensiuni.adancimea_6 + (dimensiuni.latimea_3 * dimensiuni.adancimea_7));
     necesar.aria = Math.ceil(aria_1 * 1.22);
-    necesar.coama = Math.ceil((dimensiuni.linia_4 + dimensiuni.cateta_5 * 4) / 1.85);//?
+    necesar.coama = Math.ceil((dimensiuni.linia_4 + dimensiuni.cateta_5 * 4) / 1.85); 
     necesar.suruburi = Math.ceil(necesar.aria * 1.15 / 35);
     necesar.sort_streasina = Math.ceil(((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 1.9);
     necesar.bordura = 0;
     necesar.colector_fronton = necesar.bordura;
     necesar.etans = Math.ceil(necesar.coama / 5);
-    necesar.opritor_zapada = Math.ceil(((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 2);//?
+    necesar.opritor_zapada = Math.round((dimensiuni.lungimea_2 + dimensiuni.latimea_3)); 
     necesar.jgheaburi = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2);
     necesar.capac_jgheab = 0;
     necesar.imbinare_jgheab = Math.ceil((((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 4)+6);
