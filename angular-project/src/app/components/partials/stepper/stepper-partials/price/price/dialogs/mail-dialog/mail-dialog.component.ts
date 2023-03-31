@@ -40,7 +40,11 @@ export class MailDialogComponent implements OnInit {
     this.gdprClick();
 
     if (this.form.valid) {
-      this.mainService.sendEmail(this.data.list, this.data.totalPrice, this.form.value).subscribe(res => console.log(res));
+      this.mainService.sendEmail(this.data.list, this.data.totalPrice, this.form.value)
+      .subscribe(res => {
+        console.log(res);
+        this.dialogRef.close();
+      });
     }
   }
 

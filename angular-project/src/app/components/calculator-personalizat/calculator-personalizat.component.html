@@ -1,1 +1,33 @@
-<p>Calculator personalizat!</p>
+<mat-card>
+    <mat-card-content>
+        <div class="info-text">
+            <p><mat-icon class="warning">warning</mat-icon>Masuratorile trebuie sa fie in metri (ex. 10.44 metri) </p>
+            <p><mat-icon class="warning">warning</mat-icon>Pierderile sunt calculate automat (unde e cazul) si incluse in suprafata finala</p>
+            <p><mat-icon class="warning">arrow_downward</mat-icon>
+                Mai jos regasiti un clip video explicativ care o sa va ajute in transmiterea datelor corecte catre noi.
+                <b class="warning">Vizionati-l cu atentie!</b>
+            </p>
+        </div>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/RUzuaNqmVNA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <hr>
+        <mat-form-field class="columns">
+            <mat-label>Incarca masuratorile</mat-label>
+            <input matInput disabled>
+            <button mat-icon-button matSuffix (click)="fileInput.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+            <input hidden (change)="onFileChanged($event)" #fileInput type="file" id="file" multiple="true">
+        </mat-form-field>
+        <div *ngFor="let file of fileList; let index = index">
+            <span> - {{ file.name }}</span> 
+            <button mat-icon-button (click)="removeSelectedFile(index)" style="position: absolute;
+            margin-top: -15px;"><mat-icon class="color-danger">close</mat-icon></button>
+          </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary">
+            <span>Finalizeaza</span>
+            <mat-icon>check</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>
