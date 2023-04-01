@@ -34,6 +34,7 @@ import { PriceComponent } from './components/partials/stepper/stepper-partials/p
 import { ContactDialogComponent } from './components/partials/stepper/stepper-partials/price/price/dialogs/contact-dialog/contact-dialog.component';
 import { MailDialogComponent } from './components/partials/stepper/stepper-partials/price/price/dialogs/mail-dialog/mail-dialog.component';
 import { ComandaComponent } from './components/partials/stepper/stepper-partials/comanda/comanda.component';
+import { OfertaComponent } from './components/oferta/oferta.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { ComandaComponent } from './components/partials/stepper/stepper-partials
     PriceComponent,
     ContactDialogComponent,
     MailDialogComponent,
-    ComandaComponent
+    ComandaComponent,
+    OfertaComponent
   ],
   imports: [
     BrowserModule,

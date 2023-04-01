@@ -14,6 +14,10 @@ export class MainService {
     return this.http.get<{results: any[]}>(`${this.BASE_URL}/getBrands`);
   }
 
+  // getBrands(): Observable<{results: any[]}>{
+  //   return this.http.get<{results: any[]}>(`https://calculator.tabla-online.ro/api/main/getBrands`);
+  // }
+
   getModels(brandId: number): Observable<{results: any[]}> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append('brandId', brandId);
@@ -58,8 +62,19 @@ export class MainService {
     return this.http.get<{results: any[]}>(`${this.BASE_URL}/getAccesoriiSuplimentare`);
   }
 
-  sendEmail(list: any, totalPrice: number, userInfo: any): Observable<{results: any}> {
-    return this.http.post<{results: any}>(`${this.BASE_URL}/sendEmail`, {list, totalPrice, userInfo});
+  sendEmail(list: any, userInfo: any, models: any, measurements: any, tipCalculator: string): Observable<{results: any}> {
+    return this.http.post<{results: any}>(`${this.BASE_URL}/sendEmail`, {list, userInfo, models, measurements, tipCalculator});
+  }
+
+  getOferta(id: string): Observable<{results: any}> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('id', id);
+
+    return this.http.get<{results: any}>(`${this.BASE_URL}/getOferta`, {params: queryParams});
+  }
+
+  comanda(produse: any[]): Observable<{results: any}> {
+    return this.http.post<{results: any}>(`https://tabla-online.ro/calculator.php`, {produse});
   }
 }
 

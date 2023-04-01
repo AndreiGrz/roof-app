@@ -3,6 +3,9 @@ const path = require('path');
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
 const pdf = require('html-pdf');
+const { v4: uuidv4 } = require('uuid');
+const formidable = require('formidable');
+const fs = require('fs');
 
 const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     const necesar = {};
@@ -138,6 +141,7 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
 const getAccesoriiForNecesar = async () => {
     const conn = await connection();
     const [result]  = await conn.execute(`SELECT p.post_title AS label,  
+        p.id,
         pm_price.meta_value AS price, 
     pm_sku.meta_value AS _key
     FROM wpay_posts AS p
@@ -311,7 +315,8 @@ exports.getAccesoriiSuplimentare = async (req, res) => {
     const conn = await connection();
 
     try {
-        const [rows] = await conn.execute(`SELECT p.post_title AS label,  
+        const [rows] = await conn.execute(`SELECT p.post_title AS label,
+            p.id,
             pm_price.meta_value AS price
     FROM wpay_posts AS p
     JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price' 
@@ -364,55 +369,85 @@ exports.getAccesorii = async (req, res) => {
 
 exports.sendEmail = async (req, res) => {
     const conn = await connection();
-    try {
-        const {list, totalPrice, userInfo} = req.body;
+    try {        
+        // ejs.renderFile(path.join(__dirname, '../templates/', 'mail.ejs'), { list, totalPrice, userInfo }, (err, html) => {
+        //     if (err) {
+        //       return res.status(500).send(err);
+        //     }
         
-        ejs.renderFile(path.join(__dirname, '../templates/', 'mail.ejs'), { list, totalPrice, userInfo }, (err, html) => {
+        //     // Generate the PDF
+        //     pdf.create(html).toBuffer((err, buffer) => {
+        //       if (err) {
+        //         return res.status(500).send(err);
+        //       }
+        
+        //       // Send the PDF as an attachment in an email
+              
+        //     });
+
+            
+        //   });
+
+        const {list, userInfo, models, measurements, tipCalculator} = req.body;
+
+        const dbId = uuidv4();
+        const dbNume = userInfo.nume;
+        const dbEmail = userInfo.email;
+        const dbModels = JSON.stringify(models);
+        const dbMeasurements = JSON.stringify(measurements);
+        const dbAccesorii = JSON.stringify(list);
+
+        console.log(dbAccesorii);
+
+        await conn.execute(
+            'INSERT INTO calculator (id, email, nume, modele, masuratori, accesorii) VALUES (?, ?, ?, ?, ?, ?)',
+            [dbId, dbEmail, dbNume, dbModels, dbMeasurements, dbAccesorii]
+        );
+
+        const linkOferta = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? 
+            `https://calculator.tabla-online.ro/oferta/${tipCalculator}/${dbId}` :
+            `http://localhost:4200/oferta/${tipCalculator}/${dbId}`;
+            
+        let transportObj = {
+            host: 'mail.tabla-online.ro',
+            port: process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? 465 : 587,
+            secure: process.env.NODE_ENV && process.env.NODE_ENV === 'production',
+            auth: {
+              user: 'calculator@tabla-online.ro',
+              pass: 'Calculator123!@#'
+            }
+          };
+          if (!(process.env.NODE_ENV && process.env.NODE_ENV === 'production')) {
+            transportObj = {
+                ...transportObj,
+                tls: {rejectUnauthorized: false}
+            };
+          }
+          const transporter = nodemailer.createTransport(transportObj);
+          const mailOptions = {
+            from: 'calculator@tabla-online.ro',
+            to: `${userInfo.email}, calculator@tabla-online.ro`,
+            subject: 'Simulare pret',
+            html: `
+            <h3>Buna ziua, ${userInfo.nume}</h3>
+            <br>
+            <div>
+                Esti doar la cateva clickuri distanta sa finalizezi comanda<br>
+                inceputa pe <a href="tabla-online.ro">tabla-online.ro</a>
+                <br>
+                <br>
+                
+                <a href="${linkOferta}">Continua comanda</a>
+            </div>
+            `
+          };
+    
+          transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
               return res.status(500).send(err);
             }
-        
-            // Generate the PDF
-            pdf.create(html).toBuffer((err, buffer) => {
-              if (err) {
-                return res.status(500).send(err);
-              }
-        
-              // Send the PDF as an attachment in an email
-              let transportObj = {
-                host: 'mail.tabla-online.ro',
-                port: process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? 465 : 587,
-                secure: process.env.NODE_ENV && process.env.NODE_ENV === 'production',
-                auth: {
-                  user: 'calculator@tabla-online.ro',
-                  pass: 'Calculator123!@#'
-                }
-              };
-              if (!(process.env.NODE_ENV && process.env.NODE_ENV === 'production')) {
-                transportObj = {
-                    ...transportObj,
-                    tls: {rejectUnauthorized: false}
-                };
-              }
-              const transporter = nodemailer.createTransport(transportObj);
-              const mailOptions = {
-                from: 'calculator@tabla-online.ro',
-                to: `${userInfo.email}, calculator@tabla-online.ro`,
-                subject: 'Simulare pret',
-                attachments: [{
-                  filename: 'document.pdf',
-                  content: buffer
-                }]
-              };
-        
-              transporter.sendMail(mailOptions, (err, info) => {
-                if (err) {
-                  return res.status(500).send(err);
-                }
-        
-                res.send({message: 'ok'});
-              });
-            });
+    
+            res.send({message: 'ok'});
           });
 
     } catch (err) {
@@ -421,3 +456,44 @@ exports.sendEmail = async (req, res) => {
         conn.end();
     }
 }
+
+exports.getOferta = async (req, res) => {
+    const conn = await connection();
+
+    try {
+        const id = req.query.id;
+        const [rows] = await conn.execute('select * from calculator where id = ?', [id]);
+
+        res.status(200)
+            .send({
+                results: rows[0]
+            });
+    } catch (err) {
+        res.status(500).send({message: err.message});
+    } finally {
+        conn.end();
+    }
+};
+
+exports.uploadFiles = async (req, res) => {
+    try {
+        const form = new formidable.IncomingForm();
+        form.uploadDir = path.join(__dirname, '../public');
+        form.multiples = true;
+    
+        form.on('file', (field, file) => {
+            console.log(file);
+          fs.rename(file.filepath, form.uploadDir + '/' + file.originalFilename, (error) => {
+            if (error) throw error;
+          });
+        });
+    
+        form.on('end', () => {
+            res.status(200).send();
+        });
+    
+        form.parse(req);
+    } catch (err) {
+        res.status(500).send({message: err.message});
+    }
+};

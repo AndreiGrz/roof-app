@@ -5,9 +5,11 @@ import { CalculatorPersonalizatComponent } from './components/calculator-persona
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
+import { OfertaComponent } from './components/oferta/oferta.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/calculator-1-apa', pathMatch: 'full' },
+  { path: 'oferta/:tipCalculator/:id', component: OfertaComponent },
   { path: 'calculator-1-apa', component: Calculator1ApaComponent },
   { path: 'calculator-2-ape', component: Calculator2ApeComponent },
   { path: 'calculator-4-ape', component: Calculator4ApeComponent },

@@ -1,4 +1,4 @@
-<mat-stepper #stepper [linear]="true">
+<mat-stepper #stepper [linear]="false">
   <mat-step [stepControl]="modelsForm" label="Modele">
     <roof-models (formData)="getModelsForm($event)"></roof-models>
   </mat-step>
@@ -14,11 +14,11 @@
 
   <mat-step [stepControl]="" label="Accesorii">
     <mat-spinner *ngIf="loader"></mat-spinner>
-    <app-accesorii *ngIf="!loader" (btnProceedToPrice)="getInfoFromAccesorii($event)" [necesarAccesorii]="necesarAccesorii"></app-accesorii>
+    <app-accesorii (btnProceedToPrice)="getInfoFromAccesorii($event)" [trigger]="trigger$" [necesarAccesorii]="necesarAccesorii"></app-accesorii>
   </mat-step>
 
   <mat-step [stepControl]="" label="Pret">
-    <app-price [accesorii]="infoNecesarAccesorii"></app-price>
+    <app-price [tipCalculator]="tipCalculator" [accesorii]="infoNecesarAccesorii" [models]="modelsForm?.value" [measurements]="measurementsForm?.value"></app-price>
   </mat-step>
   <mat-step [stepControl]="" label="Comanda">
     <!-- <app-comanda></app-comanda> -->

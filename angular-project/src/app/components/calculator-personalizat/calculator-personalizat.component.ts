@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -8,8 +9,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class CalculatorPersonalizatComponent implements OnInit {
   fileList: File[] = [];
+  formData = new FormData();
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
   
   ngOnInit() {
   }
@@ -18,6 +20,7 @@ export class CalculatorPersonalizatComponent implements OnInit {
     for (var i = 0; i <= event.target.files.length - 1; i++) {
       var selectedFile = event.target.files[i];
         this.fileList.push(selectedFile);
+        this.formData.append('image[]', selectedFile);
     }
   }
 
@@ -25,5 +28,13 @@ export class CalculatorPersonalizatComponent implements OnInit {
     this.fileList.splice(index, 1);
   }
 
-
+  uploadImages() {
+    const url = 'http://localhost:3000/api/main/uploadFiles';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        //'Content-Type': undefined
+      })
+    };
+    this.http.post(url, this.formData).subscribe();
+  }
 }
