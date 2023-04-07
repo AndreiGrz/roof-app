@@ -38,7 +38,7 @@ export class DimensiuniAcoperis1apaComponent implements OnInit, AfterViewInit{
         inaltimea_1: this.formBuilder.control('', [Validators.required]),
         numarHornuri: this.formBuilder.control('', [Validators.required]),
         diametru: this.formBuilder.control('', [Validators.required]),
-        sistem_pluvial: this.formBuilder.control('', []),
+        sistem_pluvial: this.formBuilder.control(false, []),
       });
 
       this.getData();
@@ -62,7 +62,7 @@ export class DimensiuniAcoperis1apaComponent implements OnInit, AfterViewInit{
     this.form.get('diametru')?.valueChanges.subscribe(value => {
       this.diametru = value;
     });
-
+    
     this.formData.emit(this.form);
     this.form.valueChanges.subscribe(() => this.formData.emit(this.form));
   }
