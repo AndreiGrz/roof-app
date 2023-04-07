@@ -44,7 +44,14 @@
         </mat-form-field>
     </div>
     <div class="ma-form-field">
-        <mat-form-field appearance="fill">
+            <mat-checkbox color="primary"
+                formControlName="sistem_pluvial" 
+                (change)="checkSistemPluvial($event)">
+                Vreau sistem pluvial
+            </mat-checkbox>
+    </div>
+    <div class="ma-form-field" *ngIf="isCheckedSistemPluvial">
+        <mat-form-field appearance="fill" >
             <mat-label>Diametru</mat-label>
             <mat-select name="diametru" formControlName="diametru">
             <mat-option *ngFor="let diametru of diametri" 

@@ -38,6 +38,7 @@ export class DimensiuniAcoperis1apaComponent implements OnInit, AfterViewInit{
         inaltimea_1: this.formBuilder.control('', [Validators.required]),
         numarHornuri: this.formBuilder.control('', [Validators.required]),
         diametru: this.formBuilder.control('', [Validators.required]),
+        sistem_pluvial: this.formBuilder.control('', []),
       });
 
       this.getData();
