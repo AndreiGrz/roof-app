@@ -7,6 +7,9 @@ const { v4: uuidv4 } = require('uuid');
 const formidable = require('formidable');
 const fs = require('fs');
 
+let productLabel = '';
+let productPrice = '';
+
 const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     const necesar = {};
     const aria_1 = Math.ceil(dimensiuni.lungimea_2 * dimensiuni.latimea_3);
@@ -17,38 +20,49 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     necesar.sort_streasina = Math.ceil(dimensiuni.lungimea_2 / 1.9);
     necesar.colector_fronton = necesar.bordura;
     necesar.opritor_zapada = Math.ceil(dimensiuni.lungimea_2 / 2);
-    necesar.jgheaburi = Math.ceil(dimensiuni.lungimea_2);
-    necesar.capac_jgheab = 2;
-    necesar.imbinare_jgheab = Math.ceil((dimensiuni.lungimea_2 / 4) -1 );
-    const colector_apa_1 = (dimensiuni.lungimea_2 < 5) ? 1 : (dimensiuni.lungimea_2 / 5);
-    necesar.colector_apa = Math.round(colector_apa_1); 
-    necesar.cot_evacuare = necesar.colector_apa;
-    necesar.carlige = Math.ceil((dimensiuni.lungimea_2 / 0.7) + 1);
-    necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
-    const burlan_1 = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa);
-    necesar.burlane = burlan_1 % 3 == 0 ? burlan_1 : Math.floor(burlan_1 + 1) | 1;
-    necesar.prelungitor = necesar.colector_apa;
 
-    let burlan = 0;
-    if (burlan_1 && burlan > 0){
-        if (burlan_1 % 3 == 0){
-            burlan = burlan_1;
+    if(dimensiuni.sistem_pluvial){
+        necesar.jgheaburi = Math.ceil(dimensiuni.lungimea_2);
+        necesar.capac_jgheab = 2;
+        necesar.imbinare_jgheab = Math.ceil((dimensiuni.lungimea_2 / 4) -1 );
+        const colector_apa_1 = (dimensiuni.lungimea_2 < 5) ? 1 : (dimensiuni.lungimea_2 / 5);
+        necesar.colector_apa = Math.round(colector_apa_1); 
+        necesar.cot_evacuare = necesar.colector_apa;
+        necesar.carlige = Math.ceil((dimensiuni.lungimea_2 / 0.7) + 1);
+        necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
+        const burlan_1 = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa);
+        necesar.burlane = burlan_1 % 3 == 0 ? burlan_1 : Math.floor(burlan_1 + 1) | 1;
+        necesar.prelungitor = necesar.colector_apa;
+
+        let burlan = 0;
+        if (burlan_1 && burlan > 0){
+            if (burlan_1 % 3 == 0){
+                burlan = burlan_1;
+            }
+            if ((burlan_1 - 1) % 3 == 0){
+                burlan = burlan_1 + 2;
+            }
+            if ((burlan_1 + 1) % 3 == 0){
+                burlan = burlan_1 + 1;
+            }
         }
-        if ((burlan_1 - 1) % 3 == 0){
-            burlan = burlan_1 + 2;
-        }
-        if ((burlan_1 + 1) % 3 == 0){
-            burlan = burlan_1 + 1;
-        }
+        necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
     }
-    necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
     necesar.folie = Math.ceil(necesar.aria / 75);
 
     let accesorii = await getAccesoriiForNecesar();
     accesorii.forEach((acc, i) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}
     });
-    return accesorii;
+
+    return [
+        {
+            label: productLabel, 
+            price: productPrice,
+            qty: necesar.aria
+        },
+        ...accesorii
+    ];
 }
 
 const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
@@ -63,25 +77,27 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
     necesar.colector_fronton = necesar.bordura;
     necesar.etans = Math.ceil(necesar.coama / 5);
     necesar.opritor_zapada = Math.round(dimensiuni.lungimea_3);//?
-    necesar.jgheaburi = (dimensiuni.lungimea_3 * 2) % 2 == 0 ? Math.ceil((dimensiuni.lungimea_3 * 2)) : Math.ceil((dimensiuni.lungimea_3 * 2)) + 1;
-    necesar.capac_jgheab = 4;
-    necesar.imbinare_jgheab = Math.ceil(((dimensiuni.lungimea_3 * 2) / 4));
-    const colector_apa_1 = ((dimensiuni.lungimea_3 * 2) < 5) ? 2 : ((dimensiuni.lungimea_3 * 2) / 5);
-    necesar.colector_apa = Math.ceil(colector_apa_1); 
-    necesar.cot_evacuare = necesar.colector_apa;
-    necesar.carlige = Math.ceil(((dimensiuni.lungimea_3 * 2) / 0.7) + 1);
-    necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
+    if(dimensiuni.sistem_pluvial){
+        necesar.jgheaburi = (dimensiuni.lungimea_3 * 2) % 2 == 0 ? Math.ceil((dimensiuni.lungimea_3 * 2)) : Math.ceil((dimensiuni.lungimea_3 * 2)) + 1;
+        necesar.capac_jgheab = 4;
+        necesar.imbinare_jgheab = Math.ceil(((dimensiuni.lungimea_3 * 2) / 4));
+        const colector_apa_1 = ((dimensiuni.lungimea_3 * 2) < 5) ? 2 : ((dimensiuni.lungimea_3 * 2) / 5);
+        necesar.colector_apa = Math.ceil(colector_apa_1); 
+        necesar.cot_evacuare = necesar.colector_apa;
+        necesar.carlige = Math.ceil(((dimensiuni.lungimea_3 * 2) / 0.7) + 1);
+        necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
 
-    let burlan = 0;
-    if (Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) % 3 == 0)
-      burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa);
-    if (Math.ceil((dimensiuni.inaltimea_1 * necesar.colector_apa) - 1) % 3 == 0)
-      burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) + 2;
-    if (Math.ceil((dimensiuni.inaltimea_1 * necesar.colector_apa) + 1) % 3 == 0)
-      burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) + 1;
-    
-    necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
-    necesar.prelungitor = necesar.colector_apa;
+        let burlan = 0;
+        if (Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) % 3 == 0)
+        burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa);
+        if (Math.ceil((dimensiuni.inaltimea_1 * necesar.colector_apa) - 1) % 3 == 0)
+        burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) + 2;
+        if (Math.ceil((dimensiuni.inaltimea_1 * necesar.colector_apa) + 1) % 3 == 0)
+        burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) + 1;
+        
+        necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
+        necesar.prelungitor = necesar.colector_apa;
+    }
     necesar.folie = Math.ceil(necesar.aria / 75);
 
     let accesorii = await getAccesoriiForNecesar();
@@ -90,7 +106,14 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}   
     });
 
-    return accesorii;
+    return [
+        {
+            label: productLabel, 
+            price: productPrice,
+            qty: necesar.aria
+        },
+        ...accesorii
+    ];
 }
 
 const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
@@ -105,26 +128,32 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
     necesar.colector_fronton = necesar.bordura;
     necesar.etans = Math.ceil(necesar.coama / 5);
     necesar.opritor_zapada = Math.round((dimensiuni.lungimea_2 + dimensiuni.latimea_3)); 
-    necesar.jgheaburi = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2);
-    necesar.capac_jgheab = 0;
-    necesar.imbinare_jgheab = Math.ceil((((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 4)+6);
-    const colector_apa_1 = (dimensiuni.lungimea_2 < 5) ? 1 :  ((dimensiuni.lungimea_2 + dimensiuni.latimea_3)*2) / 5;
-    necesar.colector_apa = Math.round(colector_apa_1);
-    necesar.cot_evacuare = necesar.colector_apa;
-    necesar.carlige = Math.ceil((((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 0.7) + 8);
-    necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
+
+    if(dimensiuni.sistem_pluvial){
+        necesar.jgheaburi = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2);
+        necesar.capac_jgheab = 0;
+        necesar.imbinare_jgheab = Math.ceil((((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 4)+6);
+        const colector_apa_1 = (dimensiuni.lungimea_2 < 5) ? 1 :  ((dimensiuni.lungimea_2 + dimensiuni.latimea_3)*2) / 5;
+        necesar.colector_apa = Math.round(colector_apa_1);
+        necesar.cot_evacuare = necesar.colector_apa;
+        necesar.carlige = Math.ceil((((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 0.7) + 8);
+        necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
+        
+        let burlan = 0;
+        if (Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) % 3 == 0)
+            burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa);
+        if (Math.ceil((dimensiuni.inaltimea_1 * necesar.colector_apa) - 1) % 3 == 0)
+            burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) + 2;
+        if (Math.ceil((dimensiuni.inaltimea_1 * necesar.colector_apa) + 1) % 3 == 0)
+            burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) + 1;
+        
+        necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
+        necesar.colt_exterior = 4;
+        necesar.prelungitor = necesar.colector_apa;
+    }
+  
     
-    let burlan = 0;
-    if (Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) % 3 == 0)
-        burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa);
-    if (Math.ceil((dimensiuni.inaltimea_1 * necesar.colector_apa) - 1) % 3 == 0)
-        burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) + 2;
-    if (Math.ceil((dimensiuni.inaltimea_1 * necesar.colector_apa) + 1) % 3 == 0)
-        burlan = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa) + 1;
-    
-    necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
-    necesar.colt_exterior = 4;
-    necesar.prelungitor = necesar.colector_apa;
+
     necesar.folie = Math.ceil(necesar.aria / 75);
 
     let accesorii = await getAccesoriiForNecesar();
@@ -133,8 +162,14 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}
     });
 
-    let y = accesorii;
-    return accesorii;
+    return [
+        {
+            label: productLabel, 
+            price: productPrice,
+            qty: necesar.aria
+        },
+        ...accesorii
+    ];
 }
 
 const getAccesoriiForNecesar = async () => {
@@ -242,6 +277,9 @@ exports.getGrosimi = async (req, res) => {
         left join wpay_postmeta as postmeta on postmeta.post_id = postm.post_id
         left join wpay_posts as posts on posts.id = postmeta.meta_value 
         where termrel.term_taxonomy_id = ? and postm.meta_key = "attribute_pa_grosime" and postmeta.meta_key = "_thumbnail_id"  and posts.guid <> "NULL" group by postm.meta_value`, [finisajId]);
+        
+        productLabel = rows[0].post_title;
+        
         res.status(200)
             .send({
                 results: rows
@@ -295,6 +333,14 @@ exports.getPret = async (req, res) => {
 
         const [price] = await conn.execute(`SELECT meta_value FROM wpay_postmeta WHERE post_id = ? and meta_key = "_regular_price"`, [grosimeId]);
         const [salePrice] = await conn.execute(`SELECT * FROM wpay_postmeta WHERE post_id = ? and meta_key = "_sale_price"`, [grosimeId]);
+
+        if (price && price.length) {
+            productPrice = price[0].meta_value;
+        } else if (salePrice && salePrice.length) {
+            productPrice = salePrice[0].meta_value;
+        } else {
+            productPrice = null;
+        }
 
         res.status(200)
             .send({

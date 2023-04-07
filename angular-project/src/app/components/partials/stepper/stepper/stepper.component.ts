@@ -78,15 +78,11 @@ export class StepperComponent implements OnInit, AfterViewInit {
   getModelsForm(event: FormGroup): void {
     this.modelsForm = event;
     this.cdr.detectChanges();
-
-    // console.log(this.modelsForm.value);
   }
 
   getMeasurementsForm(event: FormGroup): void {
     this.measurementsForm = event;
     this.cdr.detectChanges();
-
-    // console.log(this.measurementsForm.value);
   }
 
   getInfoFromAccesorii(event: any): void {
@@ -95,7 +91,6 @@ export class StepperComponent implements OnInit, AfterViewInit {
   }
 
   getBtnProceedToAccesoriesState(event: boolean) {
-    // this.cdr.detectChanges();
     const btnState = event;
     if (btnState) {
       this.sendDataToServer();
