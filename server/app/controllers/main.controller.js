@@ -9,6 +9,7 @@ const fs = require('fs');
 
 let productLabel = '';
 let productPrice = '';
+let productId = '';
 
 const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     const necesar = {};
@@ -57,6 +58,7 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
 
     return [
         {
+            id: productId,
             label: productLabel, 
             price: productPrice,
             qty: necesar.aria
@@ -108,6 +110,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
 
     return [
         {
+            id: productId,
             label: productLabel, 
             price: productPrice,
             qty: necesar.aria
@@ -164,6 +167,7 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
 
     return [
         {
+            id: productId,
             label: productLabel, 
             price: productPrice,
             qty: necesar.aria
@@ -279,7 +283,7 @@ exports.getGrosimi = async (req, res) => {
         where termrel.term_taxonomy_id = ? and postm.meta_key = "attribute_pa_grosime" and postmeta.meta_key = "_thumbnail_id"  and posts.guid <> "NULL" group by postm.meta_value`, [finisajId]);
         
         productLabel = rows[0].post_title;
-        
+        productId = rows[0].id;
         res.status(200)
             .send({
                 results: rows
