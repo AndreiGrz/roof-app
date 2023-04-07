@@ -94,7 +94,6 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
 }
 
 const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
-    console.log('here we go', dimensiuni, modelTabla)
     const necesar = {};
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.linia_4) * dimensiuni.adancimea_6 + (dimensiuni.latimea_3 * dimensiuni.adancimea_7));
@@ -397,8 +396,6 @@ exports.sendEmail = async (req, res) => {
         const dbMeasurements = JSON.stringify(measurements);
         const dbAccesorii = JSON.stringify(list);
 
-        console.log(dbAccesorii);
-
         await conn.execute(
             'INSERT INTO calculator (id, email, nume, modele, masuratori, accesorii) VALUES (?, ?, ?, ?, ?, ?)',
             [dbId, dbEmail, dbNume, dbModels, dbMeasurements, dbAccesorii]
@@ -482,7 +479,6 @@ exports.uploadFiles = async (req, res) => {
         form.multiples = true;
     
         form.on('file', (field, file) => {
-            console.log(file);
           fs.rename(file.filepath, form.uploadDir + '/' + file.originalFilename, (error) => {
             if (error) throw error;
           });
