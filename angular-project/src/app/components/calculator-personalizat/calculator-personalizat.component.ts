@@ -30,11 +30,6 @@ export class CalculatorPersonalizatComponent implements OnInit {
 
   uploadImages() {
     const url = 'http://localhost:3000/api/main/uploadFiles';
-    const httpOptions = {
-      headers: new HttpHeaders({
-        //'Content-Type': undefined
-      })
-    };
     this.http.post(url, this.formData).subscribe();
   }
 }
