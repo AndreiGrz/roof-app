@@ -72,9 +72,5 @@ export class MainService {
 
     return this.http.get<{results: any}>(`${this.BASE_URL}/getOferta`, {params: queryParams});
   }
-
-  comanda(produse: any[]): Observable<{results: any}> {
-    return this.http.post<{results: any}>(`https://tabla-online.ro/calculator.php`, {produse});
-  }
 }
 

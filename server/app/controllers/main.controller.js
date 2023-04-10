@@ -10,6 +10,7 @@ const fs = require('fs');
 let productLabel = '';
 let productPrice = '';
 let productId = '';
+let productParent = '';
 
 const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     const necesar = {};
@@ -59,6 +60,7 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     return [
         {
             id: productId,
+            parentId: productParent,
             label: productLabel, 
             price: productPrice,
             qty: necesar.aria
@@ -111,6 +113,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
     return [
         {
             id: productId,
+            parentId: productParent,
             label: productLabel, 
             price: productPrice,
             qty: necesar.aria
@@ -168,6 +171,7 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
     return [
         {
             id: productId,
+            parentId: productParent,
             label: productLabel, 
             price: productPrice,
             qty: necesar.aria
@@ -180,6 +184,7 @@ const getAccesoriiForNecesar = async () => {
     const conn = await connection();
     const [result]  = await conn.execute(`SELECT p.post_title AS label,  
         p.id,
+        p.post_parent as parentId,
         pm_price.meta_value AS price, 
     pm_sku.meta_value AS _key
     FROM wpay_posts AS p
@@ -275,7 +280,7 @@ exports.getGrosimi = async (req, res) => {
     try {
         const finisajId = req.query.finisajId;
 
-        const [rows] = await conn.execute(`select postm.meta_id, postsp.post_title, postsp.id,  postm.meta_key, postm.meta_value, posts.guid from wpay_posts as postsp
+        const [rows] = await conn.execute(`select postm.meta_id, postsp.post_title, postsp.id, postsp.post_parent as parentId, postm.meta_key, postm.meta_value, posts.guid from wpay_posts as postsp
         join wpay_term_relationships as termrel on postsp.post_parent =  termrel.object_id
         join wpay_postmeta as postm on postsp.id = postm.post_id
         left join wpay_postmeta as postmeta on postmeta.post_id = postm.post_id
@@ -284,6 +289,8 @@ exports.getGrosimi = async (req, res) => {
         
         productLabel = rows[0].post_title;
         productId = rows[0].id;
+        productParent = rows[0].parentId;
+
         res.status(200)
             .send({
                 results: rows
@@ -340,10 +347,9 @@ exports.getPret = async (req, res) => {
 
         if (price && price.length) {
             productPrice = price[0].meta_value;
-        } else if (salePrice && salePrice.length) {
+        }
+        if (salePrice && salePrice.length) {
             productPrice = salePrice[0].meta_value;
-        } else {
-            productPrice = null;
         }
 
         res.status(200)

@@ -88,8 +88,15 @@ export class PriceComponent implements OnInit, OnChanges {
   }
 
   comanda(): void {
-    const produse = this.tableDataSource.data.map((obj: any) => ({id: obj.id, qty: obj.qty}));
+    const products = this.tableDataSource.data.map((obj: any) => ({
+      productId: obj.parentId === 0 ? obj.id : obj.parentId, 
+      variationId: obj.parentId === 0 ? '' : obj.id,
+      quantity: obj.qty
+    }));
     
-    this.mainService.comanda(produse).subscribe();
+    const productParam = encodeURIComponent(JSON.stringify(products));
+    const url = `https://tabla-online.ro/calculator.php?products=${productParam}`;
+
+    window.location.href = url;
   }
 }
