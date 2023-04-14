@@ -564,7 +564,7 @@ exports.uploadFiles = async (req, res) => {
                   const transporter = nodemailer.createTransport(transportObj);
                   const mailOptions = {
                     from: 'calculator@tabla-online.ro',
-                    to: `ilie.amariucai@gmail.com`,
+                    to: `calculator@tabla-online.ro`,
                     subject: 'Calculator personalizat',
                     html: `
                     <h3>Buna ziua,</h3>
