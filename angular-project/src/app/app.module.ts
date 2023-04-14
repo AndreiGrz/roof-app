@@ -35,7 +35,7 @@ import { ContactDialogComponent } from './components/partials/stepper/stepper-pa
 import { MailDialogComponent } from './components/partials/stepper/stepper-partials/price/price/dialogs/mail-dialog/mail-dialog.component';
 import { ComandaComponent } from './components/partials/stepper/stepper-partials/comanda/comanda.component';
 import { OfertaComponent } from './components/oferta/oferta.component';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -81,7 +81,8 @@ import { OfertaComponent } from './components/oferta/oferta.component';
     MatDialogModule,
     MatCardModule,
     MatTableModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

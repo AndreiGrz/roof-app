@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 import { environment } from 'src/environments/env';
 @Component({
   selector: 'calculator-personalizat',
@@ -7,10 +8,14 @@ import { environment } from 'src/environments/env';
   styleUrls: ['./calculator-personalizat.component.scss'],
 })
 export class CalculatorPersonalizatComponent implements OnInit {
+  @ViewChild('fileInput') fileInput: any;
   fileList: File[] = [];
   formData = new FormData();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private snackbarService: SnackbarService
+    ) {}
 
   ngOnInit() {}
 
@@ -18,19 +23,35 @@ export class CalculatorPersonalizatComponent implements OnInit {
     for (var i = 0; i <= event.target.files.length - 1; i++) {
       var selectedFile = event.target.files[i];
       this.fileList.push(selectedFile);
-      this.formData.append('image[]', selectedFile);
+      this.formData.append(`image[${i}]`, selectedFile);
     }
   }
 
   removeSelectedFile(index: number) {
     this.fileList.splice(index, 1);
+    this.formData.delete(`image[${index}]`);
   }
 
   uploadImages() {
+    if (!this.fileList.length) {
+      return;
+    }
     const url = `${environment.apiUrl}/uploadFiles`;
     this.http.post(url, this.formData).subscribe({
-      next: (res) => console.log(res),
-      error: (err) => console.log(err),
+      next: () => {
+        this.reset();
+        this.snackbarService.showSnackBar('Fisiere incarcate cu succes!');
+      },
+      error: () => {
+        this.reset();
+        this.snackbarService.showSnackBar('Eroare in incarcarea fisierelor!');
+      }
     });
+  }
+
+  private reset(): void {
+    this.fileList = [];
+    this.formData = new FormData();
+    this.fileInput.nativeElement.value = '';
   }
 }

@@ -500,7 +500,7 @@ exports.sendEmail = async (req, res) => {
               return res.status(500).send(err);
             }
     
-            res.send({message: 'ok'});
+            res.status(200).send({message: 'ok'});
           });
 
     } catch (err) {
@@ -533,18 +533,64 @@ exports.uploadFiles = async (req, res) => {
         const form = new formidable.IncomingForm();
         form.uploadDir = path.join(__dirname, '../public');
         form.multiples = true;
-    
+
         form.on('file', (field, file) => {
-          fs.rename(file.filepath, form.uploadDir + '/' + file.originalFilename, (error) => {
-            if (error) throw error;
+            const path = `${form.uploadDir}/${file.newFilename}-${file.originalFilename}`;
+
+            fs.rename(file.filepath, path, (err) => {
+                if (err) throw err;
+            });
+        });
+    
+        form.parse(req, (err, fields, files) => {
+            if (err) {
+                throw err;
+            } else {
+                let transportObj = {
+                    host: 'mail.tabla-online.ro',
+                    port: process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? 465 : 587,
+                    secure: process.env.NODE_ENV && process.env.NODE_ENV === 'production',
+                    auth: {
+                      user: 'calculator@tabla-online.ro',
+                      pass: 'Calculator123!@#'
+                    }
+                  };
+                  if (!(process.env.NODE_ENV && process.env.NODE_ENV === 'production')) {
+                    transportObj = {
+                        ...transportObj,
+                        tls: {rejectUnauthorized: false}
+                    };
+                  }
+                  const transporter = nodemailer.createTransport(transportObj);
+                  const mailOptions = {
+                    from: 'calculator@tabla-online.ro',
+                    to: `ilie.amariucai@gmail.com`,
+                    subject: 'Calculator personalizat',
+                    html: `
+                    <h3>Buna ziua,</h3>
+                    <br>
+                    <div>
+                        Aici aveti imaginile trimise:
+                        <br>
+                        <br>
+                       <ul>
+                            ${Object.keys(files).map(key => `
+                                <li><a href="${files[key].filepath.replace(files[key].newFilename, `${files[key].newFilename}-${files[key].originalFilename}`)}">${files[key].originalFilename}</a></li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    `
+                  };
+                transporter.sendMail(mailOptions, (err, info) => {
+                    if (err) {
+                      throw err;
+                    }
+            
+                    res.status(200).send({message: 'ok'});
+                  });
+                }
+                
           });
-        });
-    
-        form.on('end', () => {
-            res.status(200).send();
-        });
-    
-        form.parse(req);
     } catch (err) {
         res.status(500).send({message: err.message});
     }
