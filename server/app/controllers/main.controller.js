@@ -575,7 +575,7 @@ exports.uploadFiles = async (req, res) => {
                         <br>
                        <ul>
                             ${Object.keys(files).map(key => `
-                                <li><a href="${files[key].filepath.replace(files[key].newFilename, `${files[key].newFilename}-${files[key].originalFilename}`)}">${files[key].originalFilename}</a></li>
+                                <li><a href="${process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? `https://calculator.tabla-online.ro/app/public/${files[key].newFilename}-${files[key].originalFilename}` : 'local'}">${files[key].originalFilename}</a></li>
                             `).join('')}
                         </ul>
                     </div>
