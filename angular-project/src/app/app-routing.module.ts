@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'calculator-1-apa', component: Calculator1ApaComponent },
   { path: 'calculator-2-ape', component: Calculator2ApeComponent },
   { path: 'calculator-4-ape', component: Calculator4ApeComponent },
-  { path: 'calculator-personalizat', component: CalculatorPersonalizatComponent }
+  { path: 'calculator-personalizat', component: CalculatorPersonalizatComponent },
+  { path: '**', redirectTo: '/calculator-1-apa', pathMatch: 'full' },
 ];
 
 export const appRouting = RouterModule.forRoot(routes);
