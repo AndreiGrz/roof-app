@@ -1,109 +1,142 @@
 <form [formGroup]="form">
-    <div class="ma-form-field">
-        <mat-form-field appearance="fill">
-            <mat-label>Inaltime (1) </mat-label>
-            <input matInput
-                   type="number"
-                   formControlName="inaltimea_1">
-            <mat-error>
-                <strong>Inaltimea (1) este obligatorie!</strong>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div class="ma-form-field">
-        <mat-form-field appearance="fill">
-            <mat-label>Lungime (2) </mat-label>
-            <input matInput
-                   type="number"
-                   formControlName="lungimea_2">
-            <mat-error>
-                <strong>Lungimea (2) este obligatorie!</strong>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div class="ma-form-field">
-        <mat-form-field appearance="fill">
-            <mat-label>Latimea (3) </mat-label>
-            <input matInput
-                   type="number"
-                   formControlName="latimea_3">
-            <mat-error>
-                <strong>Latimea (3) este obligatorie!</strong>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div class="ma-form-field">
-        <mat-form-field appearance="fill">
-            <mat-label>Linia (4) </mat-label>
-            <input matInput
-                   type="number"
-                   formControlName="linia_4">
-            <mat-error>
-                <strong>Linia (4) este obligatorie!</strong>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div class="ma-form-field">
-        <mat-form-field appearance="fill">
-            <mat-label>Cateta (5) </mat-label>
-            <input matInput
-                   type="number"
-                   formControlName="cateta_5">
-            <mat-error>
-                <strong>Cateta 5 este obligatorie!</strong>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div class="ma-form-field">
-        <mat-form-field appearance="fill">
-            <mat-label>Adancimea (6) </mat-label>
-            <input matInput
-                   type="number"
-                   formControlName="adancimea_6">
-            <mat-error>
-                <strong>Adancimea (6) este obligatorie!</strong>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div class="ma-form-field">
-        <mat-form-field appearance="fill">
-            <mat-label>Adancimea (7) </mat-label>
-            <input matInput
-                   type="number"
-                   formControlName="adancimea_7">
-            <mat-error>
-                <strong>Adancimea (7) este obligatorie!</strong>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div class="ma-form-field">
-        <mat-form-field appearance="fill">
-            <mat-label>Numar Hornuri</mat-label>
-            <input matInput
-                   type="number"
-                   value="1"
-                   formControlName="numarHornuri">
-            <mat-error>
-                <strong>Numarul de hornuri este obligatoriu!</strong>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div class="ma-form-field">
-        <mat-checkbox color="primary"
-            formControlName="sistem_pluvial" 
-            (change)="checkSistemPluvial($event)">
-            Vreau sistem pluvial
-        </mat-checkbox>
-    </div>
-    <div class="ma-form-field" *ngIf="isCheckedSistemPluvial">
-        <mat-form-field appearance="fill">
-            <mat-label>Diametru</mat-label>
-            <mat-select name="diametru" formControlName="diametru">
-            <mat-option *ngFor="let diametru of diametri" 
-                        [value]="diametru.value">
-                {{diametru.value}}
-            </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
+  <div class="ma-form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Inaltime (1) </mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        max="9999"
+        formControlName="inaltimea_1"
+      />
+      <mat-error>
+        <strong>Inaltimea (1) este obligatorie!</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="ma-form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Lungime (2) </mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        max="9999"
+        formControlName="lungimea_2"
+      />
+      <mat-error>
+        <strong>Lungimea (2) este obligatorie!</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="ma-form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Latimea (3) </mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        max="9999"
+        formControlName="latimea_3"
+      />
+      <mat-error>
+        <strong>Latimea (3) este obligatorie!</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="ma-form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Linia (4) </mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        max="9999"
+        formControlName="linia_4"
+      />
+      <mat-error>
+        <strong>Linia (4) este obligatorie!</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="ma-form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Cateta (5) </mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        max="9999"
+        formControlName="cateta_5"
+      />
+      <mat-error>
+        <strong>Cateta 5 este obligatorie!</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="ma-form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Adancimea (6) </mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        max="9999"
+        formControlName="adancimea_6"
+      />
+      <mat-error>
+        <strong>Adancimea (6) este obligatorie!</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="ma-form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Adancimea (7) </mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        max="9999"
+        formControlName="adancimea_7"
+      />
+      <mat-error>
+        <strong>Adancimea (7) este obligatorie!</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="ma-form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Numar Hornuri</mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        max="9999"
+        value="1"
+        formControlName="numarHornuri"
+      />
+      <mat-error>
+        <strong>Numarul de hornuri este obligatoriu!</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="ma-form-field">
+    <mat-checkbox
+      color="primary"
+      formControlName="sistem_pluvial"
+      (change)="checkSistemPluvial($event)"
+    >
+      Vreau sistem pluvial
+    </mat-checkbox>
+  </div>
+  <div class="ma-form-field" *ngIf="isCheckedSistemPluvial">
+    <mat-form-field appearance="fill">
+      <mat-label>Diametru</mat-label>
+      <mat-select name="diametru" formControlName="diametru">
+        <mat-option *ngFor="let diametru of diametri" [value]="diametru.value">
+          {{ diametru.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </form>

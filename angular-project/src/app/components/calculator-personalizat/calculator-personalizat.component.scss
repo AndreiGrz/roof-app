@@ -1,11 +1,22 @@
-.info-text{
-    text-align: left;
+.info-text {
+  text-align: left;
 
-    .warning{
-        color:#ffa500;
-        margin: 0px 5px -5px 0px;
-    }
+  .warning {
+    color: #ffa500;
+    margin: 0px 5px -5px 0px;
+  }
 }
-.color-danger{
-    color:#ff3300
+.color-danger {
+  color: #ff3300;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  padding: 50px;
+
+  .file-el {
+    padding: 10px;
+  }
 }

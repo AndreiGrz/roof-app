@@ -567,11 +567,16 @@ exports.uploadFiles = async (req, res) => {
                     to: `calculator@tabla-online.ro`,
                     subject: 'Calculator personalizat',
                     html: `
-                    <h3>Buna ziua,</h3>
+                    <h3>Calculator personalizat</h3>
+                    <br>
+                    <p>Nume: ${fields.nume}</p>
+                    <p>Prenume: ${fields.prenume}</p>
+                    <p>Email: ${fields.email}</p>
+                    <p>Adresa: ${fields.adresa}</p>
+                    <p>Telefon: ${fields.telefon}</p>
                     <br>
                     <div>
-                        Aici aveti imaginile trimise:
-                        <br>
+                        Fisiere:
                         <br>
                        <ul>
                             ${Object.keys(files).map(key => `
