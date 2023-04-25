@@ -37,3 +37,44 @@ $angular-project-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline{
+  border-color: #fff!important;
+}
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label{
+  color:#fff!important;
+  font-weight: 400;
+}
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
+  color:#fff!important;
+}
+.mat-mdc-tab-ripple {
+  background: #b7000b !important;
+}
+
+.mat-step-header .mat-step-icon-selected, 
+.mat-step-header .mat-step-icon-state-edit{
+  background-color: #b7000b!important;
+}
+
+.mat-mdc-raised-button.mat-primary{
+  --mdc-protected-button-container-color: rgba( 239,125,0 , 1) !important;
+}
+.mat-mdc-raised-button.mat-unthemed {
+  --mdc-protected-button-container-color: #b7000b;
+  --mdc-protected-button-label-text-color: #fff;
+}
+
+.mat-mdc-tab-header-pagination {
+  background-color: #b7000b !important;
+}
+
+@media screen and (max-width: 768px)  {
+  .mat-step-text-label{
+    display: none!important;
+  }
+
+  .mat-mdc-icon-button.mat-mdc-button-base {
+    width: 20px;
+  }
+}
+

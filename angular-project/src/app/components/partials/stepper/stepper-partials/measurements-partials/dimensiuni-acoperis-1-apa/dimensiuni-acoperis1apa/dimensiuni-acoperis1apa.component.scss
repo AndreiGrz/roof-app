@@ -7,3 +7,9 @@ mat-checkbox{
 .mat-mdc-form-field {
     min-width: 40%;
 }
+
+@media screen and (max-width: 768px)  {
+    .mat-mdc-form-field {
+        min-width: 100%;
+    }
+}

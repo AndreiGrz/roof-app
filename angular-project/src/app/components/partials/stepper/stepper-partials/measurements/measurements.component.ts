@@ -38,6 +38,7 @@ export class MeasurementsComponent implements OnInit {
     this.cdr.detectChanges();
 
     this.formData.emit(this.measurementCalculator_1A);
+    console.log('sssss',this.measurementCalculator_1A);
   }
 
   getMeasurementsForCalc2A(event: FormGroup): void {

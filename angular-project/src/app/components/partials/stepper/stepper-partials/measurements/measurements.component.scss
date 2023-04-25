@@ -56,3 +56,26 @@
         margin: 0px 5px -5px 0px;
     }
 }
+
+@media screen and (max-width: 768px)  {
+    #modelsWrapper{
+
+        .columnOne {
+            margin-right: 0px;
+            width: 100%;
+            mat-form-field{
+                width: 100%;
+            } 
+        }
+
+        .columnTwo{
+            width: 100%;
+            .roof-img{
+                display: block;
+                margin: 0 auto; 
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}

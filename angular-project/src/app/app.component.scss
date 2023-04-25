@@ -1,11 +1,28 @@
 :host {
-    mat-toolbar .title {
-        padding-left: 20px;
+    mat-toolbar {
+        background-color: transparent;
+        border-bottom: 4px solid #b7000b;
+        .title{
+             padding-left: 20px;
+             color: #b7000b;
+             font-weight: 600;
+        }
+        .logo{
+            img{
+                width: 110px;
+                padding: 10px;
+            }
+        }
     }
 
     .navtabs-container {
         a {
             text-decoration: none;
         }
+    }
+}
+@media screen and (max-width: 768px)  {
+    mat-toolbar{
+        height: 80px;
     }
 }

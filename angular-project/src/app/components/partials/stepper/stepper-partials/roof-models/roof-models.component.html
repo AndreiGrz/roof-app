@@ -74,7 +74,7 @@
     </div>
 </div>
 <div>
-    <button mat-raised-button color="primary" matStepperNext class="nextStep"> 
+    <button mat-raised-button color="primary" matStepperNext class="nextStep" [disabled]="!form.valid"> 
         <span>Masuratori</span> 
         <mat-icon>keyboard_arrow_right</mat-icon>
     </button>

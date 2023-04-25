@@ -56,3 +56,30 @@
         font-size:18px;
     }
 }
+
+
+@media screen and (max-width: 768px)  {
+    #modelsWrapper{
+
+        .columnOne {
+            margin-right: 0px;
+            width: 100%;
+            mat-form-field{
+                width: 100%;
+            } 
+        }
+
+        .columnTwo{
+            width: 100%;
+            .roof-img{
+                display: block;
+                margin: 0 auto; 
+            }
+            .priceSection {
+                .oldPrice, .newPrice {
+                width: 100% ;
+                }
+            }
+        }
+    }
+}

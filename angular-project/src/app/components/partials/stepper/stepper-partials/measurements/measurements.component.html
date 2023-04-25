@@ -35,7 +35,39 @@
         <span>Modele</span>
         <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
-    <button mat-raised-button color="primary" matStepperNext class="steps" (click)="proceedToAccesories()"> 
+    <button 
+        *ngIf="tipAcoperis === '1A'" 
+        mat-raised-button 
+        color="primary" 
+        matStepperNext 
+        class="steps" 
+        (click)="proceedToAccesories()"
+        [disabled]="!measurementCalculator_1A?.valid"
+    > 
+        <span>Accesorii</span> 
+        <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+    <button 
+        *ngIf="tipAcoperis === '2A'" 
+        mat-raised-button 
+        color="primary" 
+        matStepperNext 
+        class="steps" 
+        (click)="proceedToAccesories()"
+        [disabled]="!measurementCalculator_2A?.valid"
+    > 
+        <span>Accesorii</span> 
+        <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+    <button 
+        *ngIf="tipAcoperis === '4A'" 
+        mat-raised-button 
+        color="primary" 
+        matStepperNext 
+        class="steps" 
+        (click)="proceedToAccesories()"
+        [disabled]="!measurementCalculator_4A?.valid"
+    > 
         <span>Accesorii</span> 
         <mat-icon>keyboard_arrow_right</mat-icon>
     </button>

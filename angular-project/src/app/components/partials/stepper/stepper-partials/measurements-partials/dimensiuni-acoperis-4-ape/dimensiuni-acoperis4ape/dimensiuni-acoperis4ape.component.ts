@@ -48,7 +48,7 @@ export class DimensiuniAcoperis4apeComponent implements OnInit, AfterViewInit{
       adancimea_6: this.formBuilder.control('', [Validators.required]),
       adancimea_7: this.formBuilder.control('', [Validators.required]),
       numarHornuri: this.formBuilder.control('', [Validators.required]),
-      diametru: this.formBuilder.control('', [Validators.required]),
+      diametru: this.formBuilder.control('', []),
       sistem_pluvial: this.formBuilder.control(false, []),
     });
 
