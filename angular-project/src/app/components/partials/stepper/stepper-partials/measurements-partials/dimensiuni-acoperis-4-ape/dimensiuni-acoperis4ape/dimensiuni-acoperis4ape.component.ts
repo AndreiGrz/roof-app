@@ -50,7 +50,9 @@ export class DimensiuniAcoperis4apeComponent implements OnInit, AfterViewInit{
       numarHornuri: this.formBuilder.control('', [Validators.required]),
       diametru: this.formBuilder.control('', []),
       sistem_pluvial: this.formBuilder.control(false, []),
+      imparte_tabla: this.formBuilder.control(false, []),
     });
+    this.form.get('numarHornuri')?.patchValue(0);
 
     this.getData();
   }

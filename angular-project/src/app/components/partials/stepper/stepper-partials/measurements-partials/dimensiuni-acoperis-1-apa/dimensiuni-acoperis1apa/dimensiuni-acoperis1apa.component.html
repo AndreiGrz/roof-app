@@ -4,10 +4,11 @@
       <mat-label>Lungimea (2) </mat-label>
       <input
         matInput
-        type="number"
+        type="text"
         min="1"
         max="9999"
         formControlName="lungimea_2"
+        oninput="this.value=this.value.replace(/,/g, '.');"
       />
       <mat-error>
         <strong>Lungimea este obligatorie!</strong>
@@ -50,7 +51,7 @@
       <input
         matInput
         type="number"
-        min="1"
+        min="0"
         max="9999"
         formControlName="numarHornuri"
       />
@@ -62,12 +63,26 @@
   <div class="ma-form-field">
     <mat-checkbox
       color="primary"
+      formControlName="imparte_tabla"
+    >
+      Imparte inaltimea tablei pe doua randuri
+    </mat-checkbox>
+  </div>
+  <div style="width:40%; margin:0 auto; text-align: left;" class="info-imparte-tabla">
+    <mat-icon style="color: #03A9F4;">info</mat-icon>
+    <em style="font-size:14px; color:#6a6a6a; margin-top: -5px; margin-bottom: 5px;">Inaltimea maxima la care livram tabla este de 5 metri, insa poate fi dificil de lucrat cu ea. Aceasta opțiune va permite sa impartiti bucatile de tabla in 2 randuri</em>
+  </div>
+  <div class="ma-form-field sistem_pluvial" >
+    <mat-checkbox
+      color="primary"
       formControlName="sistem_pluvial"
       (change)="checkSistemPluvial($event)"
     >
       Vreau sistem pluvial
     </mat-checkbox>
-  </div>
+  </div>    
+
+
   <div class="ma-form-field" *ngIf="isCheckedSistemPluvial">
     <mat-form-field appearance="fill">
       <mat-label>Diametru</mat-label>

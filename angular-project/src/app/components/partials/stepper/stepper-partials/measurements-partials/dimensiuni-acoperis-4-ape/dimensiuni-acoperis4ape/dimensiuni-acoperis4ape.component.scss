@@ -5,8 +5,14 @@ mat-checkbox{
 .mat-mdc-form-field {
     min-width: 40%;
 }
+.sistem_pluvial{
+    margin-left: -140px;
+}
 @media screen and (max-width: 768px)  {
     .mat-mdc-form-field {
         min-width: 100%;
+    }
+    .info-imparte-tabla{
+        width: 100%!important;
     }
 }

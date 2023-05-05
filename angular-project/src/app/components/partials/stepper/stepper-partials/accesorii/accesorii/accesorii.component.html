@@ -25,7 +25,10 @@
                             type="number"
                             min="1"
                             max="9999"
-                        /> <span class="suffix" matSuffix>buc.</span>
+                        /> 
+                    <span *ngIf="element._key != 'jgheaburi' && element._key" class="suffix" matSuffix>buc.</span>
+                    <span *ngIf="!element._key" class="suffix" matSuffix>&#13217;</span>
+                    <span *ngIf="element._key === 'jgheaburi'" class="suffix" matSuffix>m</span>
                     </mat-form-field>
                 </td>
             </ng-container>

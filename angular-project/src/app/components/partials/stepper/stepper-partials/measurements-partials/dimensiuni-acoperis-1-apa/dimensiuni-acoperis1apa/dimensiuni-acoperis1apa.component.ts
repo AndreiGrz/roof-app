@@ -39,7 +39,9 @@ export class DimensiuniAcoperis1apaComponent implements OnInit, AfterViewInit{
         numarHornuri: this.formBuilder.control('', [Validators.required]),
         diametru: this.formBuilder.control('', []),
         sistem_pluvial: this.formBuilder.control(false, []),
+        imparte_tabla: this.formBuilder.control(false, [])
       });
+    this.form.get('numarHornuri')?.patchValue(0);
 
       this.getData();
   }
@@ -69,5 +71,5 @@ export class DimensiuniAcoperis1apaComponent implements OnInit, AfterViewInit{
   
   public checkSistemPluvial (event:MatCheckboxChange): void {
     this.isCheckedSistemPluvial = event.checked ? true : false;
-}
+  }
 }

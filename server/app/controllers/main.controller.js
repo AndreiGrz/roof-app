@@ -16,21 +16,23 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     const necesar = {};
     const aria_1 = Math.ceil(dimensiuni.lungimea_2 * dimensiuni.latimea_3);
     necesar.aria = Math.round(aria_1 * 1.1);
-
+    if(dimensiuni.imparte_tabla){
+        necesar.aria = Math.ceil(necesar.aria * 1.03);
+    }
     necesar.suruburi = Math.ceil(necesar.aria * 1.1 / 35);
     necesar.bordura = Math.ceil((dimensiuni.latimea_3 * 2 + dimensiuni.lungimea_2) / 1.9);
     necesar.sort_streasina = Math.ceil(dimensiuni.lungimea_2 / 1.9);
-    necesar.colector_fronton = necesar.bordura;
+    // necesar.colector_fronton = necesar.bordura;
     necesar.opritor_zapada = Math.ceil(dimensiuni.lungimea_2 / 2);
 
     if(dimensiuni.sistem_pluvial){
-        necesar.jgheaburi = Math.ceil(dimensiuni.lungimea_2);
+        necesar.jgheaburi = Math.ceil(dimensiuni.lungimea_2)% 2 == 0 ? Math.ceil(dimensiuni.lungimea_2) : Math.ceil(dimensiuni.lungimea_2) +1;
         necesar.capac_jgheab = 2;
         necesar.imbinare_jgheab = Math.ceil((dimensiuni.lungimea_2 / 4) -1 );
         const colector_apa_1 = (dimensiuni.lungimea_2 < 5) ? 1 : (dimensiuni.lungimea_2 / 5);
         necesar.colector_apa = Math.round(colector_apa_1); 
         necesar.cot_evacuare = necesar.colector_apa;
-        necesar.carlige = Math.ceil((dimensiuni.lungimea_2 / 0.7) + 1);
+        necesar.carlige = Math.ceil(necesar.jgheaburi / 0.8);
         necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
         const burlan_1 = Math.ceil(dimensiuni.inaltimea_1 * necesar.colector_apa);
         necesar.burlane = burlan_1 % 3 == 0 ? burlan_1 : Math.floor(burlan_1 + 1) | 1;
@@ -74,11 +76,14 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_3 * dimensiuni.latimea_2) + (dimensiuni.lungimea_3 * dimensiuni.latimea_4));
     necesar.aria = Math.round(aria_1 * 1.2);
+    if(dimensiuni.imparte_tabla){
+        necesar.aria = Math.ceil(necesar.aria * 1.03);
+    }
     necesar.coama = Math.ceil(dimensiuni.lungimea_3 / 1.85);
     necesar.suruburi = Math.ceil(necesar.aria * 1.1 / 35);
     necesar.bordura = Math.ceil(((dimensiuni.latimea_2 * 2) + (dimensiuni.latimea_4 * 2)) / 1.9); //?
     necesar.sort_streasina = Math.ceil((dimensiuni.lungimea_3 * 2) / 1.9);
-    necesar.colector_fronton = necesar.bordura;
+    // necesar.colector_fronton = necesar.bordura;
     necesar.etans = Math.ceil(necesar.coama / 5);
     necesar.opritor_zapada = Math.round(dimensiuni.lungimea_3);//?
     if(dimensiuni.sistem_pluvial){
@@ -88,7 +93,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
         const colector_apa_1 = ((dimensiuni.lungimea_3 * 2) < 5) ? 2 : ((dimensiuni.lungimea_3 * 2) / 5);
         necesar.colector_apa = Math.ceil(colector_apa_1); 
         necesar.cot_evacuare = necesar.colector_apa;
-        necesar.carlige = Math.ceil(((dimensiuni.lungimea_3 * 2) / 0.7) + 1);
+        necesar.carlige = Math.ceil(necesar.jgheaburi / 0.8);
         necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
 
         let burlan = 0;
@@ -127,22 +132,25 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.linia_4) * dimensiuni.adancimea_6 + (dimensiuni.latimea_3 * dimensiuni.adancimea_7));
     necesar.aria = Math.ceil(aria_1 * 1.22);
+    if(dimensiuni.imparte_tabla){
+        necesar.aria = Math.ceil(necesar.aria * 1.03);
+    }
     necesar.coama = Math.ceil((dimensiuni.linia_4 + dimensiuni.cateta_5 * 4) / 1.85); 
     necesar.suruburi = Math.ceil(necesar.aria * 1.15 / 35);
     necesar.sort_streasina = Math.ceil(((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 1.9);
     necesar.bordura = 0;
-    necesar.colector_fronton = necesar.bordura;
+    // necesar.colector_fronton = necesar.bordura;
     necesar.etans = Math.ceil(necesar.coama / 5);
     necesar.opritor_zapada = Math.round((dimensiuni.lungimea_2 + dimensiuni.latimea_3)); 
 
     if(dimensiuni.sistem_pluvial){
-        necesar.jgheaburi = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2);
+        necesar.jgheaburi = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) % 2 ? Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) : Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) + 1;
         necesar.capac_jgheab = 0;
         necesar.imbinare_jgheab = Math.ceil((((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 4)+6);
         const colector_apa_1 = (dimensiuni.lungimea_2 < 5) ? 1 :  ((dimensiuni.lungimea_2 + dimensiuni.latimea_3)*2) / 5;
         necesar.colector_apa = Math.round(colector_apa_1);
         necesar.cot_evacuare = necesar.colector_apa;
-        necesar.carlige = Math.ceil((((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 0.7) + 8);
+        necesar.carlige = Math.ceil(necesar.jgheaburi / 0.8);
         necesar.cot_normal = Math.ceil(2 * necesar.colector_apa);
         
         let burlan = 0;
