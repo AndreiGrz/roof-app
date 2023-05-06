@@ -16,6 +16,7 @@ export interface Measurements {
 }
 
 export interface Accesorii {
+    id: number;
     label: string;
     price: string;
     qty: number;

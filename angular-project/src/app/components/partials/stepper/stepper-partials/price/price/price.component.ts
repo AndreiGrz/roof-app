@@ -57,7 +57,7 @@ export class PriceComponent implements OnInit, OnChanges {
 
     this.tableColumns = [
       { key: 'label', label: 'Produs', template: false },
-      { key: 'qty', label: 'Cantitate', template: false },
+      { key: 'qty', label: 'Cantitate', template: true },
       { key: 'price', label: 'Pret / u.m.', template: true },
       { key: 'total', label: 'Total', template: true },
     ];

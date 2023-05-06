@@ -72,5 +72,9 @@ export class MainService {
 
     return this.http.get<{results: any}>(`${this.BASE_URL}/getOferta`, {params: queryParams});
   }
+
+  setRoofModel(obj: any): Observable<any> {
+    return this.http.post<{obj: string}>(`${this.BASE_URL}/setRoofModel`, {obj});
+  }
 }
 

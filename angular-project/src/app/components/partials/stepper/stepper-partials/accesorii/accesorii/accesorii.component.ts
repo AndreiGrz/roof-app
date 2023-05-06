@@ -93,11 +93,8 @@ export class AccesoriiComponent implements OnInit, OnChanges {
     this.tableDataSource = new MatTableDataSource(this.accesorii);
   }
 
-  public deleteRow = (elem: any): void => {
-    const desiredIndex = this.accesorii.findIndex(
-      (acc) => acc._key === elem._key
-    );
-    this.accesorii.splice(desiredIndex, 1);
+  deleteRow(index: number): void {
+    this.accesorii.splice(index, 1);
     this.createTable();
   };
 
@@ -109,13 +106,26 @@ export class AccesoriiComponent implements OnInit, OnChanges {
   };
 
   public addValueToTable = (): void => {
-    let data: any = {
-      id: this.selectedOption.id,
-      label: this.selectedOption.label,
-      price: this.selectedOption.price,
-      qty: 1,
-    };
-    this.accesorii.push(data);
+    let newVal = true;
+    this.accesorii = this.accesorii.map(acc => {
+      if (this.selectedOption.id === acc.id) {
+        acc.qty++;
+        newVal = false;
+      }
+
+      return acc;
+    });
+
+    if (newVal) {
+      let data: any = {
+        id: this.selectedOption.id,
+        label: this.selectedOption.label,
+        price: this.selectedOption.price,
+        qty: 1,
+      };
+      this.accesorii.push(data);
+    }
+
     this.createTable();
   };
 

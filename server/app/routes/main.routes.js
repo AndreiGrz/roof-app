@@ -12,4 +12,5 @@ module.exports = function(app) {
   app.get('/api/main/getAccesoriiSuplimentare', mainController.getAccesoriiSuplimentare);
   app.post('/api/main/sendEmail', mainController.sendEmail);
   app.post('/api/main/uploadFiles', mainController.uploadFiles);
+  app.post('/api/main/setRoofModel', mainController.setRoofModel);
 };
