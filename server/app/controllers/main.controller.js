@@ -55,7 +55,7 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     }
     necesar.folie = Math.ceil(necesar.aria / 75);
 
-    let accesorii = await getAccesoriiForNecesar();
+    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand);
     accesorii.forEach((acc, i) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}
     });
@@ -110,7 +110,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
     }
     necesar.folie = Math.ceil(necesar.aria / 75);
 
-    let accesorii = await getAccesoriiForNecesar();
+    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand);
 
     accesorii.forEach((acc, i) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}   
@@ -171,7 +171,7 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
 
     necesar.folie = Math.ceil(necesar.aria / 75);
 
-    let accesorii = await getAccesoriiForNecesar();
+    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand);
 
     accesorii.forEach((acc, i) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}
@@ -189,7 +189,36 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
     ];
 }
 
-const getAccesoriiForNecesar = async () => {
+const getAccesoriiForNecesar = async (sistem_pluvial, diametru, brand) => {
+    let id_diametru;
+    if(sistem_pluvial){
+        if(diametru === '150/100'){
+            switch (brand) {
+                case 40:
+                    id_diametru = 220;
+                    break;
+                case 184:
+                    id_diametru = 245;
+                    break;
+                case 41:
+                    id_diametru = 219;
+            }
+        } 
+        else if( diametru === '125/90'){
+            switch (brand) {
+                case 40:
+                    id_diametru = 217;
+                    break;
+                case 184:
+                    id_diametru = 244;
+                    break;
+                case 41:
+                    id_diametru = 218;
+            }
+        }
+    } else {
+        id_diametru = 69;
+    }
     const conn = await connection();
     const [result]  = await conn.execute(`SELECT p.post_title AS label,  
         p.id,
@@ -202,9 +231,9 @@ const getAccesoriiForNecesar = async () => {
     JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
     JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
     JOIN wpay_terms AS t ON tt.term_id = t.term_id
-    WHERE p.post_type = 'product' and t.term_id = 69
+    WHERE p.post_type = 'product' and t.term_id = ?
     GROUP BY p.ID
-   `);
+   `, [id_diametru]);
 
    return result;
 
