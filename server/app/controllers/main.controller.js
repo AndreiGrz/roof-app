@@ -15,6 +15,7 @@ let productParent = '';
 const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     const necesar = {};
     const aria_1 = Math.ceil(dimensiuni.lungimea_2 * dimensiuni.latimea_3);
+    // console.log(aria_1);
     necesar.aria = Math.round(aria_1 * 1.1);
     if(dimensiuni.imparte_tabla){
         necesar.aria = Math.ceil(necesar.aria * 1.03);
@@ -75,7 +76,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
     const necesar = {};
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_3 * dimensiuni.latimea_2) + (dimensiuni.lungimea_3 * dimensiuni.latimea_4));
-    necesar.aria = Math.round(aria_1 * 1.2);
+    necesar.aria = Math.round(aria_1 * 1.18);
     if(dimensiuni.imparte_tabla){
         necesar.aria = Math.ceil(necesar.aria * 1.03);
     }
@@ -131,7 +132,7 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
     const necesar = {};
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.linia_4) * dimensiuni.adancimea_6 + (dimensiuni.latimea_3 * dimensiuni.adancimea_7));
-    necesar.aria = Math.ceil(aria_1 * 1.22);
+    necesar.aria = Math.ceil(aria_1 * 1.2);
     if(dimensiuni.imparte_tabla){
         necesar.aria = Math.ceil(necesar.aria * 1.03);
     }
