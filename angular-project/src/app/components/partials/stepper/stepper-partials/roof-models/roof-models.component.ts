@@ -21,6 +21,7 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
   grosimi: Options[] = [];
   tempGrosimi: {id: {_id: string, _meta: string}, img_source: string, value: string}[] = [];
   culori: Options[] = [];
+  fullCulori: any[] = [];
 
   price: string;
   salePrice: string;
@@ -96,6 +97,7 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         const wantedGrosime = this.tempGrosimi.find(g => g.id._id === value)!.id._meta;
         this.mainService.getCulori(this.form.get('finisaj')?.value, wantedGrosime).subscribe(culori => {
+          this.fullCulori = [...culori.results];
           this.culori = culori.results.map(res => ({id: res.id, value: res.post_title.split(', ')[1], img_source: res.guid}));
         });
   
@@ -112,6 +114,9 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
 
       setTimeout(() => {
         this.roofImg = this.culori.find(culoare => culoare.id === value)?.img_source;
+
+        let wantedRoofModel = this.fullCulori.find(c => c.id === value);
+        this.mainService.setRoofModel(wantedRoofModel).subscribe();
       }, 500);
     });
 

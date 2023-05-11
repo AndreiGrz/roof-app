@@ -4,11 +4,10 @@
       <mat-label>Lungimea (2) </mat-label>
       <input
         matInput
-        type="text"
-        min="1"
+        type="number"
+        min="0"
         max="9999"
         formControlName="lungimea_2"
-        oninput="this.value=this.value.replace(/,/g, '.');"
       />
       <mat-error>
         <strong>Lungimea este obligatorie!</strong>
@@ -21,7 +20,7 @@
       <input
         matInput
         type="number"
-        min="1"
+        min="0"
         max="9999"
         formControlName="latimea_3"
       />
@@ -36,7 +35,7 @@
       <input
         matInput
         type="number"
-        min="1"
+        min="0"
         max="9999"
         formControlName="inaltimea_1"
       />

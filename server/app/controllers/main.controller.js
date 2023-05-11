@@ -295,10 +295,6 @@ exports.getGrosimi = async (req, res) => {
         left join wpay_postmeta as postmeta on postmeta.post_id = postm.post_id
         left join wpay_posts as posts on posts.id = postmeta.meta_value 
         where termrel.term_taxonomy_id = ? and postm.meta_key = "attribute_pa_grosime" and postmeta.meta_key = "_thumbnail_id"  and posts.guid <> "NULL" group by postm.meta_value`, [finisajId]);
-        
-        productLabel = rows[0].post_title;
-        productId = rows[0].id;
-        productParent = rows[0].parentId;
 
         res.status(200)
             .send({
@@ -318,7 +314,7 @@ exports.getCulori = async (req, res) => {
         const finisajId = req.query.finisajId;
         const grosimeId = req.query.grosimeId;
 
-        const [rows] = await conn.execute(`select postm.meta_id, postsp.post_title, postsp.id, postm.meta_key, postm.meta_value, secondpost.guid, secondpostmeta.meta_value
+        const [rows] = await conn.execute(`select postm.meta_id, postsp.post_title, postsp.id, postm.meta_key, postm.meta_value, secondpost.guid, secondpostmeta.meta_value, postsp.post_parent as parentId
         from wpay_posts as postsp 
         join wpay_term_relationships as termrel on postsp.post_parent = termrel.object_id 
         join wpay_postmeta as postm on postsp.id = postm.post_id
@@ -609,3 +605,17 @@ exports.uploadFiles = async (req, res) => {
         res.status(500).send({message: err.message});
     }
 };
+
+exports.setRoofModel = (req, res) => {
+    try {
+        const {obj} = req.body;
+        
+        productLabel = obj.post_title;
+        productId = obj.id;
+        productParent = obj.parentId;
+
+        res.status(200).send();
+    } catch (err) {
+        res.status(500).send({message: err.message});
+    }
+}
