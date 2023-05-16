@@ -28,9 +28,11 @@ if (process.env.NODE_ENV && process.env.NODE_ENV === 'production') {
   app.get('/calculator-personalizat', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/angular-project/index.html'));
   });
+  app.get('/oferta/:tipCalculator/:id', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/angular-project/index.html'));
+  });
   
   //TODO: create catch-all route with regex
-
   // app.use((req, res) => {
   //   res.status(404).sendFile(path.join(__dirname, 'dist/angular-project/index.html'));
   // });
