@@ -11,6 +11,7 @@ let productLabel = '';
 let productPrice = '';
 let productId = '';
 let productParent = '';
+let productImage = '';
 
 const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     const necesar = {};
@@ -52,7 +53,9 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
             }
         }
         necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
+        necesar.silicon = 1;
     }
+    necesar.spray = 1;
     necesar.folie = Math.ceil(necesar.aria / 75);
 
     let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand);
@@ -64,6 +67,7 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
         {
             id: productId,
             parentId: productParent,
+            link_img: productImage,
             label: productLabel, 
             price: productPrice,
             qty: necesar.aria
@@ -85,7 +89,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
     necesar.bordura = Math.ceil(((dimensiuni.latimea_2 * 2) + (dimensiuni.latimea_4 * 2)) / 1.9); //?
     necesar.sort_streasina = Math.ceil((dimensiuni.lungimea_3 * 2) / 1.9);
     // necesar.colector_fronton = necesar.bordura;
-    necesar.etans = Math.ceil(necesar.coama / 5);
+    necesar.aluband = Math.ceil(necesar.coama / 5);
     necesar.opritor_zapada = Math.round(dimensiuni.lungimea_3);//?
     if(dimensiuni.sistem_pluvial){
         necesar.jgheaburi = (dimensiuni.lungimea_3 * 2) % 2 == 0 ? Math.ceil((dimensiuni.lungimea_3 * 2)) : Math.ceil((dimensiuni.lungimea_3 * 2)) + 1;
@@ -107,7 +111,9 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
         
         necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
         necesar.prelungitor = necesar.colector_apa;
+        necesar.silicon = 1;
     }
+    necesar.spray = 1;
     necesar.folie = Math.ceil(necesar.aria / 75);
 
     let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand);
@@ -120,6 +126,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
         {
             id: productId,
             parentId: productParent,
+            link_img: productImage,
             label: productLabel, 
             price: productPrice,
             qty: necesar.aria
@@ -141,7 +148,7 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
     necesar.sort_streasina = Math.ceil(((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 1.9);
     necesar.bordura = 0;
     // necesar.colector_fronton = necesar.bordura;
-    necesar.etans = Math.ceil(necesar.coama / 5);
+    necesar.aluband = Math.ceil(necesar.coama / 5);
     necesar.opritor_zapada = Math.round((dimensiuni.lungimea_2 + dimensiuni.latimea_3)); 
 
     if(dimensiuni.sistem_pluvial){
@@ -165,10 +172,9 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
         necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
         necesar.colt_exterior = 4;
         necesar.prelungitor = necesar.colector_apa;
+        necesar.silicon = 1;
     }
-  
-    
-
+    necesar.spray = 1;
     necesar.folie = Math.ceil(necesar.aria / 75);
 
     let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand);
@@ -181,7 +187,8 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
         {
             id: productId,
             parentId: productParent,
-            label: productLabel, 
+            label: productLabel,
+            link_img: productImage,
             price: productPrice,
             qty: necesar.aria
         },
@@ -189,55 +196,89 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
     ];
 }
 
+
 const getAccesoriiForNecesar = async (sistem_pluvial, diametru, brand) => {
     let id_diametru;
     if(sistem_pluvial){
         if(diametru === '150/100'){
             switch (brand) {
                 case 40:
-                    id_diametru = 220;
+                    id_diametru = '(245,219,217,244,218)';
                     break;
                 case 184:
-                    id_diametru = 245;
+                    id_diametru = '(220,219,217,244,218)';
                     break;
                 case 41:
-                    id_diametru = 219;
+                    id_diametru = '(220,245,217,244,218)'; 
             }
         } 
         else if( diametru === '125/90'){
             switch (brand) {
                 case 40:
-                    id_diametru = 217;
+                    id_diametru = '(245,219,220,244,218)';
                     break;
                 case 184:
-                    id_diametru = 244;
+                    id_diametru = '(245,219,220,217,218)';  
                     break;
                 case 41:
-                    id_diametru = 218;
+                    id_diametru = '(245,219,220,217,244)';  
             }
         }
     } else {
-        id_diametru = 69;
+        id_diametru = '(245,219,220,217,244,218)';
     }
     const conn = await connection();
-    const [result]  = await conn.execute(`SELECT p.post_title AS label,  
-        p.id,
-        p.post_parent as parentId,
-        pm_price.meta_value AS price, 
-    pm_sku.meta_value AS _key
-    FROM wpay_posts AS p
-    JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price'
-    JOIN wpay_postmeta AS pm_sku ON p.ID = pm_sku.post_id AND pm_sku.meta_key = '_sku'
-    JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
-    JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
-    JOIN wpay_terms AS t ON tt.term_id = t.term_id
-    WHERE p.post_type = 'product' and t.term_id = ?
-    GROUP BY p.ID
-   `, [id_diametru]);
+//     const [result]  = await conn.execute(`SELECT p.post_title AS label,  
+//         p.id,
+//         p.post_parent as parentId,
+//         pm_price.meta_value AS price, 
+//     pm_sku.meta_value AS _key
+//     FROM wpay_posts AS p
+//     JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price'
+//     JOIN wpay_postmeta AS pm_sku ON p.ID = pm_sku.post_id AND pm_sku.meta_key = '_sku'
+//     JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
+//     JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
+//     JOIN wpay_terms AS t ON tt.term_id = t.term_id
+//     WHERE p.post_type = 'product' and t.term_id = ? 
+//     GROUP BY p.ID
+//   `, [id_diametru]);
 
+
+ const [result]  = await conn.execute(`SELECT p.post_title AS label,
+        p.id, 
+        p.post_parent as parentId,
+        pm_price.meta_value AS price,
+        pm_sku.meta_value AS _key, 
+        im_guid.guid AS link_img
+            FROM wpay_posts p 
+            JOIN wpay_postmeta AS pm_sku ON p.ID = pm_sku.post_id AND pm_sku.meta_key = '_sku'
+            JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price'
+            JOIN wpay_postmeta AS pm_img ON p.ID = pm_img.post_id AND pm_img.meta_key = '_thumbnail_id'
+            JOIN wpay_posts im_guid ON pm_img.meta_value = im_guid.ID
+            
+            JOIN wpay_term_relationships tr1 ON p.ID = tr1.object_id
+            JOIN wpay_term_taxonomy tt1 ON tr1.term_taxonomy_id = tt1.term_taxonomy_id
+            JOIN wpay_terms t1 ON tt1.term_id = t1.term_id
+            
+            WHERE tt1.taxonomy = 'product_cat'
+                AND t1.term_id = 69
+                AND p.ID NOT IN (
+                SELECT p2.ID
+                FROM wpay_posts p2
+                JOIN wpay_term_relationships tr2 ON p2.ID = tr2.object_id
+                JOIN wpay_term_taxonomy tt2 ON tr2.term_taxonomy_id = tt2.term_taxonomy_id
+                JOIN wpay_terms t2 ON tt2.term_id = t2.term_id
+                WHERE tt2.taxonomy = 'product_cat'
+                    AND t2.term_id IN ${id_diametru}
+                )
+       GROUP BY p.ID;
+   `);
+   
+   
    return result;
 
 }
+
 
 exports.getBrands = async (req, res) => {
     const conn = await connection();
@@ -405,15 +446,20 @@ exports.getAccesoriiSuplimentare = async (req, res) => {
 
     try {
         const [rows] = await conn.execute(`SELECT p.post_title AS label,
-            p.id,
-            pm_price.meta_value AS price
-    FROM wpay_posts AS p
-    JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price' 
-    JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
-    JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
-    JOIN wpay_terms AS t ON tt.term_id = t.term_id
-    WHERE p.post_type = 'product' and t.term_id = 69
-    GROUP BY p.ID
+        p.id,
+        pm_price.meta_value AS price,
+        pm_sku.meta_value AS _key, 
+        im_guid.guid AS link_img
+        FROM wpay_posts AS p
+        JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price' 
+        JOIN wpay_postmeta AS pm_sku ON p.ID = pm_sku.post_id AND pm_sku.meta_key = '_sku'
+        JOIN wpay_postmeta AS im ON p.ID = im.post_id AND im.meta_key = '_thumbnail_id'
+        JOIN wpay_posts AS im_guid ON im.meta_value = im_guid.ID
+        JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
+        JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
+        JOIN wpay_terms AS t ON tt.term_id = t.term_id
+        WHERE p.post_type = 'product' and t.term_id = 69
+        GROUP BY p.ID
    `);
 
         res.status(200)
@@ -514,17 +560,32 @@ exports.sendEmail = async (req, res) => {
           const mailOptions = {
             from: 'calculator@tabla-online.ro',
             to: `${userInfo.email}, calculator@tabla-online.ro`,
-            subject: 'Simulare pret',
+            subject: 'Simulare Calculator Acoperis',
             html: `
-            <h3>Buna ziua, ${userInfo.nume}</h3>
+            <h3>Buna ziua, ${userInfo.nume}!</h3>
             <br>
             <div>
                 Esti doar la cateva clickuri distanta sa finalizezi comanda<br>
-                inceputa pe <a href="tabla-online.ro">tabla-online.ro</a>
+                inceputa pe Tabla-Online.ro
                 <br>
                 <br>
                 
                 <a href="${linkOferta}">Continua comanda</a>
+            </div>
+            <div>
+            <br>
+            <br>
+            Daca ai nevoie de ajutor, ne poti contacta la numar de telefon: <a href="tel:0730304304">0730 304 304</a>.
+            <br>
+            <br>
+            *Acest mail este generat automat.
+            <br>
+            <br>
+            <br>
+            Cu respect,
+            <br>
+            <br>
+            <img src="https://tabla-online.ro/wp-content/uploads/2020/10/logo-tabla-tip-tigla.png" width="200" height="100">
             </div>
             `
           };
@@ -642,6 +703,7 @@ exports.setRoofModel = (req, res) => {
         productLabel = obj.post_title;
         productId = obj.id;
         productParent = obj.parentId;
+        productImage = obj.guid;
 
         res.status(200).send();
     } catch (err) {

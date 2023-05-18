@@ -10,7 +10,7 @@ import { Diametri } from 'src/app/enums/main.enum';
 })
 export class DimensiuniAcoperis1apaComponent implements OnInit, AfterViewInit{  
   public form: FormGroup;
-  public isCheckedSistemPluvial: boolean = false;
+  public isCheckedSistemPluvial: boolean = true;
   @Output() formData = new EventEmitter<FormGroup>();
   public diametri = Diametri
   
@@ -38,10 +38,11 @@ export class DimensiuniAcoperis1apaComponent implements OnInit, AfterViewInit{
         inaltimea_1: this.formBuilder.control('', [Validators.required]),
         numarHornuri: this.formBuilder.control('', [Validators.required]),
         diametru: this.formBuilder.control('', []),
-        sistem_pluvial: this.formBuilder.control(false, []),
+        sistem_pluvial: this.formBuilder.control(true, []),
         imparte_tabla: this.formBuilder.control(false, [])
       });
     this.form.get('numarHornuri')?.patchValue(0);
+    this.form.get('diametru')?.setValue('125/90');
 
       this.getData();
   }

@@ -21,8 +21,21 @@
         }
     }
 }
+.contact{
+    margin: 0 0 0 auto;
+    a {
+        text-decoration: none;
+    }
+}
 @media screen and (max-width: 768px)  {
     mat-toolbar{
         height: 80px;
+    }
+    .contact{
+        a {
+            margin-left: -230px;
+            margin-top: 50px;
+            background: transparent;
+        }
     }
 }

@@ -84,7 +84,7 @@ export class AccesoriiComponent implements OnInit, OnChanges {
 
   private createTable(): void {
     this.tableColumns = [
-      { key: 'label', label: 'Produs', template: false },
+      { key: 'label', label: 'Produs', template: true },
       { key: 'qty', label: 'Cantitate', template: true },
       { key: 'actions', label: '', template: true },
     ];
@@ -122,6 +122,7 @@ export class AccesoriiComponent implements OnInit, OnChanges {
         label: this.selectedOption.label,
         price: this.selectedOption.price,
         qty: 1,
+        link_img: this.selectedOption.link_img
       };
       this.accesorii.push(data);
     }
