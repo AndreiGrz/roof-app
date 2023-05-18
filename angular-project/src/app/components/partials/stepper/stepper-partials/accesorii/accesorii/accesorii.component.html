@@ -17,9 +17,9 @@
             </div>
             <ng-container matColumnDef="label">
                 <th mat-header-cell *matHeaderCellDef>Produs</th>
-                <td mat-cell *matCellDef="let element">
+                <td mat-cell *matCellDef="let element" class="center">
                     <span>
-                        <img class="image-style" src="{{ element.link_img }}" with="80" height="50" />
+                        <img class="image-style" src="{{ element.link_img }}" width="50" height="50" />
                     </span>
                     {{ element.label }}
                 </td>
@@ -63,8 +63,10 @@
             <mat-option *ngFor="let accesoriu of accesoriiSuplimentare" 
                         [value]="accesoriu"
                         >
-                <img class="image-style" src="{{ accesoriu.link_img }}" with="80" height="50" />
-                {{accesoriu.label}}
+                <span class="center">
+                    <img class="image-style" src="{{ accesoriu.link_img }}" width="50" height="50" />
+                    {{accesoriu.label}}
+                </span>
             </mat-option>
             </mat-select>
         </mat-form-field>
