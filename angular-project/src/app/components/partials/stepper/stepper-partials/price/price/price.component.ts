@@ -93,9 +93,10 @@ export class PriceComponent implements OnInit, OnChanges {
       variationId: obj.parentId === 0 ? '' : obj.id,
       quantity: obj.qty
     }));
-    
+    const description = {...this.measurements, "tipCalculator": this.tipCalculator};
     const productParam = encodeURIComponent(JSON.stringify(products));
-    const url = `https://tabla-online.ro/calculator.php?products=${productParam}`;
+    const descriptionParam = encodeURIComponent(JSON.stringify(description));
+    const url = `https://tabla-online.ro/calculator.php?products=${productParam}&description=${descriptionParam}`;
 
     window.location.href = url;
   }
