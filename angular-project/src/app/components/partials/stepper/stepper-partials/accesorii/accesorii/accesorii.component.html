@@ -36,8 +36,8 @@
                             min="0"
                             max="9999"
                         /> 
-                        <span *ngIf="!element.label.startsWith('Jgheab') && i > 0" class="suffix" matSuffix>buc.</span>
-                        <span *ngIf="element.label.startsWith('Jgheab') && i > 0" class="suffix" matSuffix>m</span>
+                        <span *ngIf="!(element.label.startsWith('Jgheab') || element.label.startsWith('Burlan') || element.label.startsWith('Prelungitor')) && i > 0" class="suffix" matSuffix>buc.</span>
+                        <span *ngIf="(element.label.startsWith('Jgheab') || element.label.startsWith('Burlan') || element.label.startsWith('Prelungitor')) && i > 0" class="suffix" matSuffix>m</span>
                         <span *ngIf="i === 0" class="suffix" matSuffix>&#13217;</span>
                     </mat-form-field>
                 </td>

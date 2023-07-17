@@ -37,6 +37,9 @@ export class StepperComponent implements OnInit, AfterViewInit {
 
   public necesarAccesorii: any;
 
+  allFinisajeFromServer: any;
+  allCuloriFromServer: any;
+
   constructor(
     private cdr: ChangeDetectorRef,
     private mainService: MainService,
@@ -90,6 +93,16 @@ export class StepperComponent implements OnInit, AfterViewInit {
     this.cdr.detectChanges();
   }
 
+  getAllFinisajeFromServer(event: any): void {
+    this.allFinisajeFromServer = event;
+    this.cdr.detectChanges();
+  }
+
+  getAllCuloriFromServer(event: any): void {
+    this.allCuloriFromServer = event;
+    this.cdr.detectChanges();
+  }
+
   getBtnProceedToAccesoriesState(event: boolean) {
     const btnState = event;
     if (btnState) {
@@ -101,13 +114,19 @@ export class StepperComponent implements OnInit, AfterViewInit {
 
   private sendDataToServer() {
     this.createModelInfoTabla();
+    let finisaj = this.allFinisajeFromServer.filter( (f: any) => f.id === this.infoTabla.finisaj);
+    let culoare = this.allCuloriFromServer.filter((c: any) => c.id === this.infoTabla.culoare);
+
+    const tip_finisaj = finisaj[0].value;
+    const tip_culoare = culoare[0].value;
     switch (this.tipCalculator) {
       case '1A':
         this.createModelDimensiuniCalculator1A();
         this.getAccesorii(
           this.infoTabla,
           this.dimensiuniAcoperis1A,
-          this.tipCalculator
+          this.tipCalculator,
+          {tip_culoare, tip_finisaj}
         );
         break;
       case '2A':
@@ -115,7 +134,9 @@ export class StepperComponent implements OnInit, AfterViewInit {
         this.getAccesorii(
           this.infoTabla,
           this.dimensiuniAcoperis2A,
-          this.tipCalculator
+          this.tipCalculator,
+          {tip_culoare, tip_finisaj}
+
         );
 
         break;
@@ -124,7 +145,9 @@ export class StepperComponent implements OnInit, AfterViewInit {
         this.getAccesorii(
           this.infoTabla,
           this.dimensiuniAcoperis4A,
-          this.tipCalculator
+          this.tipCalculator,
+          {tip_culoare, tip_finisaj}
+
         );
     }
   }
@@ -132,11 +155,12 @@ export class StepperComponent implements OnInit, AfterViewInit {
   private getAccesorii(
     infoTabla: ModelTabla,
     infoDimensiuni: any,
-    tipCalculator: string
+    tipCalculator: string,
+    extra: any
   ) {
     this.loader = true;
     this.mainService
-      .getAccesorii(infoTabla, infoDimensiuni, tipCalculator)
+      .getAccesorii(infoTabla, infoDimensiuni, tipCalculator, extra)
       .subscribe({
         next: (accesorii) => {
           this.necesarAccesorii = accesorii;

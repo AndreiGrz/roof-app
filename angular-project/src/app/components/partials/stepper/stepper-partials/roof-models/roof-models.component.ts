@@ -11,6 +11,10 @@ import { MainService } from 'src/app/services/main.service';
 })
 export class RoofModelsComponent implements OnInit, OnDestroy {
   @Output() formData = new EventEmitter<FormGroup>();
+  @Output() allFinisajeFromServer = new EventEmitter<any>();
+  @Output() allCuloriFromServer = new EventEmitter<any>();
+
+
   private alive = true;
 
   roofImg: string | undefined = '';
@@ -70,6 +74,7 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
 
       this.mainService.getFinisaje(value).subscribe(finisaje => {
         this.finisaje = finisaje.results.map(res => ({id: res.term_id, value: res.name, img_source: res.guid}));
+        this.allFinisajeFromServer.emit(this.finisaje);
       });
     });
 
@@ -99,6 +104,8 @@ export class RoofModelsComponent implements OnInit, OnDestroy {
         this.mainService.getCulori(this.form.get('finisaj')?.value, wantedGrosime).subscribe(culori => {
           this.fullCulori = [...culori.results];
           this.culori = culori.results.map(res => ({id: res.id, value: res.post_title.split(', ')[1], img_source: res.guid}));
+          this.allCuloriFromServer.emit(this.culori);
+
         });
   
         this.mainService.getPret(this.form.get('grosime')?.value).subscribe(pret => {

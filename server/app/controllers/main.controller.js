@@ -13,7 +13,7 @@ let productId = '';
 let productParent = '';
 let productImage = '';
 
-const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
+const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {//extra
     const necesar = {};
     const aria_1 = Math.ceil(dimensiuni.lungimea_2 * dimensiuni.latimea_3);
     // console.log(aria_1);
@@ -41,7 +41,7 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
         necesar.prelungitor = necesar.colector_apa;
 
         let burlan = 0;
-        if (burlan_1 && burlan > 0){
+        if (burlan_1 ){
             if (burlan_1 % 3 == 0){
                 burlan = burlan_1;
             }
@@ -52,13 +52,15 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
                 burlan = burlan_1 + 1;
             }
         }
+        necesar.burlan = burlan;
         necesar.bratara_burlan = Math.ceil((burlan / 3) * 2);
         necesar.silicon = 1;
     }
     necesar.spray = 1;
     necesar.folie = Math.ceil(necesar.aria / 75);
+    necesar.set_cos_fum = dimensiuni.numarHornuri;
 
-    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand);
+    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand, modelTabla.finisaj, modelTabla.culoare);//extra
     accesorii.forEach((acc, i) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}
     });
@@ -76,7 +78,7 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {
     ];
 }
 
-const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
+const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {//extra
     const necesar = {};
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_3 * dimensiuni.latimea_2) + (dimensiuni.lungimea_3 * dimensiuni.latimea_4));
@@ -95,7 +97,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
         necesar.jgheaburi = (dimensiuni.lungimea_3 * 2) % 2 == 0 ? Math.ceil((dimensiuni.lungimea_3 * 2)) : Math.ceil((dimensiuni.lungimea_3 * 2)) + 1;
         necesar.capac_jgheab = 4;
         necesar.imbinare_jgheab = Math.ceil(((dimensiuni.lungimea_3 * 2) / 4));
-        const colector_apa_1 = ((dimensiuni.lungimea_3 * 2) < 5) ? 2 : ((dimensiuni.lungimea_3 * 2) / 5);
+        const colector_apa_1 = ((dimensiuni.lungimea_3 * 2) < 5) ? 2 : ((dimensiuni.lungimea_3 * 2) / 6);
         necesar.colector_apa = Math.ceil(colector_apa_1); 
         necesar.cot_evacuare = necesar.colector_apa;
         necesar.carlige = Math.ceil(necesar.jgheaburi / 0.8);
@@ -115,8 +117,10 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
     }
     necesar.spray = 1;
     necesar.folie = Math.ceil(necesar.aria / 75);
+    necesar.set_cos_fum = dimensiuni.numarHornuri;
 
-    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand);
+
+    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand, modelTabla.finisaj, modelTabla.culoare);//extra
 
     accesorii.forEach((acc, i) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}   
@@ -135,7 +139,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {
     ];
 }
 
-const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
+const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {//extra
     const necesar = {};
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.linia_4) * dimensiuni.adancimea_6 + (dimensiuni.latimea_3 * dimensiuni.adancimea_7));
@@ -155,7 +159,7 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
         necesar.jgheaburi = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) % 2 ? Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) : Math.ceil((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) + 1;
         necesar.capac_jgheab = 0;
         necesar.imbinare_jgheab = Math.ceil((((dimensiuni.lungimea_2 + dimensiuni.latimea_3) * 2) / 4)+6);
-        const colector_apa_1 = (dimensiuni.lungimea_2 < 5) ? 1 :  ((dimensiuni.lungimea_2 + dimensiuni.latimea_3)*2) / 5;
+        const colector_apa_1 = (dimensiuni.lungimea_2 < 5) ? 1 :  ((dimensiuni.lungimea_2 + dimensiuni.latimea_3)*2) / 6;
         necesar.colector_apa = Math.round(colector_apa_1);
         necesar.cot_evacuare = necesar.colector_apa;
         necesar.carlige = Math.ceil(necesar.jgheaburi / 0.8);
@@ -176,8 +180,10 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
     }
     necesar.spray = 1;
     necesar.folie = Math.ceil(necesar.aria / 75);
+    necesar.set_cos_fum = dimensiuni.numarHornuri;
 
-    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand);
+
+    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand, modelTabla.finisaj, modelTabla.culoare);//extra
 
     accesorii.forEach((acc, i) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}
@@ -197,37 +203,186 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {
 }
 
 
-const getAccesoriiForNecesar = async (sistem_pluvial, diametru, brand) => {
+const getAccesoriiForNecesar = async (sistem_pluvial, diametru, brand, id_finisaj, id_culoare) => {//extra
+    //aici faci if-urile dupa extra.tip_culoare sau extra.tip_finisaj
     let id_diametru;
+     let id_subbrand;
     if(sistem_pluvial){
         if(diametru === '150/100'){
             switch (brand) {
                 case 40:
-                    id_diametru = '(245,219,217,244,218)';
+                    id_diametru = 220;
+                    id_subbrand = 248;
                     break;
                 case 184:
-                    id_diametru = '(220,219,217,244,218)';
+                    id_diametru =245;
+                    id_subbrand = 250;
+                     id_finisaj = 68;
                     break;
                 case 41:
-                    id_diametru = '(220,245,217,244,218)'; 
+                    id_diametru =219;
+                    id_subbrand = 249;
+                     id_finisaj = 68;
             }
         } 
         else if( diametru === '125/90'){
             switch (brand) {
                 case 40:
-                    id_diametru = '(245,219,220,244,218)';
+                    id_diametru =217;
+                     id_subbrand = 248;
                     break;
                 case 184:
-                    id_diametru = '(245,219,220,217,218)';  
+                    id_diametru =244;
+                      id_subbrand = 250;
+                       id_finisaj = 68;
                     break;
                 case 41:
-                    id_diametru = '(245,219,220,217,244)';  
+                    id_diametru = 218;
+                     id_subbrand = 249;
+                      id_finisaj = 68;
             }
         }
     } else {
-        id_diametru = '(245,219,220,217,244,218)';
+        id_diametru = 69;
+         switch (brand) {
+                case 40:
+                   
+                    id_subbrand = 248;
+                    break;
+                case 184:
+                    
+                    id_subbrand = 250;
+                    break;
+                case 41:
+                    
+                    id_subbrand = 249;
+            }
     }
+    
+    // if (id_finisaj == 202 || id_finisaj == 126 || id_finisaj == 127 || id_finisaj == 186 || id_finisaj == 204 || id_finisaj == 185 || id_finisaj == 210  ) {
+    //     id_finisaj = 70;
+    // }
+    
+    
+    //BILKA - GRANDE MAT
+    
+      if (id_finisaj == 71 || id_finisaj == 74 || id_finisaj == 80 || id_finisaj == 84 || id_finisaj == 92 || id_finisaj == 96 || id_finisaj == 102 || id_finisaj == 113 || id_finisaj == 116 || id_finisaj == 119 || id_finisaj == 122 ) 
+        {
+            id_finisaj = 68;
+        }
+        
+       // BILKA - MAT - CELE 4 CULORI
+          
+    if ( (id_finisaj == 70 && id_culoare == 297)  || (id_finisaj == 70 && id_culoare == 298) || (id_finisaj == 70 && id_culoare == 299) || (id_finisaj == 70 && id_culoare == 300) 
+         ||  (id_finisaj == 73 && id_culoare == 427) || (id_finisaj == 73 && id_culoare == 428) || (id_finisaj == 73 && id_culoare == 429) || (id_finisaj == 73 && id_culoare == 430)
+         ||  (id_finisaj == 79 && id_culoare == 582) || (id_finisaj == 79 && id_culoare == 583) || (id_finisaj == 79 && id_culoare == 584) || (id_finisaj == 79 && id_culoare == 585)
+         ||  (id_finisaj == 83 && id_culoare == 687) || (id_finisaj == 83 && id_culoare == 688) || (id_finisaj == 83 && id_culoare == 689) || (id_finisaj == 83 && id_culoare == 690)
+         ||  (id_finisaj == 91 && id_culoare == 1045) || (id_finisaj == 91 && id_culoare == 1046) || (id_finisaj == 91 && id_culoare == 1047) || (id_finisaj == 91 && id_culoare == 1048)
+         ||  (id_finisaj == 95 && id_culoare == 953) || (id_finisaj == 95 && id_culoare == 954) || (id_finisaj == 95 && id_culoare == 955) || (id_finisaj == 95 && id_culoare == 956)
+        )             
+    {
+        id_finisaj = 70;
+    }
+    else 
+    {
+        id_finisaj = 68;
+    }
+            
+    
+    
+                    
+                    
+    
     const conn = await connection();
+    
+    
+    
+    const [result] = await conn.execute (`SELECT p.post_title AS label,  
+   p.id, 
+  pm_price.meta_value AS price, 
+ pm_sku.meta_value AS _key, 
+ im_guid.guid AS link_img
+ 
+  FROM wpay_posts AS p
+  
+  		join wpay_posts as postparinte on postparinte.post_parent = p.ID 
+  
+       JOIN wpay_postmeta AS pm_img ON p.ID = pm_img.post_id AND pm_img.meta_key = '_thumbnail_id'
+      JOIN wpay_posts im_guid ON pm_img.meta_value = im_guid.ID
+      
+      
+  join wpay_terms as idfinisaj on idfinisaj.term_id = ${id_finisaj} 
+  join wpay_postmeta as idfinalprodus on idfinalprodus.post_id = postparinte.id and idfinalprodus.meta_value = LOWER(idfinisaj.name) 
+  
+  
+ 
+
+ JOIN wpay_postmeta AS pm_price ON idfinalprodus.post_id = pm_price.post_id AND pm_price.meta_key = '_price'
+JOIN wpay_postmeta AS pm_sku ON p.id = pm_sku.post_id AND pm_sku.meta_key = '_sku'
+ JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
+ JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
+ JOIN wpay_terms AS t ON tt.term_id = t.term_id
+ 
+ 
+ 
+ WHERE p.post_type = 'product'  and t.term_id = ${id_diametru}
+ 
+ GROUP BY p.ID
+ 
+ UNION (
+     
+     SELECT p.post_title AS label,
+        p.id,
+        pm_price.meta_value AS price,
+        pm_sku.meta_value AS _key, 
+        im_guid.guid AS link_img
+        FROM wpay_posts AS p
+        JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price' 
+        JOIN wpay_postmeta AS pm_sku ON p.ID = pm_sku.post_id AND pm_sku.meta_key = '_sku'
+        JOIN wpay_postmeta AS im ON p.ID = im.post_id AND im.meta_key = '_thumbnail_id'
+        JOIN wpay_posts AS im_guid ON im.meta_value = im_guid.ID
+        JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
+        JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
+        JOIN wpay_terms AS t ON tt.term_id = t.term_id
+        WHERE p.post_type = 'product' and t.term_id = ${id_subbrand} 
+        GROUP BY p.ID);
+        
+      `  )
+    
+//     const [result] = await conn.execute(`SELECT p.post_title AS label,  
+//   p.id, 
+//  pm_price.meta_value AS price, 
+//  pm_sku.meta_value AS _key,
+//  postparinte.post_parent as parentid,
+//  idfinalprodus.post_id as idvariatie,
+//  idfinisaj.name as finisaj,
+//  im_guid.guid AS link_img
+ 
+//   FROM wpay_posts AS p
+  
+//   join wpay_posts as postparinte on postparinte.post_parent = p.ID 
+  
+//       JOIN wpay_postmeta AS pm_img ON p.ID = pm_img.post_id AND pm_img.meta_key = '_thumbnail_id'
+//       JOIN wpay_posts im_guid ON pm_img.meta_value = im_guid.ID
+      
+      
+//   join wpay_terms as idfinisaj on idfinisaj.term_id = ${id_finisaj}
+  
+  
+//   join wpay_postmeta as idfinalprodus on idfinalprodus.post_id = postparinte.id and idfinalprodus.meta_value = LOWER(idfinisaj.name)
+ 
+  
+ 
+
+// JOIN wpay_postmeta AS pm_price ON idfinalprodus.post_id = pm_price.post_id AND pm_price.meta_key = '_price'
+// JOIN wpay_postmeta AS pm_sku ON p.id = pm_sku.post_id AND pm_sku.meta_key = '_sku'
+//  JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
+//  JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
+//  JOIN wpay_terms AS t ON tt.term_id = t.term_id
+//  WHERE p.post_type = 'product' and t.term_id IN ${id_diametru}
+//  GROUP BY p.ID;`); 
+ 
+ 
 //     const [result]  = await conn.execute(`SELECT p.post_title AS label,  
 //         p.id,
 //         p.post_parent as parentId,
@@ -244,41 +399,69 @@ const getAccesoriiForNecesar = async (sistem_pluvial, diametru, brand) => {
 //   `, [id_diametru]);
 
 
- const [result]  = await conn.execute(`SELECT p.post_title AS label,
-        p.id, 
-        p.post_parent as parentId,
-        pm_price.meta_value AS price,
-        pm_sku.meta_value AS _key, 
-        im_guid.guid AS link_img
-            FROM wpay_posts p 
-            JOIN wpay_postmeta AS pm_sku ON p.ID = pm_sku.post_id AND pm_sku.meta_key = '_sku'
-            JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price'
-            JOIN wpay_postmeta AS pm_img ON p.ID = pm_img.post_id AND pm_img.meta_key = '_thumbnail_id'
-            JOIN wpay_posts im_guid ON pm_img.meta_value = im_guid.ID
+//  const [result]  = await conn.execute(`
+ 
+ 
+//  SELECT p.post_title AS label,
+//         p.id, 
+//         p.post_parent as parentId,
+//         pm_price.meta_value AS price,
+//         pm_sku.meta_value AS _key, 
+//         im_guid.guid AS link_img
+//             FROM wpay_posts p 
+//             JOIN wpay_postmeta AS pm_sku ON p.ID = pm_sku.post_id AND pm_sku.meta_key = '_sku'
+//             JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price'
+//             JOIN wpay_postmeta AS pm_img ON p.ID = pm_img.post_id AND pm_img.meta_key = '_thumbnail_id'
+//             JOIN wpay_posts im_guid ON pm_img.meta_value = im_guid.ID
             
-            JOIN wpay_term_relationships tr1 ON p.ID = tr1.object_id
-            JOIN wpay_term_taxonomy tt1 ON tr1.term_taxonomy_id = tt1.term_taxonomy_id
-            JOIN wpay_terms t1 ON tt1.term_id = t1.term_id
+//             JOIN wpay_term_relationships tr1 ON p.ID = tr1.object_id
+//             JOIN wpay_term_taxonomy tt1 ON tr1.term_taxonomy_id = tt1.term_taxonomy_id
+//             JOIN wpay_terms t1 ON tt1.term_id = t1.term_id
             
-            WHERE tt1.taxonomy = 'product_cat'
-                AND t1.term_id = 69
-                AND p.ID NOT IN (
-                SELECT p2.ID
-                FROM wpay_posts p2
-                JOIN wpay_term_relationships tr2 ON p2.ID = tr2.object_id
-                JOIN wpay_term_taxonomy tt2 ON tr2.term_taxonomy_id = tt2.term_taxonomy_id
-                JOIN wpay_terms t2 ON tt2.term_id = t2.term_id
-                WHERE tt2.taxonomy = 'product_cat'
-                    AND t2.term_id IN ${id_diametru}
-                )
-       GROUP BY p.ID;
-   `);
-   
-   
-   return result;
+//             WHERE tt1.taxonomy = 'product_cat'
+//                 AND t1.term_id = 69
+//                 AND p.ID NOT IN (
+//                 SELECT p2.ID
+//                 FROM wpay_posts p2
+//                 JOIN wpay_term_relationships tr2 ON p2.ID = tr2.object_id
+//                 JOIN wpay_term_taxonomy tt2 ON tr2.term_taxonomy_id = tt2.term_taxonomy_id
+//                 JOIN wpay_terms t2 ON tt2.term_id = t2.term_id
+//                 WHERE tt2.taxonomy = 'product_cat'
+//                     AND t2.term_id IN ${id_diametru}
+//                 )
+//       GROUP BY p.ID;
+//   `);
+
+  return result;
+
+//          const [resultfinal]  = await conn.execute(` SELECT p.post_title AS label,
+//                       p.ID AS id,
+//                       pm_price.meta_value AS price, 
+//                       p.post_parent as parent,
+//                       pm_attribute_value1.meta_value,
+//                       pm_attribute_value2.meta_value
+        
+//             FROM wpay_posts AS p
+//             JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price' 
+//             JOIN wpay_postmeta AS pm_attributes ON pm_attributes.post_id =  p.ID  
+//             JOIN wpay_postmeta AS pm_variation1 ON p.ID = pm_variation1.post_id
+//             JOIN wpay_postmeta AS pm_variation2 ON p.id = pm_variation2.post_id
+//             JOIN wpay_postmeta AS pm_attribute_value1 ON pm_attribute_value1.post_id = p.id AND pm_attribute_value1.meta_value like 'asta e din pasii anteriori' 
+//             JOIN wpay_postmeta AS pm_attribute_value2 ON pm_attribute_value2.post_id = p.id AND pm_attribute_value2.meta_value like 'si asta  + unele din accesorii au si grosimea ca si parametru de select  ' 
+//             WHERE p.post_type = 'product_variation' 
+//                   AND p.post_parent = result.id
+                  
+             
+//                   GROUP BY p.ID;  `);
+                  
+                  
+                  
+                  
+//   return resultfinal;
 
 }
 
+ 
 
 exports.getBrands = async (req, res) => {
     const conn = await connection();
@@ -458,7 +641,7 @@ exports.getAccesoriiSuplimentare = async (req, res) => {
         JOIN wpay_term_relationships AS tr ON p.ID = tr.object_id
         JOIN wpay_term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
         JOIN wpay_terms AS t ON tt.term_id = t.term_id
-        WHERE p.post_type = 'product' and t.term_id = 69
+        WHERE p.post_type = 'product' and t.term_id IN (251,252,253)
         GROUP BY p.ID
    `);
 
@@ -481,13 +664,13 @@ exports.getAccesorii = async (req, res) => {
 
         switch (data.tipCalculator){
             case '1A':
-                necesarAccesorii = await calculNecesarAcoperis1A(data.infoDimensiuni, data.infoTabla);
+                necesarAccesorii = await calculNecesarAcoperis1A(data.infoDimensiuni, data.infoTabla);//data.extra
                 break;
             case '2A':
-                necesarAccesorii = await calculNecesarAcoperis2A(data.infoDimensiuni, data.infoTabla);
+                necesarAccesorii = await calculNecesarAcoperis2A(data.infoDimensiuni, data.infoTabla);//data.extra
                 break;
             case '4A':
-                necesarAccesorii = await calculNecesarAcoperis4A(data.infoDimensiuni, data.infoTabla);
+                necesarAccesorii = await calculNecesarAcoperis4A(data.infoDimensiuni, data.infoTabla);//data.extra
                 break;
         }
         res.status(200)

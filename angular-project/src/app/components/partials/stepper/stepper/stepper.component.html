@@ -1,6 +1,6 @@
 <mat-stepper #stepper [linear]="false">
   <mat-step [stepControl]="modelsForm" label="Modele">
-    <roof-models (formData)="getModelsForm($event)"></roof-models>
+    <roof-models (formData)="getModelsForm($event)" (allCuloriFromServer)="getAllCuloriFromServer($event)" (allFinisajeFromServer)="getAllFinisajeFromServer($event)"></roof-models>
   </mat-step>
   <mat-step [stepControl]="measurementsForm" label="Masuratori">
     <measurements (formData)="getMeasurementsForm($event)" (btnProceedToAccesories)="getBtnProceedToAccesoriesState($event)"
