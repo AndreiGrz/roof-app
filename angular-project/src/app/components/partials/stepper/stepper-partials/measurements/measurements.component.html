@@ -1,8 +1,8 @@
 <div id="modelsWrapper">
     <div class="columnOne">
         <div class="info-text">
-            <p><mat-icon class="warning">warning</mat-icon>Masuratorile trebuie sa fie in metri (ex. 10.44 metri) </p>
-            <p><mat-icon class="warning">warning</mat-icon>Pierderile sunt calculate automat (unde e cazul) si incluse in suprafata finala</p>
+            <p><mat-icon class="warning">warning</mat-icon>La dimensiunile sarpantei se introduc doar cifre cu punct daca masuratorile nu sunt fixe (ex: 5.66 pentru 5.66 metri).</p>
+            <p><mat-icon class="warning">warning</mat-icon>Suprapunerea panourilor de tabla se calculeaza automat si este inclusa in suprafata totala ofertata.</p>
         </div>
         <app-dimensiuni-acoperis1apa *ngIf="tipAcoperis === '1A'" (formData)="getMeasurementsForCalc1A($event)"></app-dimensiuni-acoperis1apa>
         <app-dimensiuni-acoperis2ape *ngIf="tipAcoperis === '2A'" (formData)="getMeasurementsForCalc2A($event)"></app-dimensiuni-acoperis2ape>
