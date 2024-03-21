@@ -1,9 +1,15 @@
 <div id="modelsWrapper">
     <div class="columnOne">
+        <div class="info-text">
+            Singurii experti in acoperisuri din Romania care livreaza materialele in 48 de ore cu plata 100% LA LIVRARE!
+        </div>
+        <div class="info-text">
+            Pentru cea mai buna experienta te rugam sa alegi!
+        </div>
         <form [formGroup]="form">
             <div class="ma-form-field">
-                <mat-form-field appearance="fill">
-                    <mat-label>Brand</mat-label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Brandul preferat</mat-label>
                     <mat-select formControlName="brand"
                                 name="brand">
                     <mat-option *ngFor="let brand of brands" 
@@ -13,9 +19,9 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="ma-form-field">
-                <mat-form-field appearance="fill">
-                    <mat-label>Model</mat-label>
+            <div class="ma-form-field" *ngIf="form.get('brand')?.value">
+                <mat-form-field appearance="outline">
+                    <mat-label>Amprenta tabla</mat-label>
                     <mat-select formControlName="model"
                                 name="model">
                     <mat-option *ngFor="let model of models" 
@@ -25,9 +31,9 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="ma-form-field">
-                <mat-form-field appearance="fill">
-                    <mat-label>Finisaj</mat-label>
+            <div class="ma-form-field" *ngIf="form.get('model')?.value">
+                <mat-form-field appearance="outline">
+                    <mat-label>Aspect vopsea</mat-label>
                     <mat-select formControlName="finisaj"
                                 name="finisaj">
                     <mat-option *ngFor="let finisaj of finisaje" 
@@ -37,9 +43,9 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="ma-form-field">
-                <mat-form-field appearance="fill">
-                    <mat-label>Grosime</mat-label>
+            <div class="ma-form-field" *ngIf="form.get('finisaj')?.value">
+                <mat-form-field appearance="outline">
+                    <mat-label>Grosime (mm)</mat-label>
                     <mat-select formControlName="grosime"
                                 name="grosime">
                     <mat-option *ngFor="let grosime of grosimi" 
@@ -49,9 +55,9 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="ma-form-field">
-                <mat-form-field appearance="fill">
-                    <mat-label>Culori</mat-label>
+            <div class="ma-form-field" *ngIf="form.get('grosime')?.value">
+                <mat-form-field appearance="outline">
+                    <mat-label>Culoare in paletar RAL</mat-label>
                     <mat-select formControlName="culoare"
                                 name="culoare">
                     <mat-option *ngFor="let culoare of culori" 
@@ -73,9 +79,9 @@
         </div>
     </div>
 </div>
-<div>
-    <button mat-raised-button color="primary" matStepperNext class="nextStep" [disabled]="!form.valid"> 
-        <span>Masuratori</span> 
+<div class="nextStep">
+    <button mat-raised-button color="primary" matStepperNext  [disabled]="!form.valid"> 
+        <span>Dimensiuni sarpanta</span> 
         <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
 </div>

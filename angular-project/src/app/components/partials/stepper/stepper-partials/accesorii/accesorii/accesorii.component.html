@@ -57,7 +57,7 @@
 <div>
     <div class="ma-form-field">
         <p>Puteti selecta si alte accesorii pe care le doriti din lista de mai jos!</p>
-        <mat-form-field appearance="fill" class="extra-accesorii">
+        <mat-form-field appearance="outline" class="extra-accesorii">
             <mat-label>Accesoriu</mat-label>
             <mat-select name="accesoriu" (selectionChange)="onSelectChange($event)">
             <mat-option *ngFor="let accesoriu of accesoriiSuplimentare" 

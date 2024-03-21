@@ -1,6 +1,6 @@
 <div>
     <div id="wrapper" *ngFor="let msr of masuratori; let i = index">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
             <mat-label>Bucati de tabla</mat-label>
             <input  matInput
                     placeholder="Bucati de tabla"
@@ -9,7 +9,7 @@
                     max="9999"
                     value="{{ msr.bucTabla }}">
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
             <mat-label>La lungimea</mat-label>
             <input  matInput
                     placeholder="La lungimea"

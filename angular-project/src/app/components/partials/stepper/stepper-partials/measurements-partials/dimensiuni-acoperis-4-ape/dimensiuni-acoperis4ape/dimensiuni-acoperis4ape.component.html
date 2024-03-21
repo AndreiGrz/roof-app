@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Inaltime (1) </mat-label>
       <input
         matInput
@@ -15,7 +15,7 @@
     </mat-form-field>
   </div>
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Lungime (2) </mat-label>
       <input
         matInput
@@ -30,7 +30,7 @@
     </mat-form-field>
   </div>
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Latimea (3) </mat-label>
       <input
         matInput
@@ -45,7 +45,7 @@
     </mat-form-field>
   </div>
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Linia (4) </mat-label>
       <input
         matInput
@@ -60,7 +60,7 @@
     </mat-form-field>
   </div>
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Cateta (5) </mat-label>
       <input
         matInput
@@ -75,7 +75,7 @@
     </mat-form-field>
   </div>
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Adancimea (6) </mat-label>
       <input
         matInput
@@ -90,7 +90,7 @@
     </mat-form-field>
   </div>
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Adancimea (7) </mat-label>
       <input
         matInput
@@ -105,7 +105,7 @@
     </mat-form-field>
   </div>
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Numar Hornuri</mat-label>
       <input
         matInput
@@ -142,7 +142,7 @@
     </mat-checkbox>
   </div>
   <div class="ma-form-field" *ngIf="isCheckedSistemPluvial">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Diametru</mat-label>
       <mat-select name="diametru" formControlName="diametru">
         <mat-option *ngFor="let diametru of diametri" [value]="diametru.value">

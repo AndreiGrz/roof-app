@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Lungimea (2) </mat-label>
       <input
         matInput
@@ -15,7 +15,7 @@
     </mat-form-field>
   </div>
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Latimea (3) </mat-label>
       <input
         matInput
@@ -30,7 +30,7 @@
     </mat-form-field>
   </div>
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Inaltimea (1) </mat-label>
       <input
         matInput
@@ -45,7 +45,7 @@
     </mat-form-field>
   </div>
   <div class="ma-form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Numar Hornuri</mat-label>
       <input
         matInput
@@ -83,7 +83,7 @@
 
 
   <div class="ma-form-field" *ngIf="isCheckedSistemPluvial">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Diametru</mat-label>
       <mat-select name="diametru" formControlName="diametru">
         <mat-option *ngFor="let diametru of diametri" [value]="diametru.value">

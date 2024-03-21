@@ -13,11 +13,17 @@
                 padding: 10px;
             }
         }
+        .title_center{
+            margin-left: 120px;
+            color: #b7000b;
+            font-weight: 600;
+       }
     }
 
     .navtabs-container {
         a {
             text-decoration: none;
+
         }
     }
 }
@@ -25,17 +31,33 @@
     margin: 0 0 0 auto;
     a {
         text-decoration: none;
+        background: #ef7d00;
+        color: white;
+        box-shadow: 0 3px 9px 0 rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+        transition: all 0.1s ease;
     }
 }
 @media screen and (max-width: 768px)  {
     mat-toolbar{
         height: 80px;
     }
+
+    .title{
+        margin-top:-30px;
+    }
+
     .contact{
+        margin-top:-20px;
         a {
-            margin-left: -230px;
+            margin-left: -250px;
             margin-top: 50px;
-            background: transparent;
+            padding: 5px;
+            background: #ef7d00;
         }
+    }
+
+    .title_center{
+        display:none;
     }
 }

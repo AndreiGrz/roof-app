@@ -27,7 +27,7 @@
   ></iframe>
   <hr />
   <form #cpForm="ngForm" [formGroup]="cpFg" (ngSubmit)="submitCp()">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Nume</mat-label>
       <input matInput formControlName="nume" required />
       <mat-error *ngIf="cpFg.get('nume')?.invalid">
@@ -35,7 +35,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Prenume</mat-label>
       <input matInput formControlName="prenume" required />
       <mat-error *ngIf="cpFg.get('prenume')?.invalid">
@@ -43,7 +43,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput type="email" formControlName="email" required />
       <mat-error *ngIf="cpFg.get('email')?.invalid">
@@ -51,7 +51,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Adresa</mat-label>
       <input matInput type="adresa" formControlName="adresa" required />
       <mat-error *ngIf="cpFg.get('adresa')?.invalid">
@@ -59,7 +59,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Telefon</mat-label>
       <input matInput formControlName="telefon" required />
       <mat-error *ngIf="cpFg.get('telefon')?.invalid">
@@ -67,7 +67,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Incarca masuratorile</mat-label>
       <input matInput disabled />
       <button type="button" mat-icon-button matSuffix (click)="fileInput.click()">

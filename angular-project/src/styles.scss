@@ -58,15 +58,37 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-mdc-raised-button.mat-primary{
   --mdc-protected-button-container-color: rgba( 239,125,0 , 1) !important;
+    // color: #fff;
+    font: 500 18px / 43px "Roboto", Arial, sans-serif;
+    text-align: center;
+    min-width: 170px;
+    height: 44px;
+    padding: 0 26px;
+    border-radius: 40px;
+    box-shadow: 0 3px 9px 0 rgba(0,0,0,.2);
+    // background-color: rgb(239 125 0);
+    box-sizing: border-box;
+    transition: all .1s ease;
 }
 .mat-mdc-raised-button.mat-unthemed {
   --mdc-protected-button-container-color: #b7000b;
   --mdc-protected-button-label-text-color: #fff;
+  font: 500 18px / 43px "Roboto", Arial, sans-serif;
+  text-align: center;
+  min-width: 170px;
+  height: 44px;
+  padding: 0 26px;
+  border-radius: 40px;
+  box-shadow: 0 3px 9px 0 rgba(0,0,0,.2);
+  // background-color: rgb(239 125 0);
+  box-sizing: border-box;
+  transition: all .1s ease;
 }
 
 .mat-mdc-tab-header-pagination {
   background-color: #b7000b !important;
 }
+
 
 @media screen and (max-width: 768px)  {
   .mat-step-text-label{
