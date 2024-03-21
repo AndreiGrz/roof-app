@@ -13,7 +13,7 @@ let productId = '';
 let productParent = '';
 let productImage = '';
 
-const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {//extra
+const calculNecesarAcoperis1A = async (dimensiuni, modelTabla, extra) => {
     const necesar = {};
     const aria_1 = Math.ceil(dimensiuni.lungimea_2 * dimensiuni.latimea_3);
     // console.log(aria_1);
@@ -60,7 +60,7 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {//extra
     necesar.folie = Math.ceil(necesar.aria / 75);
     necesar.set_cos_fum = dimensiuni.numarHornuri;
 
-    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand, modelTabla.finisaj, modelTabla.culoare);//extra
+    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand, modelTabla.finisaj, modelTabla.culoare, extra);
     accesorii.forEach((acc, i) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}
     });
@@ -78,7 +78,7 @@ const calculNecesarAcoperis1A = async (dimensiuni, modelTabla) => {//extra
     ];
 }
 
-const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {//extra
+const calculNecesarAcoperis2A = async (dimensiuni, modelTabla, extra) => {
     const necesar = {};
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_3 * dimensiuni.latimea_2) + (dimensiuni.lungimea_3 * dimensiuni.latimea_4));
@@ -120,7 +120,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {//extra
     necesar.set_cos_fum = dimensiuni.numarHornuri;
 
 
-    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand, modelTabla.finisaj, modelTabla.culoare);//extra
+    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand, modelTabla.finisaj, modelTabla.culoare, extra);
 
     accesorii.forEach((acc, i) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}   
@@ -139,7 +139,7 @@ const calculNecesarAcoperis2A = async (dimensiuni, modelTabla) => {//extra
     ];
 }
 
-const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {//extra
+const calculNecesarAcoperis4A = async (dimensiuni, modelTabla, extra) => {
     const necesar = {};
 
     const aria_1 = Math.ceil((dimensiuni.lungimea_2 + dimensiuni.linia_4) * dimensiuni.adancimea_6 + (dimensiuni.latimea_3 * dimensiuni.adancimea_7));
@@ -183,7 +183,7 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {//extra
     necesar.set_cos_fum = dimensiuni.numarHornuri;
 
 
-    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand, modelTabla.finisaj, modelTabla.culoare);//extra
+    let accesorii = await getAccesoriiForNecesar(dimensiuni.sistem_pluvial, dimensiuni.diametru, modelTabla.brand, modelTabla.finisaj, modelTabla.culoare, extra);
 
     accesorii.forEach((acc, i) => {
         accesorii[i] = {...acc, qty: necesar[acc._key]}
@@ -203,8 +203,7 @@ const calculNecesarAcoperis4A = async (dimensiuni, modelTabla) => {//extra
 }
 
 
-const getAccesoriiForNecesar = async (sistem_pluvial, diametru, brand, id_finisaj, id_culoare) => {//extra
-    //aici faci if-urile dupa extra.tip_culoare sau extra.tip_finisaj
+const getAccesoriiForNecesar = async (sistem_pluvial, diametru, brand, id_finisaj, id_culoare, extra) => {
     let id_diametru;
      let id_subbrand;
     if(sistem_pluvial){
@@ -272,21 +271,31 @@ const getAccesoriiForNecesar = async (sistem_pluvial, diametru, brand, id_finisa
         }
         
        // BILKA - MAT - CELE 4 CULORI
+       
+       if( (extra.tip_finisaj == "Mat" && extra.tip_culoare == "Gri Grafit RAL: 7024") || (extra.tip_finisaj == "Mat" && extra.tip_culoare == "Maro Ciocolatiu RAL: 8017") || (extra.tip_finisaj == "Mat" && extra.tip_culoare == "Maro Închis RAL: 8019")
+                      ||  (extra.tip_finisaj == "Mat" && extra.tip_culoare == "Negru RAL: 9005")    )
+       {
+           id_finisaj = 70;
+       }
+       else {
+           id_finisaj = 68;
+       }
           
-    if ( (id_finisaj == 70 && id_culoare == 297)  || (id_finisaj == 70 && id_culoare == 298) || (id_finisaj == 70 && id_culoare == 299) || (id_finisaj == 70 && id_culoare == 300) 
-         ||  (id_finisaj == 73 && id_culoare == 427) || (id_finisaj == 73 && id_culoare == 428) || (id_finisaj == 73 && id_culoare == 429) || (id_finisaj == 73 && id_culoare == 430)
-         ||  (id_finisaj == 79 && id_culoare == 582) || (id_finisaj == 79 && id_culoare == 583) || (id_finisaj == 79 && id_culoare == 584) || (id_finisaj == 79 && id_culoare == 585)
-         ||  (id_finisaj == 83 && id_culoare == 687) || (id_finisaj == 83 && id_culoare == 688) || (id_finisaj == 83 && id_culoare == 689) || (id_finisaj == 83 && id_culoare == 690)
-         ||  (id_finisaj == 91 && id_culoare == 1045) || (id_finisaj == 91 && id_culoare == 1046) || (id_finisaj == 91 && id_culoare == 1047) || (id_finisaj == 91 && id_culoare == 1048)
-         ||  (id_finisaj == 95 && id_culoare == 953) || (id_finisaj == 95 && id_culoare == 954) || (id_finisaj == 95 && id_culoare == 955) || (id_finisaj == 95 && id_culoare == 956)
-        )             
-    {
-        id_finisaj = 70;
-    }
-    else 
-    {
-        id_finisaj = 68;
-    }
+          
+    // if ( (id_finisaj == 70 && id_culoare == 297)  || (id_finisaj == 70 && id_culoare == 298) || (id_finisaj == 70 && id_culoare == 299) || (id_finisaj == 70 && id_culoare == 300) 
+    //      ||  (id_finisaj == 73 && id_culoare == 427) || (id_finisaj == 73 && id_culoare == 428) || (id_finisaj == 73 && id_culoare == 429) || (id_finisaj == 73 && id_culoare == 430)
+    //      ||  (id_finisaj == 79 && id_culoare == 582) || (id_finisaj == 79 && id_culoare == 583) || (id_finisaj == 79 && id_culoare == 584) || (id_finisaj == 79 && id_culoare == 585)
+    //      ||  (id_finisaj == 83 && id_culoare == 687) || (id_finisaj == 83 && id_culoare == 688) || (id_finisaj == 83 && id_culoare == 689) || (id_finisaj == 83 && id_culoare == 690)
+    //      ||  (id_finisaj == 91 && id_culoare == 1045) || (id_finisaj == 91 && id_culoare == 1046) || (id_finisaj == 91 && id_culoare == 1047) || (id_finisaj == 91 && id_culoare == 1048)
+    //      ||  (id_finisaj == 95 && id_culoare == 953) || (id_finisaj == 95 && id_culoare == 954) || (id_finisaj == 95 && id_culoare == 955) || (id_finisaj == 95 && id_culoare == 956)
+    //     )             
+    // {
+    //     id_finisaj = 70;
+    // }
+    // else 
+    // {
+    //     id_finisaj = 68;
+    // }
             
     
     
@@ -301,8 +310,8 @@ const getAccesoriiForNecesar = async (sistem_pluvial, diametru, brand, id_finisa
    p.id, 
   pm_price.meta_value AS price, 
  pm_sku.meta_value AS _key, 
- im_guid.guid AS link_img
- 
+ im_guid.guid AS link_img,
+ p.post_parent as parentId
   FROM wpay_posts AS p
   
   		join wpay_posts as postparinte on postparinte.post_parent = p.ID 
@@ -333,9 +342,11 @@ JOIN wpay_postmeta AS pm_sku ON p.id = pm_sku.post_id AND pm_sku.meta_key = '_sk
      
      SELECT p.post_title AS label,
         p.id,
+        
         pm_price.meta_value AS price,
         pm_sku.meta_value AS _key, 
-        im_guid.guid AS link_img
+        im_guid.guid AS link_img,
+        p.post_parent as parentId
         FROM wpay_posts AS p
         JOIN wpay_postmeta AS pm_price ON p.ID = pm_price.post_id AND pm_price.meta_key = '_price' 
         JOIN wpay_postmeta AS pm_sku ON p.ID = pm_sku.post_id AND pm_sku.meta_key = '_sku'
@@ -664,13 +675,13 @@ exports.getAccesorii = async (req, res) => {
 
         switch (data.tipCalculator){
             case '1A':
-                necesarAccesorii = await calculNecesarAcoperis1A(data.infoDimensiuni, data.infoTabla);//data.extra
+                necesarAccesorii = await calculNecesarAcoperis1A(data.infoDimensiuni, data.infoTabla, data.extra);
                 break;
             case '2A':
-                necesarAccesorii = await calculNecesarAcoperis2A(data.infoDimensiuni, data.infoTabla);//data.extra
+                necesarAccesorii = await calculNecesarAcoperis2A(data.infoDimensiuni, data.infoTabla, data.extra);
                 break;
             case '4A':
-                necesarAccesorii = await calculNecesarAcoperis4A(data.infoDimensiuni, data.infoTabla);//data.extra
+                necesarAccesorii = await calculNecesarAcoperis4A(data.infoDimensiuni, data.infoTabla, data.extra);
                 break;
         }
         res.status(200)
