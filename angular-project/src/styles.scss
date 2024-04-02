@@ -38,11 +38,13 @@ $angular-project-theme: mat.define-light-theme((
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline{
-  border-color: #fff!important;
+  border: 5px solid #ef7d00;
+  border-color: #ef7d00!important;
 }
 .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label{
   color:#fff!important;
   font-weight: 400;
+  background: #b7000b !important;
 }
 .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
   color:#fff!important;
@@ -89,6 +91,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: #b7000b !important;
 }
 
+.mat-mdc-tab-links {
+  // display: flex;
+  flex-wrap: wrap;
+}
 
 @media screen and (max-width: 768px)  {
   .mat-step-text-label{

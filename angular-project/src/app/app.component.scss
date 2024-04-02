@@ -1,7 +1,7 @@
 :host {
     mat-toolbar {
         background-color: transparent;
-        border-bottom: 4px solid #b7000b;
+        // border-bottom: 4px solid #b7000b;
         .title{
              padding-left: 20px;
              color: #b7000b;
@@ -26,6 +26,15 @@
 
         }
     }
+
+    a{
+        text-decoration: none;
+        flex: 50%;
+        height: 70px;
+        box-shadow: 5px 5px 10px 5px #83222a;
+        // box-shadow:-5px -4px 12px 1px #83222a;
+    }
+    
 }
 .contact{
     margin: 0 0 0 auto;
@@ -36,6 +45,7 @@
         box-shadow: 0 3px 9px 0 rgba(0, 0, 0, 0.2);
         box-sizing: border-box;
         transition: all 0.1s ease;
+        margin-right: -20px;
     }
 }
 @media screen and (max-width: 768px)  {
@@ -54,6 +64,7 @@
             margin-top: 50px;
             padding: 5px;
             background: #ef7d00;
+            height: 30px;
         }
     }
 

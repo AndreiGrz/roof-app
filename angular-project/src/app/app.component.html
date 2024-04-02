@@ -11,7 +11,7 @@
 </mat-toolbar>
 
 <div class="navtabs-container">
-  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="nav-tabs">
     <a
       mat-tab-link
       *ngFor="let link of navLinks"
@@ -20,7 +20,14 @@
       #rla="routerLinkActive"
       [active]="rla.isActive"
     >
+    <img *ngIf="link.label === 'Acoperis 1 apa'"src="../assets/acoperisuri/acoperis1.png" style="width: 50px; margin-right: 10px;"/>
+    <img *ngIf="link.label === 'Acoperis 2 ape'"src="../assets/acoperisuri/acoperis2.png" style="width: 50px; margin-right: 10px;"/>
+    <img *ngIf="link.label === 'Acoperis 4 ape'"src="../assets/acoperisuri/acoperis4.png" style="width: 50px; margin-right: 10px;"/>
+    <img *ngIf="link.label === 'Acoperis personalizat'"src="../assets/acoperisuri/acoperis-personalizat.png" style="width: 50px; margin-right: 10px;"/>
+
+
       {{ link.label }}
+      
     </a>
   </nav>
   <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
